@@ -1,6 +1,7 @@
 package levelEditor;
 
-public interface Objects<Box, Character, GroundBlock> {
+public interface Objects<Box, Character, GroundBlock> 
+{
   
   
   

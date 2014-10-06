@@ -18,11 +18,13 @@ public class Character {
     this.angle = angle;
   }
   
-  public Character getCharacter(){
+  public Character getCharacter()
+  {
     return this.character;
   }
 
-  private void setCharacter(int x, int y, int angle, int xSpeed, int ySpeed, int rotSpeed) {
+  private void setCharacter(int x, int y, int angle, int xSpeed, int ySpeed, int rotSpeed) 
+  {
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;
@@ -31,17 +33,20 @@ public class Character {
     this.angle = angle;
   }
   
-  private void setLocation(int x, int y) {
+  private void setLocation(int x, int y) 
+  {
     this.x = x;
     this.y = y;
   }
   
-  private void setSpeed(int xSpeed, int ySpeed) {
+  private void setSpeed(int xSpeed, int ySpeed) 
+  {
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
   }
   
-  private void setAngularData(int angle, int rotSpeed) {
+  private void setAngularData(int angle, int rotSpeed) 
+  {
     this.angle = angle;
     this.rotSpeed = rotSpeed;
   }
