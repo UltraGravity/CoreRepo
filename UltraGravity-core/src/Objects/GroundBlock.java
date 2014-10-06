@@ -1,21 +1,25 @@
 package Objects;
 
-public class GroundBlock {
+public class GroundBlock 
+{
   int x;
   int y;
   private GroundBlock groundBlock;
   
-  public GroundBlock(int x, int y) {
+  public GroundBlock(int x, int y) 
+  {
     this.x = x;
     this.y = y;
   }
   
-  public void setGroundBlock(int x, int y) {
+  public void setGroundBlock(int x, int y) 
+  {
     this. x = x;
     this. y = y;
   }
   
-  public GroundBlock getGroundBlock() {
+  public GroundBlock getGroundBlock() 
+  {
     return this.groundBlock;
   }
 
