@@ -1,51 +1,52 @@
 package Screens;
 
-import com.badlogic.gdx.Screen;
-
-public class MainMenuScreen implements Screen
+public class MainMenuScreen extends GenericScreen
 {
 
-	@Override
 	public void render(float delta) 
 	{
 		
 	}
 
-	@Override
 	public void resize(int width, int height) 
-	{
-	
-	}
-
-	@Override
-	public void show() 
 	{
 		
 	}
 
-	@Override
+	public void show()
+	{
+		
+	}
+
 	public void hide() 
 	{
 		
 	}
 
-	@Override
 	public void pause() 
 	{
 		
 	}
 
-	@Override
 	public void resume() 
 	{
 		
 	}
 
-	@Override
+
 	public void dispose() 
 	{
-		
-	}
+		/*
+		 * It is very important that everything created is disposed of properly when it is no longer needed.
+		 * I find it best to explicitly set everything equal to null so the garbage collector knows it can
+		 * remove the stuff from memory. 
+		 * 
+		 * Calling super.dispose() will get rid of the built in variables, but it is important that anything
+		 * that is uniquely created in this class be disposed.
+		 */
 	
+		super.dispose();
+	}
+
 }
 
