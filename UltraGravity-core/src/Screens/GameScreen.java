@@ -1,7 +1,17 @@
 package Screens;
 
+import Managers.ScreenManager;
+
+import com.APAAAEAIA.UltraGravity.MyGame;
+
 public class GameScreen extends GenericScreen
 {
+
+	public GameScreen(MyGame myGame, ScreenManager screenManager) 
+	{
+		super(myGame, screenManager);
+	}
+
 
 	private enum GameState {PLAY, PAUSE, GAMEOVER};
 	public GameState gameState = GameState.PLAY;

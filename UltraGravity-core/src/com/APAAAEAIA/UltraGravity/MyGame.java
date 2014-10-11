@@ -1,13 +1,17 @@
 package com.APAAAEAIA.UltraGravity;
 
+import Managers.ScreenManager;
 import com.badlogic.gdx.Game;
 
 public class MyGame extends Game 
 {
 	
-	public void create () 
+	ScreenManager screenManager;
+	
+	public void create() 
 	{
-		
+		screenManager = new ScreenManager();
+		screenManager.createMainMenu(this);
 	}
 	
 }

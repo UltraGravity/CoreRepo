@@ -1,5 +1,7 @@
 package Screens;
 
+import Managers.ScreenManager;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,13 +12,16 @@ public class GenericScreen implements Screen
 {
 
 	public MyGame myGame;
-	private int screenWidth = Gdx.graphics.getWidth();
-	private int screenHeight = Gdx.graphics.getHeight();
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
+	public ScreenManager screenManager;
+	public int screenWidth = Gdx.graphics.getWidth();
+	public int screenHeight = Gdx.graphics.getHeight();
+	public OrthographicCamera camera;
+	public SpriteBatch batch;
 	
-	public GenericScreen()
+	public GenericScreen(MyGame myGame, ScreenManager screenManager)
 	{
+		this.myGame = myGame;
+		this.screenManager = screenManager;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, screenWidth, screenHeight);
 		batch = new SpriteBatch();
