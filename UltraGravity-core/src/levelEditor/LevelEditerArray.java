@@ -13,3 +13,5 @@ public class LevelEditerArray{
   }
 
 }
+
+//TODO http://stackoverflow.com/questions/16363547/how-to-declare-an-array-of-different-data-types
