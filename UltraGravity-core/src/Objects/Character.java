@@ -51,5 +51,34 @@ public class Character {
     this.rotSpeed = rotSpeed;
   }
   
+  public int getX() 
+  {
+    return x;
+  }
+  
+  public int getY()
+  {
+    return y;
+  }
+  
+  public int getAngle()
+  {
+    return angle;
+  }
+  
+  public int getXSpeed()
+  {
+    return xSpeed;
+  }
+  
+  public int getYSpeed()
+  {
+    return ySpeed;
+  }
+  
+  public int getRotSpeed()
+  {
+    return rotSpeed;
+  }
 
 }
