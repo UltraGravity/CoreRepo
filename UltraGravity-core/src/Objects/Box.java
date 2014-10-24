@@ -2,25 +2,19 @@ package Objects;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Box{
-  int x;
-  int y;
-  int angle;
-  int xSpeed;
-  int ySpeed;
-  int rotSpeed;
+public class Box extends Item{
   private Box box;
   
 //  Texture texture = new Texture(Gdx.files.internal("data/box.png"));
   
-  public Box(int x, int y, int angle, int xSpeed, int ySpeed, int rotSpeed) 
+  public Box(int x, int y) 
   {
     this.x = x;
     this.y = y;
-    this.xSpeed = xSpeed;
-    this.ySpeed = ySpeed;
-    this.rotSpeed = rotSpeed;
-    this.angle = angle;
+//    this.xSpeed = xSpeed;
+//    this.ySpeed = ySpeed;
+//    this.rotSpeed = rotSpeed;
+//    this.angle = angle;
   }
   
   public Box getBox()

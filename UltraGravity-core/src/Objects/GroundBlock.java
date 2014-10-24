@@ -1,9 +1,8 @@
 package Objects;
 
-public class GroundBlock 
+public class GroundBlock extends Item
 {
-  int x;
-  int y;
+
   private GroundBlock groundBlock;
   
   public GroundBlock(int x, int y) 

@@ -1,15 +1,10 @@
 package Objects;
 
-public class Character {
-  int x;
-  int y;
-  int angle;
-  int xSpeed;
-  int ySpeed;
-  int rotSpeed;
+public class Character extends Item {
+
   private Character character;
   
-  public Character(int x, int y, int angle, int xSpeed, int ySpeed, int rotSpeed) {
+  public Character(int x, int y) {
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;
