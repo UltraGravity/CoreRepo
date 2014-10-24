@@ -1,5 +1,7 @@
 package Screens;
 
+import Objects.Box;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,7 +13,7 @@ public class MainMenuScreen extends GenericScreen
 	
 	Stage stage;
 	Screen loadingScreen;
-	
+	Box box;
 
 	public MainMenuScreen(MyGame myGame)
 	{
@@ -19,17 +21,23 @@ public class MainMenuScreen extends GenericScreen
 		stage = new Stage();
 	}
 
+	public void addBox()
+	{
+	  box = new Box(myGame, 0, 0);
+	}
+	
+	
 	public void render(float delta) 
 	{	
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         System.out.println("Main menu");
-
+        
         stage.act();
         
 		batch.begin();
-			
-			stage.draw();
+			batch.draw(box.texture, 0, 0);
+			//stage.draw();
 		batch.end();
 	}
 

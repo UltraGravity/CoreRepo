@@ -14,6 +14,7 @@ public class AssetLoader
 	public TextureRegion crate;
 	public TextureRegion ground;
 	public TextureRegion safeZone;
+//	public TextureRegion character;
 	
 	 public AssetLoader(MyGame myGame)
 	 {

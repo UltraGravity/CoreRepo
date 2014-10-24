@@ -1,5 +1,8 @@
 package Objects;
 
+import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 public class Item {
 
   int gravity;
@@ -14,8 +17,22 @@ public class Item {
   int rotAccel;
   
   World world;
+  public MyGame myGame;
+  public TextureRegion texture;
   
-
+  public Item(MyGame myGame, int x, int y) 
+  {
+    this.myGame = myGame;
+    this.x = x;
+    this.y = y;
+    TextureRegion texture = new TextureRegion();
+//    this.xSpeed = xSpeed;
+//    this.ySpeed = ySpeed;
+//    this.rotSpeed = rotSpeed;
+//    this.angle = angle;
+  }
+  
+  
   public void update(boolean phys) {
     if (phys) {
       updatePhysics();

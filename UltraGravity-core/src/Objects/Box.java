@@ -1,21 +1,20 @@
 package Objects;
 
+import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Box extends Item{
   private Box box;
-  
+
 //  Texture texture = new Texture(Gdx.files.internal("data/box.png"));
   
-  public Box(int x, int y) 
+  public Box(MyGame myGame, int x, int y)
   {
-    this.x = x;
-    this.y = y;
-//    this.xSpeed = xSpeed;
-//    this.ySpeed = ySpeed;
-//    this.rotSpeed = rotSpeed;
-//    this.angle = angle;
+    super(myGame, x, y);
+    texture = myGame.assetLoader.crate;
   }
+  
   
   public Box getBox()
   {

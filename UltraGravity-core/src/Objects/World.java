@@ -35,7 +35,7 @@ public class World {
   public void addItem(int item, int x, int y) 
   {
     if(item == 0) {
-      Box box = new Box(x,y);
+//      Box box = new Box(x,y);
       World[x][y] = box;
     }
     if(item == 1) {

@@ -4,7 +4,7 @@ public class Character extends Item {
 
   private Character character;
   
-  public Character(int x, int y) {
+  public Character(MyGame myGame, int x, int y) {
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;

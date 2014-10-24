@@ -1,9 +1,12 @@
 package Screens;
 
+import Objects.World;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class LevelEditorScreen extends GenericScreen
 {
+  World world;
 
 	public LevelEditorScreen(MyGame myGame) 
 	{
@@ -12,7 +15,13 @@ public class LevelEditorScreen extends GenericScreen
 
 	public void render(float delta)
 	{
-
+	  System.out.println("Setting Array");
+	  world.setWorld();
+	  System.out.println("Array Set");
+	  batch.begin();
+	  
+	  batch.draw(texture,x,y)
+	  batch.end();
 	}
 
 	public void resize(int width, int height) 
