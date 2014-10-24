@@ -23,12 +23,13 @@ public class MainMenuScreen extends GenericScreen
 	{	
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+        System.out.println("Main menu");
 
         stage.act();
         
 		batch.begin();
-		stage.draw();
+			
+			stage.draw();
 		batch.end();
 	}
 

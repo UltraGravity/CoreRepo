@@ -1,9 +1,11 @@
 package com.APAAAEAIA.UltraGravity;
 
+import Loaders.AssetLoader;
 import Screens.*;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -20,9 +22,13 @@ public class MyGame extends Game
 	public MainMenuScreen mainMenuScreen;
 	public LevelScreen levelScreen;
 	public LevelEditorScreen levelEditorScreen;
+	public GameScreen gameScreen;
 	public OptionsScreen optionsScreen;
 	public PauseScreen pauseScreen;
 	
+	public Screen nextScreen;
+	
+	public AssetLoader assetLoader;
 	
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
@@ -43,7 +49,14 @@ public class MyGame extends Game
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, screenWidth, screenHeight);
+		assetLoader = new AssetLoader(this);
 		mainMenuScreen = new MainMenuScreen(this);
+		
+		
+		// This is just for testing. Remove
+		levelEditorScreen = new LevelEditorScreen(this);
+		// This is just for testing. Remove
+		
 		loadScreen(MAIN_MENU);
 	}
 	
@@ -54,28 +67,42 @@ public class MyGame extends Game
 		 * new LoadingScreen screen and uses multithreading to load the assets
 		 * in the background. This way, we can animate the screen while its loading.
 		 */
-		loadingScreen = new LoadingScreen(this, screen);	
+		loadingScreen = new LoadingScreen(this);
+		
+		switch (screen)
+		{
+			case MAIN_MENU:
+			{
+				nextScreen = this.mainMenuScreen;
+				assetLoader.loadMenuAssets();
+			}
+			case LEVEL_SELECT:
+			{
+				
+			}
+			case LEVEL_EDITOR:
+			{
+				
+			}
+			case OPTIONS:
+			{
+				
+			}
+			case GAME_SCREEN:
+			{
+				nextScreen = this.gameScreen;
+				assetLoader.loadGameAssets();
+			}
+			case PAUSE_SCREEN:
+			{
+				
+			}
+		}
 		this.setScreen(loadingScreen);
 	}
 	
-	
-	public void loadMainMenuAssets()
+	public void switchScreen()
 	{
-		/* In this method, we want to load the assets for the Main Menu,
-		 * Level Select and the Level Editor. Load in all the images, instantiate
-		 * all of the objects, and set the positions for everything. 
-		 */
-		for (int i = 0; i < 1000000; i++)
-		{
-			System.out.println("Still loading...");
-		}
+		this.setScreen(nextScreen);
 	}
-	
-	public void loadGameAssets()
-	{
-		
-	}
-	
-	
-	
 }

@@ -1,13 +1,18 @@
 package Screens;
 
+import Loaders.GameAssets;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class GameScreen extends GenericScreen
 {
 
-	public GameScreen(MyGame myGame) 
+	GameAssets gameAssets;
+	
+	public GameScreen(MyGame myGame, GameAssets gameAssets) 
 	{
 		super(myGame);
+		this.gameAssets = gameAssets;
 	}
 
 
