@@ -1,15 +1,13 @@
 package Screens;
 
-import Managers.ScreenManager;
-
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class OptionsScreen extends GenericScreen
 {
 
-	public OptionsScreen(MyGame myGame, ScreenManager screenManager) 
+	public OptionsScreen(MyGame myGame) 
 	{
-		super(myGame, screenManager);
+		super(myGame);
 	}
 
 	public void render(float delta) 

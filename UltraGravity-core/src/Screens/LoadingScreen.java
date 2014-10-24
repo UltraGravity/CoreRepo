@@ -1,62 +1,92 @@
 package Screens;
 
-import Managers.ScreenManager;
+import Loaders.*;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
 public class LoadingScreen extends GenericScreen
 {
-
+	LoadingScreenFiles loadingScreenFiles;
 	float stateTime = 0;
+	float color = 0;
+	double colorD = 0;
+	int screenToLoad = -1;
+	Screen newScreen;
 	
-	public LoadingScreen(MyGame myGame, ScreenManager screenManager) 
+	Runnable fileLoader;
+	Thread fileThread;
+	
+	public LoadingScreen(MyGame myGame, int screenToLoad) 
 	{
-		super(myGame, screenManager);
+		super(myGame);
+		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+		loadingScreenFiles = new LoadingScreenFiles();
+		this.screenToLoad = screenToLoad;
+		
+		switch (screenToLoad)
+		{
+			case 0:
+			{
+				// Main Menu
+				fileLoader = new SyncMenuLoader(myGame);
+				newScreen = myGame.mainMenuScreen;
+			}
+			case 1:
+			{
+				
+			}
+			case 2:
+			{
+				
+			}
+			case 3:
+			{
+				
+			}
+			case 4: 
+			{
+				
+			}
+			case 5:
+			{
+				
+			}
+		}
+		
+		fileThread = new Thread(fileLoader);
+		fileThread.setPriority(Thread.MIN_PRIORITY);
+		fileThread.start();
 	}
 
 	public void render(float delta) 
-	{
-		stateTime += delta;	
-		//Gdx.gl.glClearColor(.3f, .5f, .9f, 0);
-		Gdx.gl.glClearColor(.3f, .6f, .8f, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);			
-		camera.update();									
-		batch.setProjectionMatrix(camera.combined);
-		
-		batch.begin();
-			screenManager.loadingScreenManager.drawLogo(batch);
-			screenManager.loadingScreenManager.drawLoadAnimation(batch, stateTime);
-		batch.end();
-		
+	{	
+		if (fileThread.isAlive())
+		{
+			System.out.println("LOADING");
+			color = (float) Math.sin(colorD/1.5);
+			colorD += delta;
+			stateTime += delta;	
+			//Gdx.gl.glClearColor(.3f, .5f, .9f, 0);
+			//Gdx.gl.glClearColor(.3f, .6f, .8f, 0);
+			Gdx.gl.glClearColor(color, -color, .8f, 0);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);			
+			camera.update();									
+			batch.setProjectionMatrix(camera.combined);
+			
+			batch.begin();
+				loadingScreenFiles.drawLogo(batch);
+				loadingScreenFiles.drawLoadAnimation(batch, stateTime);
+			batch.end();
+		}
+		else
+		{
+			System.out.println("Done Loading");
+			myGame.setScreen(newScreen);
+		}
 	}
-
-	public void resize(int width, int height) 
-	{
-		
-	}
-
-	public void show()
-	{
-		
-	}
-
-	public void hide() 
-	{
-		
-	}
-
-	public void pause() 
-	{
-		
-	}
-
-	public void resume() 
-	{
-		
-	}
-
 
 	public void dispose() 
 	{
@@ -71,5 +101,11 @@ public class LoadingScreen extends GenericScreen
 	
 		super.dispose();
 	}
-
+	
+	// We don't really have to do anything with these.
+	public void resize(int width, int height) {}
+	public void show() {}
+	public void hide() {}
+	public void pause() {}
+	public void resume() {}
 }

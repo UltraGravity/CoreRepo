@@ -1,15 +1,13 @@
 package Screens;
 
-import Managers.ScreenManager;
-
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class GameScreen extends GenericScreen
 {
 
-	public GameScreen(MyGame myGame, ScreenManager screenManager) 
+	public GameScreen(MyGame myGame) 
 	{
-		super(myGame, screenManager);
+		super(myGame);
 	}
 
 
