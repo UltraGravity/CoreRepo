@@ -12,9 +12,9 @@ public class LevelEditorScreen extends GenericScreen
 		super(myGame, screenManager);
 	}
 
-	public void render(float delta) 
+	public void render(float delta)
 	{
-		
+
 	}
 
 	public void resize(int width, int height) 
