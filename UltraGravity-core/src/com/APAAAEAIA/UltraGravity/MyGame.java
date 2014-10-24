@@ -73,29 +73,31 @@ public class MyGame extends Game
 		{
 			case MAIN_MENU:
 			{
-				nextScreen = this.mainMenuScreen;
+				nextScreen = mainMenuScreen;
 				assetLoader.loadMenuAssets();
+				break;
 			}
 			case LEVEL_SELECT:
 			{
-				
+				break;
 			}
 			case LEVEL_EDITOR:
 			{
-				
+				break;
 			}
 			case OPTIONS:
 			{
-				
+				break;
 			}
 			case GAME_SCREEN:
 			{
 				nextScreen = this.gameScreen;
 				assetLoader.loadGameAssets();
+				break;
 			}
 			case PAUSE_SCREEN:
 			{
-				
+				break;
 			}
 		}
 		this.setScreen(loadingScreen);
