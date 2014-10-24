@@ -1,6 +1,7 @@
 package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Item {
@@ -68,6 +69,20 @@ public class Item {
 
   public void draw() {
 
+  }
+  
+  public TextureRegion getTexture() {
+    return this.texture;
+  }
+  
+  public int getX() 
+  {
+    return x;
+  }
+  
+  public int getY()
+  {
+    return y;
   }
 
 }

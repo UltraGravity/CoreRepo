@@ -1,10 +1,14 @@
 package Objects;
 
+import com.APAAAEAIA.UltraGravity.MyGame;
+
 public class World {
   int worldY = 6;
   int worldX = 12;
 
   Item[][] World = new Item[worldX][worldY];
+  
+  MyGame myGame;
   
   public World(int editWorldX, int editWorldY) 
   {
@@ -14,7 +18,7 @@ public class World {
     World = new Item[editWorldX][editWorldY];
   }
   public void setWorld() {
-    
+    System.out.println("Setting to world");
     for(int i = 0; i < worldX; i++) {
       addItem(2,i,0);
     }
@@ -32,18 +36,22 @@ public class World {
     
   }
   
+  public Item[][] getWorld(){
+    return World;
+  }
+  
   public void addItem(int item, int x, int y) 
   {
     if(item == 0) {
-//      Box box = new Box(x,y);
+      Box box = new Box(myGame, x,y);
       World[x][y] = box;
     }
     if(item == 1) {
-      Character character = new Character(x,y);
+      Character character = new Character(myGame, x,y);
       World[x][y] = character;
     }
     if(item == 2) {
-      GroundBlock ground = new GroundBlock(x,y);
+      GroundBlock ground = new GroundBlock(myGame, x,y);
       World[x][y] = ground;
     }
 
@@ -51,6 +59,14 @@ public class World {
   
   public void removeItem(int x, int y) {
     World[x][y] = null;
+  }
+  
+  public int getXSize() {
+    return worldX;
+  }
+  
+  public int getYSize() {
+    return worldY;
   }
   
 //  public Item[][] getArray() {

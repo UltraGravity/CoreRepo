@@ -49,16 +49,6 @@ public class Box extends Item{
     this.rotSpeed = rotSpeed;
   }
   
-  public int getX() 
-  {
-    return x;
-  }
-  
-  public int getY()
-  {
-    return y;
-  }
-  
   public int getAngle()
   {
     return angle;
@@ -78,6 +68,7 @@ public class Box extends Item{
   {
     return rotSpeed;
   }
+  
   
 //  private Texture getTexture() 
 //  {

@@ -105,7 +105,8 @@ public class MyGame extends Game
 	
 	public void switchScreen()
 	{
-	  mainMenuScreen.addBox();
+	  
+//	  mainMenuScreen.addBox();
 		this.setScreen(nextScreen);
 	}
 }
