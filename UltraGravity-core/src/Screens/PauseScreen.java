@@ -1,15 +1,13 @@
 package Screens;
 
-import Managers.ScreenManager;
-
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class PauseScreen extends GenericScreen
 {
 
-	public PauseScreen(MyGame myGame, ScreenManager screenManager) 
+	public PauseScreen(MyGame myGame) 
 	{
-		super(myGame, screenManager);
+		super(myGame);
 	}
 
 	public void render(float delta) 

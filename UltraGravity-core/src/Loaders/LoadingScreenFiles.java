@@ -1,25 +1,22 @@
 package Loaders;
 
-import Managers.ScreenManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class LoadingScreenManager implements Loader
+public class LoadingScreenFiles implements Loader
 {
-	public ScreenManager screenManager;
 	public TextureAtlas loadingScreenAtlas;
 	public TextureRegion UltraGravityLogo;
 	public Animation loadingAnimation;
 	public TextureRegion[] loadingFrames;
 	
-	public LoadingScreenManager(ScreenManager screenManager)
+	public LoadingScreenFiles()
 	{
-		this.screenManager = screenManager;
 		loadingScreenAtlas = new TextureAtlas(Gdx.files.internal("LoadingScreenAtlas.atlas"));
+		this.load();
 	}
 
 	public void load()
@@ -34,21 +31,7 @@ public class LoadingScreenManager implements Loader
 		}
 		
 		loadingAnimation = new Animation(0.2f, loadingFrames);
-		
-		screenManager.makeLoadingScreen();
-		System.out.println(loadingFrames[0]);
 	}
-
-	public void unload() 
-	{
-		loadingScreenAtlas.dispose();
-		screenManager = null;
-		loadingScreenAtlas = null;
-		UltraGravityLogo = null;
-		loadingAnimation = null;
-		loadingFrames = null;
-	}
-	
 	
 	public void drawLogo(SpriteBatch batch)
 	{
@@ -67,5 +50,13 @@ public class LoadingScreenManager implements Loader
 		int yPosition = screenHeight - (screenHeight / 6);
 		batch.draw(loadingAnimation.getKeyFrame(stateTime, true), xPosition, yPosition, xSize, ySize);
 	}
-	
+		
+	public void unload() 
+	{
+		loadingScreenAtlas.dispose();
+		loadingScreenAtlas = null;
+		UltraGravityLogo = null;
+		loadingAnimation = null;
+		loadingFrames = null;
+	}
 }
