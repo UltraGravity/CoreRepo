@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -18,9 +19,12 @@ public class MainMenuScreen extends GenericScreen
 	Stage stage;
 	BitmapFont font;
 	Skin skin;
+	Table table;
 	TextureAtlas buttonAtlas;
 	TextButtonStyle textButtonStyle;
 	TextButton levelSelectButton;
+	TextButton levelEditorButton;
+	TextButton optionsButton;
 
 	public MainMenuScreen(MyGame myGame)
 	{
@@ -36,7 +40,13 @@ public class MainMenuScreen extends GenericScreen
         stage.act();
         
 		batch.begin();
+		
+			table.debug();
+			table.debugTable();
+			
+		
 			stage.draw();
+			
 		batch.end();
 	}
 
@@ -45,20 +55,34 @@ public class MainMenuScreen extends GenericScreen
 	{
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		font = new BitmapFont();
+		table = new Table();
+		table.setFillParent(true);
+		
+		font = myGame.assetLoader.font;
 		skin = new Skin();
-		buttonAtlas = new TextureAtlas(Gdx.files.internal("MenuButtonAtlas.atlas"));
+		buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
 		skin.addRegions(buttonAtlas);
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = font;
 		textButtonStyle.up = skin.getDrawable("Button");
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 		levelSelectButton = new TextButton("Level Select", textButtonStyle);
-		stage.addActor(levelSelectButton);
+		levelEditorButton = new TextButton("Level Editor", textButtonStyle);
+		optionsButton = new TextButton("Options", textButtonStyle);
+		
+
+		
+		table.add(levelSelectButton);
+		table.row();
+		table.add(levelEditorButton);
+		table.row();
+		table.add(optionsButton);
+		
+		stage.addActor(table);
+
 		
 		
-		
-		
+		// Button actions
 		levelSelectButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
