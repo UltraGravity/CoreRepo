@@ -134,9 +134,10 @@ public class LevelEditorScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	levelGrid.clearChildren();
-
-	        	levelGrid.add(actor);
+	        	levelGrid.removeActor(actor);
+	        	//levelGrid.clearChildren();
+	        	//actor.
+	        	//levelGrid.add(cell);
 	        }});
 		
 		
