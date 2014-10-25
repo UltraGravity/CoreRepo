@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
@@ -12,11 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LevelEditorScreen extends GenericScreen
 {
+	
+	int selectedBlock = 0;
 	
 	Stage stage;
 	BitmapFont font;
@@ -31,10 +37,14 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButtonStyle groundBlockStyle;
 	ImageButtonStyle boxBlockStyle;
 	ImageButtonStyle safeZoneBlockStyle;
+	ImageButtonStyle blankBlockStyle;
+	
+	ImageButton cell[];
 	
 	ImageButton groundButton;
 	ImageButton boxButton;
 	ImageButton safeZoneButton;
+	ImageButton blankButton;
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
 
@@ -46,7 +56,7 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{	
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         stage.act();
@@ -72,6 +82,8 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.setFillParent(true);
 		
 		levelGrid = new Table();
+		levelGrid.setFillParent(true);
+		levelGrid.setHeight(screenHeight - screenHeight/10);
 		
 		font = myGame.assetLoader.font;
 		
@@ -80,22 +92,53 @@ public class LevelEditorScreen extends GenericScreen
 		buttonSkin.addRegions(buttonAtlas);
 		
 		groundBlockStyle = new ImageButtonStyle();
-		groundBlockStyle.up = buttonSkin.getDrawable("crate");
+		groundBlockStyle.up = buttonSkin.getDrawable("metal");
 		boxBlockStyle = new ImageButtonStyle();
-		boxBlockStyle.up = buttonSkin.getDrawable("metal");
+		boxBlockStyle.up = buttonSkin.getDrawable("crate");
 		safeZoneBlockStyle = new ImageButtonStyle();
 		safeZoneBlockStyle.up = buttonSkin.getDrawable("safezone");
+		blankBlockStyle = new ImageButtonStyle();
+		blankBlockStyle.up = buttonSkin.getDrawable("blank");
 		
 		
 		groundButton = new ImageButton(groundBlockStyle);
 		boxButton = new ImageButton(boxBlockStyle);
 		safeZoneButton = new ImageButton(safeZoneBlockStyle);
+		blankButton = new ImageButton(blankBlockStyle);
 
 		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/10);
 		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/10);
 		toolTable.add(safeZoneButton).pad(screenWidth/100).size(screenHeight/10);
+		toolTable.add(blankButton).pad(screenWidth/100).size(screenHeight/10);
 		
 		toolTable.bottom().left();
+		levelGrid.top();
+		
+		cell = new ImageButton[72];
+
+		int index = 0;
+		
+		for (int y = 0; y < 6; y++)
+		{
+			for (int x = 0; x < 12; x++)
+			{
+				cell[index] = new ImageButton(blankBlockStyle);
+				levelGrid.add(cell[index]).size(screenHeight/7);				
+				index++;
+			}
+			levelGrid.row();
+		}
+		
+		
+		levelGrid.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	levelGrid.clearChildren();
+
+	        	levelGrid.add(actor);
+	        }});
+		
 		
 		stage.addActor(toolTable);
 		stage.addActor(levelGrid);

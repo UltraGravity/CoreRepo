@@ -17,6 +17,7 @@ public class AssetLoader
 	public TextureRegion crate;
 	public TextureRegion ground;
 	public TextureRegion safeZone;
+	public TextureRegion blank;
 //	public TextureRegion character;
 	
 	 public AssetLoader(MyGame myGame)
@@ -40,6 +41,7 @@ public class AssetLoader
 		 crate = gameScreenAtlas.findRegion("crate");
 		 ground = gameScreenAtlas.findRegion("metal");
 		 safeZone = gameScreenAtlas.findRegion("safezone");
+		 blank = gameScreenAtlas.findRegion("blank");
 	 }
 	 
 	 public void loadGameAssets()
