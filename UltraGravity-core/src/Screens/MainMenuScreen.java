@@ -80,11 +80,16 @@ public class MainMenuScreen extends GenericScreen
 		
 		//table.add(ultraGravity).fillX();
 		//table.row();
-		table.add(levelSelectButton).fillX();
+		
+		
+
+		table.add(levelSelectButton).width(screenWidth - screenWidth/8);
 		table.row();
 		table.add(levelEditorButton).fillX();
 		table.row();
 		table.add(optionsButton).fillX();
+		
+
 		
 		stage.addActor(table);
 

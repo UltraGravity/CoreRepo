@@ -66,6 +66,7 @@ public class OptionsScreen extends GenericScreen
 		table = new Table();
 		table.setFillParent(true);
 		
+		
 		font = myGame.assetLoader.font;
 		skin = new Skin();
 		buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
@@ -111,7 +112,8 @@ public class OptionsScreen extends GenericScreen
 		
 		//table.add(ultraGravity).fillX();
 		//table.row();
-		table.add(musicButton).fillX();
+		
+		table.add(musicButton).width(screenWidth - screenWidth/8);
 		table.row();
 		table.add(soundEffectsButton).fillX();
 		table.row();
