@@ -1,14 +1,15 @@
 package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Character extends Item {
-
   private Character character;
   
   public Character(MyGame myGame, int x, int y) {
     super(myGame, x, y);
-//    texture = myGame.assetLoader.crate;
+    texture = myGame.assetLoader.crate;
   }
   
   public Character getCharacter()
@@ -72,6 +73,11 @@ public class Character extends Item {
   public int getRotSpeed()
   {
     return rotSpeed;
+  }
+  
+  public TextureRegion getTexture() 
+  {
+    return texture;
   }
 
 }

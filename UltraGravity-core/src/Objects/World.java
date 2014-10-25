@@ -43,15 +43,15 @@ public class World {
   public void addItem(int item, int x, int y) 
   {
     if(item == 0) {
-      Box box = new Box(myGame, x,y);
+      Item box = new Box(myGame, x,y);
       World[x][y] = box;
     }
     if(item == 1) {
-      Character character = new Character(myGame, x,y);
+      Item character = new Character(myGame, x,y);
       World[x][y] = character;
     }
     if(item == 2) {
-      GroundBlock ground = new GroundBlock(myGame, x,y);
+      Item ground = new GroundBlock(myGame, x,y);
       World[x][y] = ground;
     }
 
