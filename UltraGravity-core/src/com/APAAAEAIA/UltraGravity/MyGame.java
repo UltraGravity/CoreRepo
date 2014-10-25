@@ -83,4 +83,10 @@ public class MyGame extends Game
 		
 		this.setScreen(nextScreen);
 	}
+	
+	public void changeToOptionsScreen()
+	{
+		
+	}
+	
 }

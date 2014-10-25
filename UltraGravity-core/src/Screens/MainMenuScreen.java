@@ -13,8 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen extends GenericScreen
 {
@@ -58,7 +58,7 @@ public class MainMenuScreen extends GenericScreen
 
 	public void show()
 	{
-		stage = new Stage();
+		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 		table = new Table();
 		table.setFillParent(true);
@@ -96,6 +96,7 @@ public class MainMenuScreen extends GenericScreen
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	            System.out.println("Level Select button pressed");
+	            
 	        }});
 		
 		levelEditorButton.addListener(new ChangeListener() 
@@ -110,6 +111,7 @@ public class MainMenuScreen extends GenericScreen
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	            System.out.println("Options Button pressed");
+	            myGame.changeToOptionsScreen();
 	        }});
 	}
 
