@@ -70,10 +70,10 @@ public class Box extends Item{
   }
   
   
-//  private Texture getTexture() 
-//  {
-//    return texture;
-//  }
+  public TextureRegion getTexture() 
+  {
+    return texture;
+  }
   
 
 }

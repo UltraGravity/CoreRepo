@@ -22,7 +22,7 @@ public class LevelEditorScreen extends GenericScreen
 	BitmapFont font;
 	Skin skin;
 	Table toolTable;
-	Table world;
+	Table levelGrid;
 	TextButtonStyle textButtonStyle;
 	
 	Skin buttonSkin;
@@ -55,7 +55,8 @@ public class LevelEditorScreen extends GenericScreen
 		
 			toolTable.debug();
 			toolTable.debugTable();
-			
+			levelGrid.debug();
+			levelGrid.debugTable();
 		
 			stage.draw();
 			
@@ -70,7 +71,7 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable = new Table();
 		toolTable.setFillParent(true);
 		
-		world = new Table();
+		levelGrid = new Table();
 		
 		font = myGame.assetLoader.font;
 		
@@ -97,6 +98,7 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.bottom().left();
 		
 		stage.addActor(toolTable);
+		stage.addActor(levelGrid);
 
 	
 	}
