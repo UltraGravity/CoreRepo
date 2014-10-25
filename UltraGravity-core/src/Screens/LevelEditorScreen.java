@@ -13,10 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LevelEditorScreen extends GenericScreen
@@ -48,6 +46,8 @@ public class LevelEditorScreen extends GenericScreen
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
 
+	
+	
 	public LevelEditorScreen(MyGame myGame)
 	{
 		super(myGame);
@@ -118,6 +118,7 @@ public class LevelEditorScreen extends GenericScreen
 
 		int index = 0;
 		
+		
 		for (int y = 0; y < 6; y++)
 		{
 			for (int x = 0; x < 12; x++)
@@ -130,19 +131,19 @@ public class LevelEditorScreen extends GenericScreen
 		}
 		
 		
+		
 		levelGrid.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	levelGrid.removeActor(actor);
-	        	//levelGrid.clearChildren();
-	        	//actor.
-	        	//levelGrid.add(cell);
+	        	//levelGrid.removeActor(actor);
+	        	
 	        }});
 		
 		
 		stage.addActor(toolTable);
 		stage.addActor(levelGrid);
+
 
 	
 	}
