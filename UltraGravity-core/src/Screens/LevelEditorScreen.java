@@ -20,7 +20,7 @@ public class LevelEditorScreen extends GenericScreen
 	  System.out.println("Array Set");
 	  batch.begin();
 	  
-	  batch.draw(texture,x,y)
+	  //batch.draw(texture,x,y)
 	  batch.end();
 	}
 
