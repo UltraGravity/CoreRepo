@@ -103,6 +103,18 @@ public class MyGame extends Game
 		this.setScreen(mainMenuScreen);
 	}
 	
+	public void changeToLevelEditorScreen()
+	{
+		levelEditorScreen = new LevelEditorScreen(this);
+		this.setScreen(levelEditorScreen);
+	}
+	
+	public void changeToLevelScreen()
+	{
+		levelScreen = new LevelScreen(this);
+		this.setScreen(levelScreen);
+	}
+	
 	
 	public void dispose()
 	{

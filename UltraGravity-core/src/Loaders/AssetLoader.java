@@ -40,7 +40,6 @@ public class AssetLoader
 		 crate = gameScreenAtlas.findRegion("crate");
 		 ground = gameScreenAtlas.findRegion("metal");
 		 safeZone = gameScreenAtlas.findRegion("safezone");
-		 
 	 }
 	 
 	 public void loadGameAssets()

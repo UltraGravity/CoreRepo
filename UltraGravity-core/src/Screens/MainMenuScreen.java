@@ -46,8 +46,8 @@ public class MainMenuScreen extends GenericScreen
         
 		batch.begin();
 		
-			table.debug();
-			table.debugTable();
+			//table.debug();
+			//table.debugTable();
 			
 		
 			stage.draw();
@@ -101,7 +101,7 @@ public class MainMenuScreen extends GenericScreen
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	            System.out.println("Level Select button pressed");
-	            
+	            myGame.changeToLevelScreen();
 	        }});
 		
 		levelEditorButton.addListener(new ChangeListener() 
@@ -109,6 +109,7 @@ public class MainMenuScreen extends GenericScreen
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	            System.out.println("Level Editor button pressed");
+	            myGame.changeToLevelEditorScreen();
 	        }});
 		
 		optionsButton.addListener(new ChangeListener() 
