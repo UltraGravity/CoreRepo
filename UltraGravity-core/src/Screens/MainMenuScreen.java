@@ -1,9 +1,5 @@
 package Screens;
 
-import Objects.Box;
-import Objects.Item;
-import Objects.World;
-
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,9 +10,6 @@ public class MainMenuScreen extends GenericScreen {
 
   Stage  stage;
   Screen loadingScreen;
-  World  world;
-  int    x = 0;
-  int    y = 0;
 
   public MainMenuScreen(MyGame myGame) {
     super(myGame);
