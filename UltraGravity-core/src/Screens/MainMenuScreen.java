@@ -36,19 +36,7 @@ public class MainMenuScreen extends GenericScreen {
     stage.act();
 
     batch.begin();
-    System.out.println("beginning");
-    world = new World(6,12);
-    world.setWorld();
-    System.out.println("World is Set");
-    Item[][] stuff = world.getWorld();
-    for (int x = 0; x < world.getXSize(); x++) {
-      for (int y = 0; y < world.getYSize(); y++) {
-        Item nextItem = stuff[x][y];
-        if(nextItem != null) {
-          batch.draw(nextItem.getTexture(), nextItem.getX(), nextItem.getY());
-        }
-      }
-    }
+
     // batch.draw(stuff[x][y]);
     // stage.draw();
     batch.end();

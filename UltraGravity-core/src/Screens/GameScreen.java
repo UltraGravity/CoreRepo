@@ -1,6 +1,8 @@
 package Screens;
 
 import Loaders.GameAssets;
+import Objects.Item;
+import Objects.World;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 
@@ -8,6 +10,7 @@ public class GameScreen extends GenericScreen
 {
 
 	GameAssets gameAssets;
+	World world;
 	
 	public GameScreen(MyGame myGame, GameAssets gameAssets) 
 	{
@@ -21,7 +24,19 @@ public class GameScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{
-		
+    System.out.println("beginning");
+    world = new World(6,12);
+    world.setWorld();
+    System.out.println("World is Set");
+    Item[][] stuff = world.getWorld();
+    for (int x = 0; x < world.getXSize(); x++) {
+      for (int y = 0; y < world.getYSize(); y++) {
+        Item nextItem = stuff[x][y];
+        if(nextItem != null) {
+          batch.draw(nextItem.getTexture(), nextItem.getX(), nextItem.getY());
+        }
+      }
+    }
 	}
 
 	public void resize(int width, int height) 
