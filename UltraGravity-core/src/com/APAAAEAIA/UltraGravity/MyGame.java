@@ -11,13 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MyGame extends Game 
 {	
-	public final static int MAIN_MENU	 = 0;
-	public final static int LEVEL_SELECT = 1;
-	public final static int LEVEL_EDITOR = 2;
-	public final static int OPTIONS 	 = 3;
-	public final static int GAME_SCREEN  = 4;
-	public final static int PAUSE_SCREEN = 5;
-	
 	public LoadingScreen loadingScreen;
 	public MainMenuScreen mainMenuScreen;
 	public LevelScreen levelScreen;
@@ -26,6 +19,7 @@ public class MyGame extends Game
 	public OptionsScreen optionsScreen;
 	public PauseScreen pauseScreen;
 	
+	public Screen currentScreen;
 	public Screen nextScreen;
 	
 	public AssetLoader assetLoader;
@@ -42,71 +36,51 @@ public class MyGame extends Game
 		 * We create the global variables screenWidth and screenHeight.
 		 * We create the SpriteBatch used to draw images to the screen.
 		 * We create and set up the camera. The camera is the size of the screen.
-		 * Finally, we load the MAIN_MENU.
+		 * The AssetLoader is what handles all the loading and unloading of all
+		 * the images in the entire game. We use this to get the textures and stuff.
 		 */
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, screenWidth, screenHeight);
-		assetLoader = new AssetLoader(this);
+		assetLoader = new AssetLoader(this);	
+		
 		mainMenuScreen = new MainMenuScreen(this);
-		
-		
-		// This is just for testing. Remove
-		levelEditorScreen = new LevelEditorScreen(this);
-		// This is just for testing. Remove
-		
-		loadScreen(MAIN_MENU);
+		loadScreen(mainMenuScreen);
 	}
 	
 	
-	public void loadScreen(int screen)
+	public void loadScreen(Screen screen)
 	{
-		/* When you need to switch screens, use this method. It creates a
-		 * new LoadingScreen screen and uses multithreading to load the assets
-		 * in the background. This way, we can animate the screen while its loading.
+		/* When you need to load the assets for the main menu or
+		 * the game screen, use this method.
 		 */
-		loadingScreen = new LoadingScreen(this);
 		
-		switch (screen)
+		loadingScreen = new LoadingScreen(this);
+		nextScreen = screen;
+		
+		if (screen == mainMenuScreen)
 		{
-			case MAIN_MENU:
-			{
-				nextScreen = mainMenuScreen;
-				assetLoader.loadMenuAssets();
-				break;
-			}
-			case LEVEL_SELECT:
-			{
-				break;
-			}
-			case LEVEL_EDITOR:
-			{
-				break;
-			}
-			case OPTIONS:
-			{
-				break;
-			}
-			case GAME_SCREEN:
-			{
-				nextScreen = this.gameScreen;
-				assetLoader.loadGameAssets();
-				break;
-			}
-			case PAUSE_SCREEN:
-			{
-				break;
-			}
+			assetLoader.loadMenuAssets();
 		}
+		
+		if (screen == gameScreen)
+		{
+			assetLoader.loadGameAssets();
+		}
+		
 		this.setScreen(loadingScreen);
 	}
 	
 	public void switchScreen()
 	{
-	  
-//	  mainMenuScreen.addBox();
+		if (nextScreen == mainMenuScreen)
+		{
+			// This sets up the textures so we can reference them.
+			assetLoader.setupMenu();
+		}
+		
 		this.setScreen(nextScreen);
 	}
 }
