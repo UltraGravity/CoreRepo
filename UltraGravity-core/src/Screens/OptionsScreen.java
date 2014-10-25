@@ -45,18 +45,11 @@ public class OptionsScreen extends GenericScreen
 	        
 	    batch.begin();
 			
-	    	table.debug();
-			table.debugTable();
-				
-			
+	    	//table.debug();
+			//table.debugTable();
 			stage.draw();
 				
 		batch.end();
-	}
-
-	public void resize(int width, int height) 
-	{
-		
 	}
 
 	public void show()
@@ -88,30 +81,15 @@ public class OptionsScreen extends GenericScreen
 		
 		if (myGame.sfx)
 		{
-			soundEffectsButton = new TextButton("Sound Effects On", textButtonStyle);
+			soundEffectsButton = new TextButton("SFX On", textButtonStyle);
 		}
 		else
 		{
-			soundEffectsButton = new TextButton("Sound Effects Off", textButtonStyle);
+			soundEffectsButton = new TextButton("SFX Off", textButtonStyle);
 		}
 	
-		
 
-		
-		
-		
-		
-		
-		
-		
-		
 		backButton = new TextButton("Back", textButtonStyle);
-		//ultraGravityFont = new LabelStyle();
-		//ultraGravityFont.font = myGame.assetLoader.font;
-		//ultraGravity = new Label("Ultra-Gravity", ultraGravityFont);
-		
-		//table.add(ultraGravity).fillX();
-		//table.row();
 		
 		table.add(musicButton).width(screenWidth - screenWidth/8);
 		table.row();
@@ -121,7 +99,6 @@ public class OptionsScreen extends GenericScreen
 		
 		stage.addActor(table);
 
-		
 		
 		// Button actions
 		musicButton.addListener(new ChangeListener() 
@@ -152,12 +129,12 @@ public class OptionsScreen extends GenericScreen
 	            if (myGame.sfx)
 	            {
 	            	myGame.sfx = false;
-	            	soundEffectsButton.setText("Sound Effects Off");
+	            	soundEffectsButton.setText("SFX Off");
 	            }
 	            else
 	            {
 	            	myGame.sfx = true;
-	            	soundEffectsButton.setText("Sound Effects On");
+	            	soundEffectsButton.setText("SFX On");
 	            }
 	            
 	        }});
@@ -177,17 +154,6 @@ public class OptionsScreen extends GenericScreen
 		this.dispose();
 	}
 
-	public void pause() 
-	{
-		
-	}
-
-	public void resume() 
-	{
-		
-	}
-
-
 	public void dispose() 
 	{
 		/*
@@ -201,5 +167,10 @@ public class OptionsScreen extends GenericScreen
 	
 		super.dispose();
 	}
+
+	public void resize(int width, int height) {}
+	public void pause() {}
+	public void resume() {}
+
 
 }
