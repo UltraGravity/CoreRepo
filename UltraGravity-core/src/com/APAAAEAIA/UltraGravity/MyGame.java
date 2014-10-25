@@ -86,7 +86,8 @@ public class MyGame extends Game
 	
 	public void changeToOptionsScreen()
 	{
-		
+		optionsScreen = new OptionsScreen(this);
+		this.setScreen(optionsScreen);
 	}
 	
 }
