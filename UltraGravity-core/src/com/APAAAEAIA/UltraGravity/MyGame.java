@@ -30,6 +30,9 @@ public class MyGame extends Game
 	public int screenWidth;
 	public int screenHeight;
 	
+	public boolean music;
+	public boolean sfx;
+	
 	public void create()
 	{
 		/* This is the very first thing to run when the game is started.
@@ -39,6 +42,10 @@ public class MyGame extends Game
 		 * The AssetLoader is what handles all the loading and unloading of all
 		 * the images in the entire game. We use this to get the textures and stuff.
 		 */
+		
+		music = true; // Change this to be a setting that is loaded
+		sfx = true; // same with this.
+		
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		batch = new SpriteBatch();
@@ -90,4 +97,16 @@ public class MyGame extends Game
 		this.setScreen(optionsScreen);
 	}
 	
+	public void changeToMainMenuScreen()
+	{
+		mainMenuScreen = new MainMenuScreen(this);
+		this.setScreen(mainMenuScreen);
+	}
+	
+	
+	public void dispose()
+	{
+		// Called when the game is closed for good.
+		batch.dispose();
+	}
 }

@@ -46,8 +46,8 @@ public class MainMenuScreen extends GenericScreen
         
 		batch.begin();
 		
-			//table.debug();
-			//table.debugTable();
+			table.debug();
+			table.debugTable();
 			
 		
 			stage.draw();
@@ -115,23 +115,28 @@ public class MainMenuScreen extends GenericScreen
 	        }});
 	}
 
-	public void hide() {}
+	public void hide() 
+	{
+		System.out.println("Disposing Main Menu Screen");
+		this.dispose();
+	}
+	
+	public void dispose() 
+	{
+		/*
+		 * It is very important that everything created is disposed of properly when it is no longer needed. I find it best
+		 * to explicitly set everything equal to null so the garbage collector knows it can remove the stuff from memory.
+		 * 
+		 * Calling super.dispose() will get rid of the built in variables, but it is important that anything that is
+		 * uniquely created in this class be disposed.
+		 */
+
+		super.dispose();
+		stage.dispose();
+	}
+ 
 	public void pause() {}
 	public void resume() {}
 	public void resize(int width, int height) {}
-
-
-  public void dispose() 
-  {
-    /*
-     * It is very important that everything created is disposed of properly when it is no longer needed. I find it best
-     * to explicitly set everything equal to null so the garbage collector knows it can remove the stuff from memory.
-     * 
-     * Calling super.dispose() will get rid of the built in variables, but it is important that anything that is
-     * uniquely created in this class be disposed.
-     */
-
-    super.dispose();
-  }
-  
+	
 }

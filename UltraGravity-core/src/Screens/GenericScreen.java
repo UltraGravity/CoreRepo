@@ -41,7 +41,6 @@ public class GenericScreen implements Screen
 		screenWidth = -1;
 		screenHeight = -1;
 		camera = null;
-		batch.dispose();
 		batch = null;
 	}
 
