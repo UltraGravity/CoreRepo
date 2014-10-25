@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class MainMenuScreen extends GenericScreen
@@ -25,6 +28,8 @@ public class MainMenuScreen extends GenericScreen
 	TextButton levelSelectButton;
 	TextButton levelEditorButton;
 	TextButton optionsButton;
+	Label ultraGravity;
+	LabelStyle ultraGravityFont;
 
 	public MainMenuScreen(MyGame myGame)
 	{
@@ -41,8 +46,8 @@ public class MainMenuScreen extends GenericScreen
         
 		batch.begin();
 		
-			table.debug();
-			table.debugTable();
+			//table.debug();
+			//table.debugTable();
 			
 		
 			stage.draw();
@@ -69,14 +74,17 @@ public class MainMenuScreen extends GenericScreen
 		levelSelectButton = new TextButton("Level Select", textButtonStyle);
 		levelEditorButton = new TextButton("Level Editor", textButtonStyle);
 		optionsButton = new TextButton("Options", textButtonStyle);
+		//ultraGravityFont = new LabelStyle();
+		//ultraGravityFont.font = myGame.assetLoader.font;
+		//ultraGravity = new Label("Ultra-Gravity", ultraGravityFont);
 		
-
-		
-		table.add(levelSelectButton);
+		//table.add(ultraGravity).fillX();
+		//table.row();
+		table.add(levelSelectButton).fillX();
 		table.row();
-		table.add(levelEditorButton);
+		table.add(levelEditorButton).fillX();
 		table.row();
-		table.add(optionsButton);
+		table.add(optionsButton).fillX();
 		
 		stage.addActor(table);
 
@@ -87,7 +95,21 @@ public class MainMenuScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Button Pressed");
+	            System.out.println("Level Select button pressed");
+	        }});
+		
+		levelEditorButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	            System.out.println("Level Editor button pressed");
+	        }});
+		
+		optionsButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	            System.out.println("Options Button pressed");
 	        }});
 	}
 
