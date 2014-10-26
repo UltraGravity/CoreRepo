@@ -151,6 +151,10 @@ public class LevelEditorScreen extends GenericScreen
 	        	GridImage image = (GridImage) actor;
 	        	image.setStyle(selectedStyle);
 	        	
+	        	if (selectedStyle == blankBlockStyle)
+	        	{
+	        		image.cellValue = 0;
+	        	}
 	        	if (selectedStyle == groundBlockStyle)
 	        	{
 	        		image.cellValue = 1;
