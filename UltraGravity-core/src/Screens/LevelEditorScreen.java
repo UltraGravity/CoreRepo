@@ -110,13 +110,13 @@ public class LevelEditorScreen extends GenericScreen
 		safeZoneButton = new ImageButton(safeZoneBlockStyle);
 		blankButton = new ImageButton(blankBlockStyle);
 
-		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/10);
-		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/10);
-		toolTable.add(safeZoneButton).pad(screenWidth/100).size(screenHeight/10);
-		toolTable.add(blankButton).pad(screenWidth/100).size(screenHeight/10);
+		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(safeZoneButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(blankButton).pad(screenWidth/100).size(screenHeight/12);
 		
 		toolTable.bottom().left();
-		levelGrid.top();
+		levelGrid.setSize(screenWidth, screenHeight);;
 		
 		cell = new GridImage[72];
 
@@ -128,7 +128,7 @@ public class LevelEditorScreen extends GenericScreen
 			for (int x = 0; x < 12; x++)
 			{
 				cell[index] = new GridImage(blankBlockStyle);
-				levelGrid.add(cell[index]).size(screenHeight/7);				
+				levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);				
 				index++;
 			}
 			levelGrid.row();
@@ -142,10 +142,25 @@ public class LevelEditorScreen extends GenericScreen
 	        {
 	        	GridImage image = (GridImage) actor;
 	        	image.setStyle(selectedStyle);
+	        	
+	        	if (selectedStyle == groundBlockStyle)
+	        	{
+	        		image.cellValue = 1;
+	        	}
+	        	if (selectedStyle == boxBlockStyle)
+	        	{
+	        		image.cellValue = 2;
+	        	}
+	        	if (selectedStyle == safeZoneBlockStyle)
+	        	{
+	        		image.cellValue = 3;
+	        	}
+	        	if (selectedStyle == groundBlockStyle)
+	        	{
+	        		image.cellValue = 4;
+	        	}
+	        	
 	        }});
-		
-		
-		
 		
 		groundButton.addListener(new ChangeListener() 
 		{

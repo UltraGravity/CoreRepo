@@ -6,7 +6,7 @@ public class GridImage extends ImageButton
 {
 
 	// -1 is a blank cell
-	int cellValue = -1;
+	public int cellValue = -1;
 	
 	public GridImage(ImageButtonStyle style) 
 	{
