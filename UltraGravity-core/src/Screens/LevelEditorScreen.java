@@ -1,5 +1,7 @@
 package Screens;
 
+import Objects.GridImage;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LevelEditorScreen extends GenericScreen
@@ -37,7 +40,8 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButtonStyle safeZoneBlockStyle;
 	ImageButtonStyle blankBlockStyle;
 	
-	ImageButton cell[];
+	GridImage cell[];
+	ImageButtonStyle selectedStyle;
 	
 	ImageButton groundButton;
 	ImageButton boxButton;
@@ -114,7 +118,7 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.bottom().left();
 		levelGrid.top();
 		
-		cell = new ImageButton[72];
+		cell = new GridImage[72];
 
 		int index = 0;
 		
@@ -123,7 +127,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			for (int x = 0; x < 12; x++)
 			{
-				cell[index] = new ImageButton(blankBlockStyle);
+				cell[index] = new GridImage(blankBlockStyle);
 				levelGrid.add(cell[index]).size(screenHeight/7);				
 				index++;
 			}
@@ -136,10 +140,40 @@ public class LevelEditorScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	//levelGrid.removeActor(actor);
-	        	
+	        	GridImage image = (GridImage) actor;
+	        	image.setStyle(selectedStyle);
 	        }});
 		
+		
+		
+		
+		groundButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	selectedStyle = groundBlockStyle;
+	        }});
+		
+		boxButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	selectedStyle = boxBlockStyle;
+	        }});
+		
+		safeZoneButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	selectedStyle = safeZoneBlockStyle;
+	        }});
+		
+		blankButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	selectedStyle = blankBlockStyle;
+	        }});
 		
 		stage.addActor(toolTable);
 		stage.addActor(levelGrid);
