@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LevelEditorScreen extends GenericScreen
@@ -39,6 +38,7 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButtonStyle boxBlockStyle;
 	ImageButtonStyle safeZoneBlockStyle;
 	ImageButtonStyle blankBlockStyle;
+	ImageButtonStyle saveButtonStyle;
 	
 	GridImage cell[];
 	ImageButtonStyle selectedStyle;
@@ -47,6 +47,7 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButton boxButton;
 	ImageButton safeZoneButton;
 	ImageButton blankButton;
+	ImageButton saveButton;
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
 
@@ -71,7 +72,6 @@ public class LevelEditorScreen extends GenericScreen
 			toolTable.debugTable();
 			levelGrid.debug();
 			levelGrid.debugTable();
-		
 			stage.draw();
 			
 		batch.end();
@@ -103,17 +103,22 @@ public class LevelEditorScreen extends GenericScreen
 		safeZoneBlockStyle.up = buttonSkin.getDrawable("safezone");
 		blankBlockStyle = new ImageButtonStyle();
 		blankBlockStyle.up = buttonSkin.getDrawable("blank");
+		saveButtonStyle = new ImageButtonStyle();
+		saveButtonStyle.up = buttonSkin.getDrawable("save");
 		
+		selectedStyle = blankBlockStyle;
 		
 		groundButton = new ImageButton(groundBlockStyle);
 		boxButton = new ImageButton(boxBlockStyle);
 		safeZoneButton = new ImageButton(safeZoneBlockStyle);
 		blankButton = new ImageButton(blankBlockStyle);
+		saveButton = new ImageButton(saveButtonStyle);
 
 		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(safeZoneButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(blankButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(saveButton).pad(screenWidth/100).size(screenHeight/12);
 		
 		toolTable.bottom().left();
 		levelGrid.setSize(screenWidth, screenHeight);;
@@ -155,11 +160,6 @@ public class LevelEditorScreen extends GenericScreen
 	        	{
 	        		image.cellValue = 3;
 	        	}
-	        	if (selectedStyle == groundBlockStyle)
-	        	{
-	        		image.cellValue = 4;
-	        	}
-	        	
 	        }});
 		
 		groundButton.addListener(new ChangeListener() 
@@ -190,13 +190,38 @@ public class LevelEditorScreen extends GenericScreen
 	        	selectedStyle = blankBlockStyle;
 	        }});
 		
+		saveButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	save();
+	        }});
+		
 		stage.addActor(toolTable);
 		stage.addActor(levelGrid);
-
-
-	
 	}
 
+	
+	public void save()
+	{
+		/*
+		 * Lets save the file! 
+		 * This will be called when the floppy disk button is pressed.
+		 */
+		
+		for (Actor A : levelGrid.getChildren())
+		{
+			GridImage item = (GridImage) A;
+			System.out.println(item.cellValue);
+			
+			/* Maybe write these integer values to a text file? 
+			 * Or, I think you were using chars. I think ints would be
+			 * easier, but its up to you.
+			 */
+		}
+		
+	}
+	
 	public void hide() 
 	{
 		System.out.println("Disposing Level Editor Screen");
@@ -216,7 +241,6 @@ public class LevelEditorScreen extends GenericScreen
 		super.dispose();
 		stage.dispose();
 	}
- 
 	public void pause() {}
 	public void resume() {}
 	public void resize(int width, int height) {}
