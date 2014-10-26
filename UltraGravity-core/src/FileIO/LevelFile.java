@@ -36,6 +36,15 @@ public class LevelFile {
       e.printStackTrace();
     }
   }
+  
+  public void LoadLevel(FileHandle file) {
+    Item next = null;
+    Item level[][] = new Item[world.getXSize()][world.getYSize()];
+    String obj = String.valueOf(file.readString());
+    for(int i = 0; i < obj.length(); i++) {
+      //TODO Add items into the level editor screen
+    }
+  }
 
   // public void SaveLevel(String fileName) {
   // Item level[][] = world.getWorld();
@@ -76,33 +85,33 @@ public class LevelFile {
   //
   // }
 
-  public Item[][] LoadLevel(FileHandle file) {
-    Item next = null;
-    Item level[][] = new Item[world.getXSize()][world.getYSize()];
-    String obj = String.valueOf(file.readString());
-    int count = 0;
-    char Ochar;
-    for (int x = 0; x < world.getXSize(); x++) {
-      for (int y = 0; y < world.getYSize(); y++) {
-        Ochar = obj.charAt(count);
-        if (Ochar == '0') {
-          next = null;
-        }
-        if (Ochar == 'b') {
-          next = new Box(myGame, x, y);
-        }
-        if (Ochar == 'g') {
-          next = new GroundBlock(myGame, x, y);
-        }
-        if (Ochar == 'c') {
-          next = new Character(myGame, x, y);
-        }
-
-        level[x][y] = next;
-        System.out.println(" added " + obj + " at " + x + y);
-      }
-    }
-    return level;
-  }
+//  public Item[][] LoadLevel(FileHandle file) {
+//    Item next = null;
+//    Item level[][] = new Item[world.getXSize()][world.getYSize()];
+//    String obj = String.valueOf(file.readString());
+//    int count = 0;
+//    char Ochar;
+//    for (int x = 0; x < world.getXSize(); x++) {
+//      for (int y = 0; y < world.getYSize(); y++) {
+//        Ochar = obj.charAt(count);
+//        if (Ochar == '0') {
+//          next = null;
+//        }
+//        if (Ochar == 'b') {
+//          next = new Box(myGame, x, y);
+//        }
+//        if (Ochar == 'g') {
+//          next = new GroundBlock(myGame, x, y);
+//        }
+//        if (Ochar == 'c') {
+//          next = new Character(myGame, x, y);
+//        }
+//
+//        level[x][y] = next;
+//        System.out.println(" added " + obj + " at " + x + y);
+//      }
+//    }
+//    return level;
+//  }
 
 }
