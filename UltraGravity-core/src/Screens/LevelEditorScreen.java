@@ -1,5 +1,6 @@
 package Screens;
 
+import FileIO.LevelFile;
 import Objects.GridImage;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
@@ -50,6 +51,8 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButton saveButton;
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
+	
+	LevelFile levelFile;
 
 	
 	
@@ -204,21 +207,27 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void save()
 	{
+	  String fileName = "testLevelSave.txt";
 		/*
 		 * Lets save the file! 
 		 * This will be called when the floppy disk button is pressed.
 		 */
-		
+		String world = "";
 		for (Actor A : levelGrid.getChildren())
 		{
 			GridImage item = (GridImage) A;
 			System.out.println(item.cellValue);
+			world = world + item.cellValue;
 			
 			/* Maybe write these integer values to a text file? 
 			 * Or, I think you were using chars. I think ints would be
 			 * easier, but its up to you.
 			 */
 		}
+		System.out.println(world);
+		System.out.println(fileName);
+		levelFile = new LevelFile(myGame);
+		levelFile.SaveLevel(fileName, world);
 		
 	}
 	

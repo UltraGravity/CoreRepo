@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import Objects.Box;
 import Objects.Character;
+import Objects.FinishLine;
 import Objects.GroundBlock;
 import Objects.Item;
 import Objects.World;
@@ -22,41 +23,58 @@ public class LevelFile {
     this.myGame = myGame;
   }
 
-  public void SaveLevel(String fileName) {    
-    Item level[][] = world.getWorld();
-    String out = "";
-    for (int x = 0; x < world.getXSize(); x++) {
-      for (int y = 0; y < world.getYSize(); y++) {
-        String item = "";
-        if (level[x][y] != null) {
-          if (level[x][y] instanceof Box) {
-            item = "b";
-          }
-          if (level[x][y] instanceof Character) {
-            item = "c";
-          }
-          if (level[x][y] instanceof GroundBlock) {
-            item = "g";
-          }
-        }
-        else {
-          item = "0";
-        }
-        out = out + item;
-      }
-      try {
-        BufferedWriter writer = new BufferedWriter (new FileWriter(".\\" + fileName + ".txt"));
-        writer.write(out);
-        writer.close();
-      }
-      catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+  public void SaveLevel(String fileName, String world) {
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+      System.out.println(world);
+      writer.write(world);
+      writer.close();
+      System.out.println("File Saved");
     }
-    
-    
+    catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
+
+  // public void SaveLevel(String fileName) {
+  // Item level[][] = world.getWorld();
+  // String out = "";
+  // for (int x = 0; x < world.getXSize(); x++) {
+  // for (int y = 0; y < world.getYSize(); y++) {
+  // String item = "";
+  // if (level[x][y] != null) {
+  // if (level[x][y] instanceof Box) {
+  // item = "2";
+  // }
+  // if (level[x][y] instanceof Character) {
+  // item = "c";
+  // }
+  // if (level[x][y] instanceof GroundBlock) {
+  // item = "1";
+  // }
+  // if (level[x][y] instanceof FinishLine) {
+  // item = "3";
+  // }
+  // }
+  // else {
+  // item = "0";
+  // }
+  // out = out + item;
+  // }
+  // try {
+  // BufferedWriter writer = new BufferedWriter (new FileWriter(".\\" + fileName + ".txt"));
+  // writer.write(out);
+  // writer.close();
+  // }
+  // catch (IOException e) {
+  // // TODO Auto-generated catch block
+  // e.printStackTrace();
+  // }
+  // }
+  //
+  //
+  // }
 
   public Item[][] LoadLevel(FileHandle file) {
     Item next = null;
