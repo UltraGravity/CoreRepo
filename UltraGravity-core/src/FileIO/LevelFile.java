@@ -1,6 +1,9 @@
 package FileIO;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -37,13 +40,24 @@ public class LevelFile {
     }
   }
   
-  public void LoadLevel(FileHandle file) {
-    Item next = null;
-    Item level[][] = new Item[world.getXSize()][world.getYSize()];
-    String obj = String.valueOf(file.readString());
-    for(int i = 0; i < obj.length(); i++) {
-      //TODO Add items into the level editor screen
+  public String LoadLevel(String file) {
+    BufferedReader load = null;
+    try {
+      load = new BufferedReader(new FileReader(file));
     }
+    catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    String obj = null;
+    try {
+      obj = load.readLine();
+    }
+    catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return obj;
   }
 
   // public void SaveLevel(String fileName) {

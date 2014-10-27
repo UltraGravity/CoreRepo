@@ -2,6 +2,7 @@ package Screens;
 
 import FileIO.LevelFile;
 import Objects.GridImage;
+import Objects.World;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
@@ -53,6 +54,7 @@ public class LevelEditorScreen extends GenericScreen
 	LabelStyle ultraGravityFont;
 	
 	LevelFile levelFile;
+	World world;
 
 	
 	
@@ -131,9 +133,9 @@ public class LevelEditorScreen extends GenericScreen
 		int index = 0;
 		
 		
-		for (int y = 0; y < 6; y++)
+		for (int y = 0; y < world.getYSize(); y++)
 		{
-			for (int x = 0; x < 12; x++)
+			for (int x = 0; x < world.getXSize(); x++)
 			{
 				cell[index] = new GridImage(blankBlockStyle);
 				levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);				
@@ -223,16 +225,43 @@ public class LevelEditorScreen extends GenericScreen
 			System.out.println(item.cellValue);
 			world = world + item.cellValue;
 			
-			/* Maybe write these integer values to a text file? 
-			 * Or, I think you were using chars. I think ints would be
-			 * easier, but its up to you.
-			 */
 		}
 		System.out.println(world);
 		System.out.println(fileName);
 		levelFile = new LevelFile(myGame);
 		levelFile.SaveLevel(fileName, world);
 		
+	}
+	
+	public void load(String file) 
+	{
+	  String level = levelFile.LoadLevel(file);
+//	  for (int i = 0; i < level.length(); i++) {
+	    int x = world.getXSize();
+	    int y = world.getYSize();
+	    int i = 0;
+	    while(x >= 0) {
+	      while(y >= 0) {
+	        int nextInt = level.charAt(i);
+	        if(i == 0) {
+	          //add blank space
+	        }
+	        if(i == 1) {
+	          //add ground block
+	        }
+	        if(i == 2) {
+	          //add crate
+	        }
+	        if(i == 3) {
+	          //add character
+	        }
+	        i++;
+	      }
+	      y = world.getYSize();
+	    }
+	    
+	    //TODO enter actors into the grid based of of the ints recieved in the file
+//	  }
 	}
 	
 	public void hide() 
