@@ -249,43 +249,42 @@ public class LevelEditorScreen extends GenericScreen
 		
 	}
 	
-//	public void load(String file) 
-//	{
-//	  String level = levelFile.LoadLevel(file);
-////	  for (int i = 0; i < level.length(); i++) {
-//	    int x = world.getXSize();
-//	    int y = world.getYSize();
-//	    int i = 0;
-//	    while(x >= 0) {
-//	      while(y >= 0) {
-//	        int nextInt = level.charAt(i);
-//	        if(i == 0) {
-//	          System.out.print(" " + 0 + " ");
-//	          //add blank space
-//	        }
-//	        if(i == 1) {
-//	          System.out.print(" " + 1 + " ");
-//	          //add ground block
-//	        }
-//	        if(i == 2) {
-//	          System.out.print(" " + 2 + " ");
-//	          //add crate
-//	        }
-//	        if(i == 3) {
-//	          System.out.print(" " + 3 + " ");
-//	          //add character
-//	        }
-//	        System.out.println();
-//	        i++;
-//	        y++;
-//	      }
-//	      y = world.getYSize();
-//	      x++;
-//	    }
-//	    
-//	    //TODO enter actors into the grid based of of the ints recieved in the file
-////	  }
-//	}
+	public void load(String file) 
+	{
+	  String level = levelFile.LoadLevel(file);
+	    int x = world.getXSize();
+	    int y = world.getYSize();
+	    int i = 0;
+	    while(x >= 0) {
+	      while(y >= 0) {
+	        int nextInt = level.charAt(i);
+	        if(i == 0) {
+	          System.out.print(" " + 0 + " ");
+	          //add blank space
+	        }
+	        if(i == 1) {
+	          System.out.print(" " + 1 + " ");
+	          //add ground block
+	        }
+	        if(i == 2) {
+	          System.out.print(" " + 2 + " ");
+	          //add crate
+	        }
+	        if(i == 3) {
+	          System.out.print(" " + 3 + " ");
+	          //add character
+	        }
+	        System.out.println();
+	        i++;
+	        y++;
+	      }
+	      y = world.getYSize();
+	      x++;
+	    }
+	    
+	    //TODO enter actors into the grid based of of the ints recieved in the file
+//	  }
+	}
 	
 	public void hide() 
 	{

@@ -36,77 +36,10 @@ public class LevelFile {
 
   }
 
-//  public String LoadLevel(String file) {
-//      FileHandle load = Gdx.files.local(file);
-//    return obj;
-//  }
-
-  // public void SaveLevel(String fileName) {
-  // Item level[][] = world.getWorld();
-  // String out = "";
-  // for (int x = 0; x < world.getXSize(); x++) {
-  // for (int y = 0; y < world.getYSize(); y++) {
-  // String item = "";
-  // if (level[x][y] != null) {
-  // if (level[x][y] instanceof Box) {
-  // item = "2";
-  // }
-  // if (level[x][y] instanceof Character) {
-  // item = "c";
-  // }
-  // if (level[x][y] instanceof GroundBlock) {
-  // item = "1";
-  // }
-  // if (level[x][y] instanceof FinishLine) {
-  // item = "3";
-  // }
-  // }
-  // else {
-  // item = "0";
-  // }
-  // out = out + item;
-  // }
-  // try {
-  // BufferedWriter writer = new BufferedWriter (new FileWriter(".\\" + fileName + ".txt"));
-  // writer.write(out);
-  // writer.close();
-  // }
-  // catch (IOException e) {
-  // // TODO Auto-generated catch block
-  // e.printStackTrace();
-  // }
-  // }
-  //
-  //
-  // }
-
-  // public Item[][] LoadLevel(FileHandle file) {
-  // Item next = null;
-  // Item level[][] = new Item[world.getXSize()][world.getYSize()];
-  // String obj = String.valueOf(file.readString());
-  // int count = 0;
-  // char Ochar;
-  // for (int x = 0; x < world.getXSize(); x++) {
-  // for (int y = 0; y < world.getYSize(); y++) {
-  // Ochar = obj.charAt(count);
-  // if (Ochar == '0') {
-  // next = null;
-  // }
-  // if (Ochar == 'b') {
-  // next = new Box(myGame, x, y);
-  // }
-  // if (Ochar == 'g') {
-  // next = new GroundBlock(myGame, x, y);
-  // }
-  // if (Ochar == 'c') {
-  // next = new Character(myGame, x, y);
-  // }
-  //
-  // level[x][y] = next;
-  // System.out.println(" added " + obj + " at " + x + y);
-  // }
-  // }
-  // return level;
-  // }
-
+  public String LoadLevel(String fileName) {
+    FileHandle file = Gdx.files.local("Levels/" + fileName);
+    String level = file.readString();
+    System.out.println(level);
+    return level;
+  }
 }
