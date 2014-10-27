@@ -45,6 +45,9 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButtonStyle safeZoneBlockStyle;
 	ImageButtonStyle blankBlockStyle;
 	ImageButtonStyle saveButtonStyle;
+	ImageButtonStyle loadButtonStyle;
+	ImageButtonStyle playButtonStyle;
+	ImageButtonStyle backButtonStyle;
 	
 	GridImage cell[];
 	ImageButtonStyle selectedStyle;
@@ -54,6 +57,10 @@ public class LevelEditorScreen extends GenericScreen
 	ImageButton safeZoneButton;
 	ImageButton blankButton;
 	ImageButton saveButton;
+	ImageButton loadButton;
+	ImageButton playButton;
+	ImageButton backButton;
+	
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
 	
@@ -114,6 +121,12 @@ public class LevelEditorScreen extends GenericScreen
 		blankBlockStyle.up = buttonSkin.getDrawable("blank");
 		saveButtonStyle = new ImageButtonStyle();
 		saveButtonStyle.up = buttonSkin.getDrawable("save");
+		loadButtonStyle = new ImageButtonStyle();
+		loadButtonStyle.up = buttonSkin.getDrawable("load");
+		backButtonStyle = new ImageButtonStyle();
+		backButtonStyle.up = buttonSkin.getDrawable("back");
+		playButtonStyle = new ImageButtonStyle();
+		playButtonStyle.up = buttonSkin.getDrawable("play");
 		
 		selectedStyle = blankBlockStyle;
 		
@@ -122,12 +135,18 @@ public class LevelEditorScreen extends GenericScreen
 		safeZoneButton = new ImageButton(safeZoneBlockStyle);
 		blankButton = new ImageButton(blankBlockStyle);
 		saveButton = new ImageButton(saveButtonStyle);
+		loadButton = new ImageButton(loadButtonStyle);
+		backButton = new ImageButton(backButtonStyle);
+		playButton = new ImageButton(playButtonStyle);
 
+		toolTable.add(backButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(safeZoneButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(blankButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(saveButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(loadButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(playButton).pad(screenWidth/100).size(screenHeight/12);
 		
 		toolTable.bottom().left();
 		levelGrid.setSize(screenWidth, screenHeight);;
@@ -175,6 +194,14 @@ public class LevelEditorScreen extends GenericScreen
 	        	}
 	        }});
 		
+		
+		backButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	myGame.changeToMainMenuScreen();
+	        }});
+		
 		groundButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
@@ -208,6 +235,22 @@ public class LevelEditorScreen extends GenericScreen
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	        	save();
+	        }});
+		
+		loadButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	// open a pop up window or something to select specific level to edit.
+	        	//load(that_file);
+	        }});
+		
+		playButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	//save();
+	        	//play();
 	        }});
 		
 		stage.addActor(toolTable);
