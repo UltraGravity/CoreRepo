@@ -1,8 +1,5 @@
 package Screens;
 
-import java.io.File;
-import java.nio.file.Files;
-
 import FileIO.LevelFile;
 import Objects.GridImage;
 import Objects.World;
@@ -82,6 +79,7 @@ public class LevelEditorScreen extends GenericScreen
         
         stage.act();
         
+        
 		batch.begin();
 		
 			toolTable.debug();
@@ -96,6 +94,7 @@ public class LevelEditorScreen extends GenericScreen
 
 	public void show()
 	{
+    
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 		toolTable = new Table();
@@ -194,7 +193,7 @@ public class LevelEditorScreen extends GenericScreen
 	        	}
 	        }});
 		
-		
+    
 		backButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
@@ -241,6 +240,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
+	          load("CL_0.txt");
 	        	// open a pop up window or something to select specific level to edit.
 	        	//load(that_file);
 	        }});
@@ -256,7 +256,7 @@ public class LevelEditorScreen extends GenericScreen
 		stage.addActor(toolTable);
 		stage.addActor(levelGrid);
 	}
-
+	
 	
 	public void save()
 	{
@@ -294,35 +294,37 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void load(String file) 
 	{
-	  String level = levelFile.LoadLevel(file);
+	  System.out.println("loading " + file);
+	  levelFile = new LevelFile(myGame);
+	  String level = levelFile.LoadLevel("CL_0.txt"); //needs to have file selected with grid
 	    int x = world.getXSize();
 	    int y = world.getYSize();
 	    int i = 0;
-	    while(x >= 0) {
-	      while(y >= 0) {
+	    while(y > 0) {
+	      while(x > 0) {   //The x and y loops are here to help place in a grid
 	        int nextInt = level.charAt(i);
-	        if(i == 0) {
+	        if(nextInt == '0') {
 	          System.out.print(" " + 0 + " ");
 	          //add blank space
 	        }
-	        if(i == 1) {
+	        if(nextInt == '1') {
 	          System.out.print(" " + 1 + " ");
 	          //add ground block
 	        }
-	        if(i == 2) {
+	        if(nextInt == '2') {
 	          System.out.print(" " + 2 + " ");
 	          //add crate
 	        }
-	        if(i == 3) {
+	        if(nextInt == '3') {
 	          System.out.print(" " + 3 + " ");
 	          //add character
 	        }
-	        System.out.println();
 	        i++;
-	        y++;
+	        x--;
 	      }
-	      y = world.getYSize();
-	      x++;
+        System.out.println();
+	      x = world.getXSize();
+	      y--;
 	    }
 	    
 	    //TODO enter actors into the grid based of of the ints recieved in the file
