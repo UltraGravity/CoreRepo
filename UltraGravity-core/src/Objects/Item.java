@@ -16,6 +16,7 @@ public class Item {
   int xAccel;
   int yAccel;
   int rotAccel;
+  Boolean phys = false;
   
   World world;
   public MyGame myGame;
@@ -34,7 +35,7 @@ public class Item {
   }
   
   
-  public void update(boolean phys) {
+  public void update() {
     if (phys) {
       updatePhysics();
     }
@@ -69,6 +70,10 @@ public class Item {
 
   public void draw() {
 
+  }
+  
+  public void setPhys(Boolean phys) {
+    this.phys = phys;
   }
   
   public TextureRegion getTexture() {

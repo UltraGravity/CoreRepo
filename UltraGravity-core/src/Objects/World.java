@@ -1,5 +1,7 @@
 package Objects;
 
+import java.util.ArrayList;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class World {
@@ -7,6 +9,7 @@ public class World {
   int worldX = 12;
 
   Item[][] World = new Item[worldX][worldY];
+  ArrayList<Item> physicalWorld = new ArrayList();
   
   MyGame myGame;
   
@@ -17,6 +20,15 @@ public class World {
     
     World = new Item[editWorldX][editWorldY];
   }
+  
+  public ArrayList<Item> physUpdate() {
+    for(int i = 0; i < physicalWorld.size(); i++) {
+      Item current = physicalWorld.get(i);
+      current.updatePhysics();      
+    }
+    return physicalWorld;
+  }
+  
   public void setWorld() {
     System.out.println("Setting to world");
     for(int i = 0; i < worldX; i++) {
