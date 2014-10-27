@@ -4,14 +4,18 @@ import Objects.LevelButton;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LevelScreen extends GenericScreen
@@ -26,6 +30,9 @@ public class LevelScreen extends GenericScreen
 	TextureAtlas buttonAtlas;
 	TextButtonStyle textButtonStyle;
 
+	FileHandle[] files;
+	
+	
 	public LevelScreen(MyGame myGame)
 	{
 		super(myGame);
@@ -68,16 +75,50 @@ public class LevelScreen extends GenericScreen
 		textButtonStyle.up = skin.getDrawable("Button");
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 
-		for (int i = 0; i < 50; i++)
+		files = Gdx.files.internal("levels").list();
+		int numFiles = files.length;
+		
+		for (int i = 0; i < numFiles; i++)
 		{
-			LevelButton button = new LevelButton(String.valueOf(i), textButtonStyle);
-			table.add(button).width(screenWidth/5).height(screenWidth/5);
-			
-			if (i % 3 == 2)
+			System.out.println(files[i].name());
+		}
+		
+		/* Unfortunately, this is not a sorted array...
+		 * So I'm making this incredibly inefficient sorting code. 
+		 */
+		int numRows = 4;
+		String nextFile = "CL_0.txt";
+		String thisFile = "";
+		int index = 0;
+		for (int i = 0; i < numFiles; i++)
+		{
+			index = 0;
+			nextFile = "CL_" + i + ".txt";
+			for (int j = 0; j < numFiles; j++)
 			{
-				table.row();
+				thisFile = files[index].name();
+				if (nextFile.equals(thisFile))
+				{
+					LevelButton button = new LevelButton(String.valueOf(i), textButtonStyle, files[index].name());
+					table.add(button).width(screenWidth/5).height(screenWidth/5);
+					if (i % numRows == numRows-1)
+					{
+						table.row();
+					}
+					break;
+				}
+				index++;
 			}
 		}
+		
+		
+		window.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	            LevelButton button = (LevelButton) actor;
+	        	button.play();
+	        }});
 		
 		
 		scroll = new ScrollPane(table);
