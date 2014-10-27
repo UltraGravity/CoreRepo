@@ -75,13 +75,14 @@ public class LevelScreen extends GenericScreen
 		textButtonStyle.up = skin.getDrawable("Button");
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 
-		files = Gdx.files.internal("levels").list();
+		files = Gdx.files.internal("Levels").list();
 		int numFiles = files.length;
 		
 		for (int i = 0; i < numFiles; i++)
 		{
 			System.out.println(files[i].name());
 		}
+		
 		
 		/* Unfortunately, this is not a sorted array...
 		 * So I'm making this incredibly inefficient sorting code. 
