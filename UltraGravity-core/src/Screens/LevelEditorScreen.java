@@ -135,7 +135,7 @@ public class LevelEditorScreen extends GenericScreen
 
 		int index = 0;
 		
-		
+		world = new World(12, 6);
 		for (int y = 0; y < world.getYSize(); y++)
 		{
 			for (int x = 0; x < world.getXSize(); x++)
@@ -219,7 +219,7 @@ public class LevelEditorScreen extends GenericScreen
 	  boolean nameFound = false;
 	  String fileName = "";
 	  int fName = 0;
-	  while(nameFound) 
+	  while(!nameFound) 
 	  {
 	    fileName = "CL_" + Integer.toString(fName) + ".txt";
 	    System.out.println("Checking if " + fileName + " is an available name");
