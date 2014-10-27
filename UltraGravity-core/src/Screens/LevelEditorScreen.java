@@ -1,5 +1,8 @@
 package Screens;
 
+import java.io.File;
+import java.nio.file.Files;
+
 import FileIO.LevelFile;
 import Objects.GridImage;
 import Objects.World;
@@ -213,11 +216,23 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void save()
 	{
-	  String fileName = "testLevelSave.txt";
-		/*
-		 * Lets save the file! 
-		 * This will be called when the floppy disk button is pressed.
-		 */
+	  boolean nameFound = false;
+	  String fileName = "";
+	  int fName = 0;
+	  while(nameFound) 
+	  {
+	    fileName = "CL_" + Integer.toString(fName) + ".txt";
+	    System.out.println("Checking if " + fileName + " is an available name");
+	    File file = new File(fileName);
+	    if(file.exists()) {
+	      System.out.println("File existed");
+	      fName++;
+	    }
+	    else {
+	      System.out.println(fileName + " is being created");
+	      nameFound = true;
+	    }
+	  }
 		String world = "";
 		for (Actor A : levelGrid.getChildren())
 		{
@@ -261,8 +276,10 @@ public class LevelEditorScreen extends GenericScreen
 	        }
 	        System.out.println();
 	        i++;
+	        y++;
 	      }
 	      y = world.getYSize();
+	      x++;
 	    }
 	    
 	    //TODO enter actors into the grid based of of the ints recieved in the file
