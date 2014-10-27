@@ -9,6 +9,7 @@ import Objects.World;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -223,7 +224,7 @@ public class LevelEditorScreen extends GenericScreen
 	  {
 	    fileName = "CL_" + Integer.toString(fName) + ".txt";
 	    System.out.println("Checking if " + fileName + " is an available name");
-	    File file = new File(fileName);
+	    FileHandle file = Gdx.files.local("Levels/" + fileName);
 	    if(file.exists()) {
 	      System.out.println("File existed");
 	      fName++;
@@ -248,43 +249,43 @@ public class LevelEditorScreen extends GenericScreen
 		
 	}
 	
-	public void load(String file) 
-	{
-	  String level = levelFile.LoadLevel(file);
-//	  for (int i = 0; i < level.length(); i++) {
-	    int x = world.getXSize();
-	    int y = world.getYSize();
-	    int i = 0;
-	    while(x >= 0) {
-	      while(y >= 0) {
-	        int nextInt = level.charAt(i);
-	        if(i == 0) {
-	          System.out.print(" " + 0 + " ");
-	          //add blank space
-	        }
-	        if(i == 1) {
-	          System.out.print(" " + 1 + " ");
-	          //add ground block
-	        }
-	        if(i == 2) {
-	          System.out.print(" " + 2 + " ");
-	          //add crate
-	        }
-	        if(i == 3) {
-	          System.out.print(" " + 3 + " ");
-	          //add character
-	        }
-	        System.out.println();
-	        i++;
-	        y++;
-	      }
-	      y = world.getYSize();
-	      x++;
-	    }
-	    
-	    //TODO enter actors into the grid based of of the ints recieved in the file
-//	  }
-	}
+//	public void load(String file) 
+//	{
+//	  String level = levelFile.LoadLevel(file);
+////	  for (int i = 0; i < level.length(); i++) {
+//	    int x = world.getXSize();
+//	    int y = world.getYSize();
+//	    int i = 0;
+//	    while(x >= 0) {
+//	      while(y >= 0) {
+//	        int nextInt = level.charAt(i);
+//	        if(i == 0) {
+//	          System.out.print(" " + 0 + " ");
+//	          //add blank space
+//	        }
+//	        if(i == 1) {
+//	          System.out.print(" " + 1 + " ");
+//	          //add ground block
+//	        }
+//	        if(i == 2) {
+//	          System.out.print(" " + 2 + " ");
+//	          //add crate
+//	        }
+//	        if(i == 3) {
+//	          System.out.print(" " + 3 + " ");
+//	          //add character
+//	        }
+//	        System.out.println();
+//	        i++;
+//	        y++;
+//	      }
+//	      y = world.getYSize();
+//	      x++;
+//	    }
+//	    
+//	    //TODO enter actors into the grid based of of the ints recieved in the file
+////	  }
+//	}
 	
 	public void hide() 
 	{

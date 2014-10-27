@@ -15,6 +15,7 @@ import Objects.Item;
 import Objects.World;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 public class LevelFile {
@@ -27,38 +28,18 @@ public class LevelFile {
   }
 
   public void SaveLevel(String fileName, String world) {
-    try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-      System.out.println(world);
-      writer.write(world);
-      writer.close();
-      System.out.println("File Saved");
-    }
-    catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    // BufferedWriter writer = new BufferedWriter(new FileWriter("Levels/" + fileName));
+    FileHandle file = Gdx.files.local("levels/" + fileName);
+    System.out.println(world);
+    file.writeString(world, false);
+    System.out.println("File Saved");
+
   }
-  
-  public String LoadLevel(String file) {
-    BufferedReader load = null;
-    try {
-      load = new BufferedReader(new FileReader(file));
-    }
-    catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    String obj = null;
-    try {
-      obj = load.readLine();
-    }
-    catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    return obj;
-  }
+
+//  public String LoadLevel(String file) {
+//      FileHandle load = Gdx.files.local(file);
+//    return obj;
+//  }
 
   // public void SaveLevel(String fileName) {
   // Item level[][] = world.getWorld();
@@ -99,33 +80,33 @@ public class LevelFile {
   //
   // }
 
-//  public Item[][] LoadLevel(FileHandle file) {
-//    Item next = null;
-//    Item level[][] = new Item[world.getXSize()][world.getYSize()];
-//    String obj = String.valueOf(file.readString());
-//    int count = 0;
-//    char Ochar;
-//    for (int x = 0; x < world.getXSize(); x++) {
-//      for (int y = 0; y < world.getYSize(); y++) {
-//        Ochar = obj.charAt(count);
-//        if (Ochar == '0') {
-//          next = null;
-//        }
-//        if (Ochar == 'b') {
-//          next = new Box(myGame, x, y);
-//        }
-//        if (Ochar == 'g') {
-//          next = new GroundBlock(myGame, x, y);
-//        }
-//        if (Ochar == 'c') {
-//          next = new Character(myGame, x, y);
-//        }
-//
-//        level[x][y] = next;
-//        System.out.println(" added " + obj + " at " + x + y);
-//      }
-//    }
-//    return level;
-//  }
+  // public Item[][] LoadLevel(FileHandle file) {
+  // Item next = null;
+  // Item level[][] = new Item[world.getXSize()][world.getYSize()];
+  // String obj = String.valueOf(file.readString());
+  // int count = 0;
+  // char Ochar;
+  // for (int x = 0; x < world.getXSize(); x++) {
+  // for (int y = 0; y < world.getYSize(); y++) {
+  // Ochar = obj.charAt(count);
+  // if (Ochar == '0') {
+  // next = null;
+  // }
+  // if (Ochar == 'b') {
+  // next = new Box(myGame, x, y);
+  // }
+  // if (Ochar == 'g') {
+  // next = new GroundBlock(myGame, x, y);
+  // }
+  // if (Ochar == 'c') {
+  // next = new Character(myGame, x, y);
+  // }
+  //
+  // level[x][y] = next;
+  // System.out.println(" added " + obj + " at " + x + y);
+  // }
+  // }
+  // return level;
+  // }
 
 }
