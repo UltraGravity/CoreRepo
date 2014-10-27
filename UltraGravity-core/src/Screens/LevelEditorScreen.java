@@ -244,17 +244,22 @@ public class LevelEditorScreen extends GenericScreen
 	      while(y >= 0) {
 	        int nextInt = level.charAt(i);
 	        if(i == 0) {
+	          System.out.print(" " + 0 + " ");
 	          //add blank space
 	        }
 	        if(i == 1) {
+	          System.out.print(" " + 1 + " ");
 	          //add ground block
 	        }
 	        if(i == 2) {
+	          System.out.print(" " + 2 + " ");
 	          //add crate
 	        }
 	        if(i == 3) {
+	          System.out.print(" " + 3 + " ");
 	          //add character
 	        }
+	        System.out.println();
 	        i++;
 	      }
 	      y = world.getYSize();
