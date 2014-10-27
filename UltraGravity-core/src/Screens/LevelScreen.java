@@ -74,8 +74,8 @@ public class LevelScreen extends GenericScreen
 		textButtonStyle.font = font;
 		textButtonStyle.up = skin.getDrawable("Button");
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
-
-		files = Gdx.files.internal("Levels").list();
+		
+		files = Gdx.files.local("Levels").list();
 		int numFiles = files.length;
 		
 		for (int i = 0; i < numFiles; i++)
