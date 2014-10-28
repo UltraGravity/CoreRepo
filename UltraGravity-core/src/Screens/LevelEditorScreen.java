@@ -159,16 +159,7 @@ public class LevelEditorScreen extends GenericScreen
 		
 		world = new World(12, 6);
 		cell = new GridImage[world.getXSize() * world.getYSize()];
-		for (int y = 0; y < world.getYSize(); y++)
-		{
-			for (int x = 0; x < world.getXSize(); x++)
-			{
-				cell[index] = new GridImage(blankBlockStyle);
-				levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);				
-				index++;
-			}
-			levelGrid.row();
-		}
+		createGrid(cell);
 		
 		
 		
@@ -271,7 +262,23 @@ public class LevelEditorScreen extends GenericScreen
 	}
 	
 	
-	public void save()
+	private void createGrid(GridImage[] cell2) {
+	  int index = 0;
+	  for (int y = 0; y < world.getYSize(); y++)
+    {
+      for (int x = 0; x < world.getXSize(); x++)
+      {
+        cell[index] = new GridImage(blankBlockStyle);
+        levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);        
+        index++;
+      }
+      levelGrid.row();
+    }
+    
+  }
+
+
+  public void save()
 	{
 	  boolean nameFound = false;
 	  String fileName = "";
@@ -290,18 +297,18 @@ public class LevelEditorScreen extends GenericScreen
 	      nameFound = true;
 	    }
 	  }
-		String world = "";
+		String level = Integer.toString(world.getXSize()) + "," + Integer.toString(world.getYSize()) + ":";
 		for (Actor A : levelGrid.getChildren())
 		{
 			GridImage item = (GridImage) A;
 			System.out.println(item.cellValue);
-			world = world + item.cellValue;
+			level = level + item.cellValue;
 			
 		}
-		System.out.println(world);
+		System.out.println(level);
 		System.out.println(fileName);
 		levelFile = new LevelFile(myGame);
-		levelFile.SaveLevel(fileName, world);
+		levelFile.SaveLevel(fileName, level);
 		
 	}
 	
@@ -311,12 +318,37 @@ public class LevelEditorScreen extends GenericScreen
 	  System.out.println("loading " + file);
 	  levelFile = new LevelFile(myGame);
 	  String level = levelFile.LoadLevel("CL_0.txt"); //needs to have file selected with grid
-	    int x = world.getXSize();
-	    int y = world.getYSize();
-	    int index = 0;
+	  int i =0;  
+	  String xSizeString = "";
+	  String ySizeString = "";
+	  int index = 0;
+	  
+	  while(!String.valueOf(level.charAt(i)).equals(",")) {
+	    xSizeString = xSizeString + String.valueOf(level.charAt(i));
+	    i++;	      
+	    }
+	  int x = Integer.parseInt(xSizeString);
+	  System.out.println(x);
+	  
+	  i = xSizeString.length() + 1;
+	  while(!String.valueOf(level.charAt(i)).equals(":")) {
+      ySizeString = ySizeString + String.valueOf(level.charAt(i));
+      i++;        
+      }
+	  int y = Integer.parseInt(ySizeString);
+	  System.out.println(y);
+	  
+	  world.setSize(x, y);
+	  cell = new GridImage[x * y];
+	  System.out.println("New grid created " + (x*y));
+    createGrid(cell);
+	  
+	  i = xSizeString.length() + ySizeString.length() + 2;
+	  System.out.println(index);
+	  
 	    while(y > 0) {
 	      while(x > 0) {   //The x and y loops are here to help place in a grid
-	        int nextInt = level.charAt(index);
+	        int nextInt = level.charAt(i);
 	        if(nextInt == '0') {
 	          System.out.print(" " + 0 + " ");
 	          cell[index] = new GridImage(blankBlockStyle);
@@ -342,6 +374,7 @@ public class LevelEditorScreen extends GenericScreen
 	          //add character
 	        }
 	        index++;
+	        i++;
 	        x--;
 	      }
         System.out.println();
