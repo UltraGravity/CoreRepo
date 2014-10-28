@@ -6,6 +6,9 @@ import Objects.World;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -94,7 +97,7 @@ public class LevelEditorScreen extends GenericScreen
 
 	public void show()
 	{
-    
+    Gdx.input.setCatchBackKey(true);
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 		toolTable = new Table();
@@ -150,11 +153,12 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.bottom().left();
 		levelGrid.setSize(screenWidth, screenHeight);;
 		
-		cell = new GridImage[72];
+		
 
 		int index = 0;
 		
 		world = new World(12, 6);
+		cell = new GridImage[world.getXSize() * world.getYSize()];
 		for (int y = 0; y < world.getYSize(); y++)
 		{
 			for (int x = 0; x < world.getXSize(); x++)
@@ -193,6 +197,15 @@ public class LevelEditorScreen extends GenericScreen
 	        	}
 	        }});
 		
+    InputProcessor backProcessor = new InputAdapter() {
+      @Override
+      public boolean keyDown(int keycode) {
+        if((keycode == Keys.BACK) || (keycode == Keys.BACKSPACE)) {
+          myGame.changeToMainMenuScreen();
+        }
+        return false;
+      }
+    };
     
 		backButton.addListener(new ChangeListener() 
 		{
@@ -294,35 +307,45 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void load(String file) 
 	{
+	  levelGrid.clearChildren();
 	  System.out.println("loading " + file);
 	  levelFile = new LevelFile(myGame);
 	  String level = levelFile.LoadLevel("CL_0.txt"); //needs to have file selected with grid
 	    int x = world.getXSize();
 	    int y = world.getYSize();
-	    int i = 0;
+	    int index = 0;
 	    while(y > 0) {
 	      while(x > 0) {   //The x and y loops are here to help place in a grid
-	        int nextInt = level.charAt(i);
+	        int nextInt = level.charAt(index);
 	        if(nextInt == '0') {
 	          System.out.print(" " + 0 + " ");
+	          cell[index] = new GridImage(blankBlockStyle);
+	          levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);  
 	          //add blank space
 	        }
 	        if(nextInt == '1') {
 	          System.out.print(" " + 1 + " ");
+	          cell[index] = new GridImage(groundBlockStyle);
+            levelGrid.add(cell[index]).size(screenHeight/8);
 	          //add ground block
 	        }
 	        if(nextInt == '2') {
 	          System.out.print(" " + 2 + " ");
+	          cell[index] = new GridImage(boxBlockStyle);
+            levelGrid.add(cell[index]).size(screenHeight/8);
 	          //add crate
 	        }
 	        if(nextInt == '3') {
 	          System.out.print(" " + 3 + " ");
+	          cell[index] = new GridImage(safeZoneBlockStyle);
+            levelGrid.add(cell[index]).size(screenHeight/8);
 	          //add character
 	        }
-	        i++;
+	        index++;
 	        x--;
 	      }
         System.out.println();
+        levelGrid.row();
 	      x = world.getXSize();
 	      y--;
 	    }
