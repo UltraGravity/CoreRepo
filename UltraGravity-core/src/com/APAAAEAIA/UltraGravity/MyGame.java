@@ -114,9 +114,9 @@ public class MyGame extends Game
 		levelScreen = new LevelScreen(this);
 		this.setScreen(levelScreen);
 	}
-	
-	
-	public void dispose()
+
+
+  public void dispose()
 	{
 		// Called when the game is closed for good.
 		batch.dispose();

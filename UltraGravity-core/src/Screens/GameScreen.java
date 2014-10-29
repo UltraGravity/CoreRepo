@@ -1,6 +1,7 @@
 package Screens;
 
 import Loaders.GameAssets;
+import Objects.GridImage;
 import Objects.Item;
 import Objects.World;
 
@@ -8,6 +9,7 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class GameScreen extends GenericScreen
 {
+  String levelString;
 
 	GameAssets gameAssets;
 	World world;
@@ -77,5 +79,74 @@ public class GameScreen extends GenericScreen
 	
 		super.dispose();
 	}
+	
+	
+	
+	//TODO use below to set the level based on the string from either a file or the level editor
+  public void setLevel(String level) {
+    levelString = level;
+  }
+  
+  public void setWorld(String level) {
+    int i =0;  
+    String xSizeString = "";
+    String ySizeString = "";
+    int index = 0;
+    
+    while(!String.valueOf(level.charAt(i)).equals(",")) {
+      xSizeString = xSizeString + String.valueOf(level.charAt(i));
+      i++;        
+      }
+    int x = Integer.parseInt(xSizeString);
+    System.out.println(x);
+    
+    i = xSizeString.length() + 1;
+    while(!String.valueOf(level.charAt(i)).equals(":")) {
+      ySizeString = ySizeString + String.valueOf(level.charAt(i));
+      i++;        
+      }
+    int y = Integer.parseInt(ySizeString);
+    System.out.println(y);
+    
+    world.setSize(x, y);
+    System.out.println(world.getXSize());
+    System.out.println(world.getYSize());
+    System.out.println("New grid created " + (x*y));
+    
+    i = xSizeString.length() + ySizeString.length() + 2;
+    System.out.println(index);
+    
+      while(y > 0) {
+        while(x > 0) {   //The x and y loops are here to help place in a grid
+          int nextInt = level.charAt(i);
+          if(nextInt == '0') {
+            System.out.print(" " + 0 + " ");
+            //add blank space
+          }
+          if(nextInt == '1') {
+            System.out.print(" " + 1 + " ");
+            world.addItem(1, x * 100, y * 100);
+            //add ground block
+          }
+          if(nextInt == '2') {
+            System.out.print(" " + 2 + " ");
+            world.addItem(2, x * 100, y * 100);
+            //add crate
+          }
+          if(nextInt == '3') {
+            System.out.print(" " + 3 + " ");
+            world.addItem(3, x * 100, y * 100);
+            //add character
+          }
+          index++;
+          i++;
+          x--;
+        }
+        System.out.println();
+        x = world.getXSize();
+        y--;
+      }
+      
+  }
 
 }

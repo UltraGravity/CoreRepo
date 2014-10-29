@@ -162,31 +162,8 @@ public class LevelEditorScreen extends GenericScreen
 		createGrid(cell);
 		
 		
+		addListeners(levelGrid);
 		
-		levelGrid.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	GridImage image = (GridImage) actor;
-	        	image.setStyle(selectedStyle);
-	        	
-	        	if (selectedStyle == blankBlockStyle)
-	        	{
-	        		image.cellValue = 0;
-	        	}
-	        	if (selectedStyle == groundBlockStyle)
-	        	{
-	        		image.cellValue = 1;
-	        	}
-	        	if (selectedStyle == boxBlockStyle)
-	        	{
-	        		image.cellValue = 2;
-	        	}
-	        	if (selectedStyle == safeZoneBlockStyle)
-	        	{
-	        		image.cellValue = 3;
-	        	}
-	        }});
 		
     InputProcessor backProcessor = new InputAdapter() {
       @Override
@@ -253,8 +230,9 @@ public class LevelEditorScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	//save();
-	        	//play();
+	          System.out.println("Play Current Level");
+	          //save()
+	          //play()
 	        }});
 		
 		stage.addActor(toolTable);
@@ -262,7 +240,36 @@ public class LevelEditorScreen extends GenericScreen
 	}
 	
 	
-	private void createGrid(GridImage[] cell2) {
+	private void addListeners(Table levelGrid2) {
+	  levelGrid.addListener(new ChangeListener() 
+    {
+          public void changed (ChangeEvent event, Actor actor) 
+          {
+            GridImage image = (GridImage) actor;
+            image.setStyle(selectedStyle);
+            
+            if (selectedStyle == blankBlockStyle)
+            {
+              image.cellValue = 0;
+            }
+            if (selectedStyle == groundBlockStyle)
+            {
+              image.cellValue = 1;
+            }
+            if (selectedStyle == boxBlockStyle)
+            {
+              image.cellValue = 2;
+            }
+            if (selectedStyle == safeZoneBlockStyle)
+            {
+              image.cellValue = 3;
+            }
+          }});
+    
+  }
+
+
+  private void createGrid(GridImage[] cell2) {
 	  int index = 0;
 	  for (int y = 0; y < world.getYSize(); y++)
     {
@@ -276,48 +283,71 @@ public class LevelEditorScreen extends GenericScreen
     }
     
   }
-
-
-  public void save()
+	public String getLastLevel() 
+	{
+	  String level = "";
+	  level = getLevelString(getLastLevelName());
+	  return level;
+	}
+	
+	public String getLastLevelName() 
 	{
 	  boolean nameFound = false;
+    String fileName = "";
+    int fName = 0;
+    while(!nameFound) 
+    {
+      fileName = "CL_" + Integer.toString(fName) + ".txt";
+      System.out.println("Checking if " + fileName + " is an available name");
+      FileHandle file = Gdx.files.local("Levels/" + fileName);
+      if(file.exists()) {
+        System.out.println("File existed");
+        fName++;
+      }
+      else {
+        System.out.println(fileName + " is being created");
+        nameFound = true;
+      }
+    }
+    return fileName;
+	}
+
+	public String getLevelString() 
+	{
+	  String level = Integer.toString(world.getXSize()) + "," + Integer.toString(world.getYSize()) + ":";
+    for (Actor A : levelGrid.getChildren())
+    {
+      GridImage item = (GridImage) A;
+      System.out.println(item.cellValue);
+      level = level + item.cellValue;
+      
+    }
+    return level;
+	}
+	
+  public void save()
+	{
 	  String fileName = "";
-	  int fName = 0;
-	  while(!nameFound) 
-	  {
-	    fileName = "CL_" + Integer.toString(fName) + ".txt";
-	    System.out.println("Checking if " + fileName + " is an available name");
-	    FileHandle file = Gdx.files.local("Levels/" + fileName);
-	    if(file.exists()) {
-	      System.out.println("File existed");
-	      fName++;
-	    }
-	    else {
-	      System.out.println(fileName + " is being created");
-	      nameFound = true;
-	    }
-	  }
-		String level = Integer.toString(world.getXSize()) + "," + Integer.toString(world.getYSize()) + ":";
-		for (Actor A : levelGrid.getChildren())
-		{
-			GridImage item = (GridImage) A;
-			System.out.println(item.cellValue);
-			level = level + item.cellValue;
-			
-		}
+	  fileName = getLastLevelName();	  
+		String level = getLevelString();
 		System.out.println(level);
 		System.out.println(fileName);
 		levelFile = new LevelFile(myGame);
 		levelFile.SaveLevel(fileName, level);
-		
 	}
+  
+  public String getLevelString(String file) 
+  {
+    System.out.println("loading " + file);
+    levelFile = new LevelFile(myGame);
+    String level = levelFile.LoadLevel(file); //needs to have file selected with grid
+    return level;
+  }
 	
 	public void load(String file) 
 	{
 	  levelGrid.clearChildren();
-	  System.out.println("loading " + file);
-	  levelFile = new LevelFile(myGame);
-	  String level = levelFile.LoadLevel("CL_0.txt"); //needs to have file selected with grid
+	  String level = getLevelString(file);
 	  int i =0;  
 	  String xSizeString = "";
 	  String ySizeString = "";
@@ -385,9 +415,7 @@ public class LevelEditorScreen extends GenericScreen
 	      x = world.getXSize();
 	      y--;
 	    }
-	    
-	    //TODO enter actors into the grid based of of the ints recieved in the file
-//	  }
+	    addListeners(levelGrid);
 	}
 	
 	public void hide() 
