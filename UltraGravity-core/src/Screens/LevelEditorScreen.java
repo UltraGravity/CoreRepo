@@ -350,7 +350,6 @@ public class LevelEditorScreen extends GenericScreen
 	  
 	  levelGrid.reset();
 	    while(y > 0) {
-	      System.out.print(y);
 	      while(x > 0) {   //The x and y loops are here to help place in a grid
 	        int nextInt = level.charAt(i);
 	        if(nextInt == '0') {
