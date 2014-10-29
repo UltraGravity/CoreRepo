@@ -314,6 +314,7 @@ public class LevelEditorScreen extends GenericScreen
 
 	public String getLevelString() 
 	{
+	  
 	  String level = Integer.toString(world.getXSize()) + "," + Integer.toString(world.getYSize()) + ":";
     for (Actor A : levelGrid.getChildren())
     {

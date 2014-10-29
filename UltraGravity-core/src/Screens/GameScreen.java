@@ -12,6 +12,7 @@ public class GameScreen extends GenericScreen
   String levelString;
 
 	World world; 
+	LevelEditorScreen levelEditor;
 	Item[][] stuff;
 	
 	public GameScreen(MyGame myGame) 
@@ -83,6 +84,12 @@ public class GameScreen extends GenericScreen
 	//TODO use below to set the level based on the string from either a file or the level editor
   public void setLevel(String level) {
     levelString = level;
+  }
+  
+  public String getLevelString(Boolean editor)
+  {
+    levelEditor.get
+    return level;
   }
   
   public void setWorld(String level) {
