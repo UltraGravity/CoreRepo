@@ -33,6 +33,8 @@ public class LevelEditorScreen extends GenericScreen
 	Stage stage;
 	BitmapFont font;
 	Skin skin;
+	Table level;
+	
 	Table toolTable;
 	Table levelGrid;
 	TextButtonStyle textButtonStyle;
@@ -157,7 +159,7 @@ public class LevelEditorScreen extends GenericScreen
 
 		int index = 0;
 		
-		world = new World(12, 6);
+		world = new World(24, 12);
 		cell = new GridImage[world.getXSize() * world.getYSize()];
 		createGrid(cell);
 		
