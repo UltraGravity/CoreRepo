@@ -229,10 +229,8 @@ public class LevelEditorScreen extends GenericScreen
 		playButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	          System.out.println("Play Current Level");
-	          //save()
-	          //play()
+	        {	
+	        	myGame.changeToGameScreen();
 	        }});
 		
 		stage.addActor(toolTable);

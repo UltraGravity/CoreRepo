@@ -11,13 +11,12 @@ public class GameScreen extends GenericScreen
 {
   String levelString;
 
-	GameAssets gameAssets;
-	World world;
+	World world; 
+	Item[][] stuff;
 	
-	public GameScreen(MyGame myGame, GameAssets gameAssets) 
+	public GameScreen(MyGame myGame) 
 	{
 		super(myGame);
-		this.gameAssets = gameAssets;
 	}
 
 
@@ -26,10 +25,6 @@ public class GameScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{
-    System.out.println("beginning");
-    world = new World(6,12);
-    System.out.println("World is Set");
-    Item[][] stuff = world.getWorld();
     for (int x = 0; x < world.getXSize(); x++) {
       for (int y = 0; y < world.getYSize(); y++) {
         Item nextItem = stuff[x][y];
@@ -47,7 +42,10 @@ public class GameScreen extends GenericScreen
 
 	public void show()
 	{
-		
+	    System.out.println("beginning");
+	    world = new World(6,12);
+	    System.out.println("World is Set");
+	    Item[][] stuff = world.getWorld();
 	}
 
 	public void hide() 

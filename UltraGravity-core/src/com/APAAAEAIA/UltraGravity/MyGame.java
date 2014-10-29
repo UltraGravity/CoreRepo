@@ -115,6 +115,11 @@ public class MyGame extends Game
 		this.setScreen(levelScreen);
 	}
 
+	public void changeToGameScreen()
+	{
+		gameScreen = new GameScreen(this);
+		this.setScreen(gameScreen);
+	}
 
   public void dispose()
 	{
