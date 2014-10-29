@@ -339,6 +339,8 @@ public class LevelEditorScreen extends GenericScreen
 	  System.out.println(y);
 	  
 	  world.setSize(x, y);
+	  System.out.println(world.getXSize());
+	  System.out.println(world.getYSize());
 	  cell = new GridImage[x * y];
 	  System.out.println("New grid created " + (x*y));
     createGrid(cell);
@@ -346,7 +348,9 @@ public class LevelEditorScreen extends GenericScreen
 	  i = xSizeString.length() + ySizeString.length() + 2;
 	  System.out.println(index);
 	  
+	  levelGrid.reset();
 	    while(y > 0) {
+	      System.out.print(y);
 	      while(x > 0) {   //The x and y loops are here to help place in a grid
 	        int nextInt = level.charAt(i);
 	        if(nextInt == '0') {

@@ -26,7 +26,6 @@ public class GameScreen extends GenericScreen
 	{
     System.out.println("beginning");
     world = new World(6,12);
-//    world.setWorld();
     System.out.println("World is Set");
     Item[][] stuff = world.getWorld();
     for (int x = 0; x < world.getXSize(); x++) {
