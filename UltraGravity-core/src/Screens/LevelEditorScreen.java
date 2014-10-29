@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -33,10 +34,12 @@ public class LevelEditorScreen extends GenericScreen
 	Stage stage;
 	BitmapFont font;
 	Skin skin;
-	Table level;
 	
+	Table mapTable;
 	Table toolTable;
 	Table levelGrid;
+	
+	ScrollPane scrollPane;
 	TextButtonStyle textButtonStyle;
 	
 	Skin buttonSkin;
@@ -87,6 +90,8 @@ public class LevelEditorScreen extends GenericScreen
         
 		batch.begin();
 		
+			mapTable.debug();
+			mapTable.debugTable();
 			toolTable.debug();
 			toolTable.debugTable();
 			levelGrid.debug();
@@ -99,15 +104,33 @@ public class LevelEditorScreen extends GenericScreen
 
 	public void show()
 	{
-    Gdx.input.setCatchBackKey(true);
-		stage = new Stage(new ScreenViewport());
+		Gdx.input.setCatchBackKey(true);
+    
+		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
+		
+		mapTable = new Table();
+		
+		mapTable.setHeight(screenHeight);
+		mapTable.setWidth(screenWidth);
+		mapTable.top();
+		mapTable.setBounds(0, 0, screenWidth, screenHeight);
+		
+		mapTable.setX(0);
+		
+		System.out.println(screenHeight);
+		
+		levelGrid = new Table();
+		//levelGrid.setFillParent(true);
+		//levelGrid.setHeight(screenHeight - screenHeight/10);
+		
+		scrollPane = new ScrollPane(levelGrid);
+		
 		toolTable = new Table();
 		toolTable.setFillParent(true);
 		
-		levelGrid = new Table();
-		levelGrid.setFillParent(true);
-		levelGrid.setHeight(screenHeight - screenHeight/10);
+		mapTable.add(scrollPane);
+		mapTable.top();
 		
 		font = myGame.assetLoader.font;
 		
@@ -152,30 +175,30 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.add(loadButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(playButton).pad(screenWidth/100).size(screenHeight/12);
 		
-		toolTable.bottom().left();
-		levelGrid.setSize(screenWidth, screenHeight);;
+		toolTable.bottom().center().bottom();
+		//levelGrid.setSize(screenWidth, screenHeight);
 		
-		
-
 		int index = 0;
-		
-		world = new World(24, 12);
+		world = new World(20, 10);
 		cell = new GridImage[world.getXSize() * world.getYSize()];
 		createGrid(cell);
 		
 		
 		addListeners(levelGrid);
 		
+		stage.addActor(mapTable);
+		stage.addActor(toolTable);
 		
-    InputProcessor backProcessor = new InputAdapter() {
-      @Override
-      public boolean keyDown(int keycode) {
-        if((keycode == Keys.BACK) || (keycode == Keys.BACKSPACE)) {
-          myGame.changeToMainMenuScreen();
-        }
-        return false;
-      }
-    };
+		// This might not be working because the action listener is set to the stage.
+		InputProcessor backProcessor = new InputAdapter() 
+		{
+			public boolean keyDown(int keycode) 
+			{
+				if((keycode == Keys.BACK) || (keycode == Keys.BACKSPACE)) {
+					myGame.changeToMainMenuScreen();
+				}
+				return false;
+			}};
     
 		backButton.addListener(new ChangeListener() 
 		{
@@ -234,189 +257,204 @@ public class LevelEditorScreen extends GenericScreen
 	        {	
 	        	myGame.changeToGameScreen();
 	        }});
-		
-		stage.addActor(toolTable);
-		stage.addActor(levelGrid);
 	}
 	
 	
-	private void addListeners(Table levelGrid2) {
-	  levelGrid.addListener(new ChangeListener() 
-    {
-          public void changed (ChangeEvent event, Actor actor) 
-          {
-            GridImage image = (GridImage) actor;
-            image.setStyle(selectedStyle);
+	
+	
+	private void addListeners(Table levelGrid2) 
+	{
+		levelGrid.addListener(new ChangeListener() 
+		{
+			public void changed (ChangeEvent event, Actor actor) 
+			{
+				GridImage image = (GridImage) actor;
+				image.setStyle(selectedStyle);
             
-            if (selectedStyle == blankBlockStyle)
-            {
-              image.cellValue = 0;
-            }
-            if (selectedStyle == groundBlockStyle)
-            {
-              image.cellValue = 1;
-            }
-            if (selectedStyle == boxBlockStyle)
-            {
-              image.cellValue = 2;
-            }
-            if (selectedStyle == safeZoneBlockStyle)
-            {
-              image.cellValue = 3;
-            }
-          }});
+				if (selectedStyle == blankBlockStyle)
+				{
+					image.cellValue = 0;
+				}
+				if (selectedStyle == groundBlockStyle)
+				{
+					image.cellValue = 1;
+				}
+				if (selectedStyle == boxBlockStyle)
+				{
+					image.cellValue = 2;
+				}
+				if (selectedStyle == safeZoneBlockStyle)
+				{
+					image.cellValue = 3;
+				}
+			}});
     
   }
 
 
-  private void createGrid(GridImage[] cell2) {
-	  int index = 0;
-	  for (int y = 0; y < world.getYSize(); y++)
-    {
-      for (int x = 0; x < world.getXSize(); x++)
-      {
-        cell[index] = new GridImage(blankBlockStyle);
-        levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);        
-        index++;
-      }
-      levelGrid.row();
-    }
-    
-  }
-	public String getLastLevel() 
+	private void createGrid(GridImage[] cell2)
 	{
-	  String level = "";
-	  level = getLevelString(getLastLevelName());
-	  return level;
-	}
-	
-	public String getLastLevelName() 
-	{
-	  boolean nameFound = false;
-    String fileName = "";
-    int fName = 0;
-    while(!nameFound) 
-    {
-      fileName = "CL_" + Integer.toString(fName) + ".txt";
-      System.out.println("Checking if " + fileName + " is an available name");
-      FileHandle file = Gdx.files.local("Levels/" + fileName);
-      if(file.exists()) {
-        System.out.println("File existed");
-        fName++;
-      }
-      else {
-        System.out.println(fileName + " is being created");
-        nameFound = true;
-      }
-    }
-    return fileName;
+		int index = 0;
+		for (int y = 0; y < world.getYSize(); y++)
+		{
+			for (int x = 0; x < world.getXSize(); x++)
+			{
+				cell[index] = new GridImage(blankBlockStyle);
+				levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
+				index++;
+			}
+			levelGrid.row();
+		}
+
 	}
 
-	public String getLevelString() 
+	public String getLastLevel()
 	{
-	  
-	  String level = Integer.toString(world.getXSize()) + "," + Integer.toString(world.getYSize()) + ":";
-    for (Actor A : levelGrid.getChildren())
-    {
-      GridImage item = (GridImage) A;
-      System.out.println(item.cellValue);
-      level = level + item.cellValue;
-      
-    }
-    return level;
+		String level = "";
+		level = getLevelString(getLastLevelName());
+		return level;
 	}
-	
-  public void save()
+
+	public String getLastLevelName()
 	{
-	  String fileName = "";
-	  fileName = getLastLevelName();	  
+		boolean nameFound = false;
+		String fileName = "";
+		int fName = 0;
+		while (!nameFound)
+		{
+			fileName = "CL_" + Integer.toString(fName) + ".txt";
+			System.out.println("Checking if " + fileName
+					+ " is an available name");
+			FileHandle file = Gdx.files.local("Levels/" + fileName);
+			if (file.exists())
+			{
+				System.out.println("File existed");
+				fName++;
+			}
+			else
+			{
+				System.out.println(fileName + " is being created");
+				nameFound = true;
+			}
+		}
+		return fileName;
+	}
+
+	public String getLevelString()
+	{
+
+		String level = Integer.toString(world.getXSize()) + ","
+				+ Integer.toString(world.getYSize()) + ":";
+		for (Actor A : levelGrid.getChildren())
+		{
+			GridImage item = (GridImage) A;
+			System.out.println(item.cellValue);
+			level = level + item.cellValue;
+
+		}
+		return level;
+	}
+
+	public void save()
+	{
+		String fileName = "";
+		fileName = getLastLevelName();
 		String level = getLevelString();
 		System.out.println(level);
 		System.out.println(fileName);
 		levelFile = new LevelFile(myGame);
 		levelFile.SaveLevel(fileName, level);
 	}
-  
-  public String getLevelString(String file) 
-  {
-    System.out.println("loading " + file);
-    levelFile = new LevelFile(myGame);
-    String level = levelFile.LoadLevel(file); //needs to have file selected with grid
-    return level;
-  }
-	
-	public void load(String file) 
+
+	public String getLevelString(String file)
 	{
-	  levelGrid.clearChildren();
-	  String level = getLevelString(file);
-	  int i =0;  
-	  String xSizeString = "";
-	  String ySizeString = "";
-	  int index = 0;
-	  
-	  while(!String.valueOf(level.charAt(i)).equals(",")) {
-	    xSizeString = xSizeString + String.valueOf(level.charAt(i));
-	    i++;	      
-	    }
-	  int x = Integer.parseInt(xSizeString);
-	  System.out.println(x);
-	  
-	  i = xSizeString.length() + 1;
-	  while(!String.valueOf(level.charAt(i)).equals(":")) {
-      ySizeString = ySizeString + String.valueOf(level.charAt(i));
-      i++;        
-      }
-	  int y = Integer.parseInt(ySizeString);
-	  System.out.println(y);
-	  
-	  world.setSize(x, y);
-	  System.out.println(world.getXSize());
-	  System.out.println(world.getYSize());
-	  cell = new GridImage[x * y];
-	  System.out.println("New grid created " + (x*y));
-    createGrid(cell);
-	  
-	  i = xSizeString.length() + ySizeString.length() + 2;
-	  System.out.println(index);
-	  
-	  levelGrid.reset();
-	    while(y > 0) {
-	      while(x > 0) {   //The x and y loops are here to help place in a grid
-	        int nextInt = level.charAt(i);
-	        if(nextInt == '0') {
-	          System.out.print(" " + 0 + " ");
-	          cell[index] = new GridImage(blankBlockStyle);
-	          levelGrid.add(cell[index]).size(screenHeight/8);//.size(screenHeight/7);  
-	          //add blank space
-	        }
-	        if(nextInt == '1') {
-	          System.out.print(" " + 1 + " ");
-	          cell[index] = new GridImage(groundBlockStyle);
-            levelGrid.add(cell[index]).size(screenHeight/8);
-	          //add ground block
-	        }
-	        if(nextInt == '2') {
-	          System.out.print(" " + 2 + " ");
-	          cell[index] = new GridImage(boxBlockStyle);
-            levelGrid.add(cell[index]).size(screenHeight/8);
-	          //add crate
-	        }
-	        if(nextInt == '3') {
-	          System.out.print(" " + 3 + " ");
-	          cell[index] = new GridImage(safeZoneBlockStyle);
-            levelGrid.add(cell[index]).size(screenHeight/8);
-	          //add character
-	        }
-	        index++;
-	        i++;
-	        x--;
-	      }
-        System.out.println();
-        levelGrid.row();
-	      x = world.getXSize();
-	      y--;
-	    }
-	    addListeners(levelGrid);
+		System.out.println("loading " + file);
+		levelFile = new LevelFile(myGame);
+		String level = levelFile.LoadLevel(file); // needs to have file selected
+													// with grid
+		return level;
+	}
+
+	public void load(String file)
+	{
+		levelGrid.clearChildren();
+		String level = getLevelString(file);
+		int i = 0;
+		String xSizeString = "";
+		String ySizeString = "";
+		int index = 0;
+
+		while (!String.valueOf(level.charAt(i)).equals(","))
+		{
+			xSizeString = xSizeString + String.valueOf(level.charAt(i));
+			i++;
+		}
+		int x = Integer.parseInt(xSizeString);
+		System.out.println(x);
+
+		i = xSizeString.length() + 1;
+		while (!String.valueOf(level.charAt(i)).equals(":"))
+		{
+			ySizeString = ySizeString + String.valueOf(level.charAt(i));
+			i++;
+		}
+		int y = Integer.parseInt(ySizeString);
+		System.out.println(y);
+
+		world.setSize(x, y);
+		System.out.println(world.getXSize());
+		System.out.println(world.getYSize());
+		cell = new GridImage[x * y];
+		System.out.println("New grid created " + (x * y));
+		createGrid(cell);
+
+		i = xSizeString.length() + ySizeString.length() + 2;
+		System.out.println(index);
+
+		levelGrid.reset();
+		while (y > 0)
+		{
+			while (x > 0)
+			{ // The x and y loops are here to help place in a grid
+				int nextInt = level.charAt(i);
+				if (nextInt == '0')
+				{
+					System.out.print(" " + 0 + " ");
+					cell[index] = new GridImage(blankBlockStyle);
+					levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
+					// add blank space
+				}
+				if (nextInt == '1')
+				{
+					System.out.print(" " + 1 + " ");
+					cell[index] = new GridImage(groundBlockStyle);
+					levelGrid.add(cell[index]).size(screenHeight / 8);
+					// add ground block
+				}
+				if (nextInt == '2')
+				{
+					System.out.print(" " + 2 + " ");
+					cell[index] = new GridImage(boxBlockStyle);
+					levelGrid.add(cell[index]).size(screenHeight / 8);
+					// add crate
+				}
+				if (nextInt == '3')
+				{
+					System.out.print(" " + 3 + " ");
+					cell[index] = new GridImage(safeZoneBlockStyle);
+					levelGrid.add(cell[index]).size(screenHeight / 8);
+					// add character
+				}
+				index++;
+				i++;
+				x--;
+			}
+			System.out.println();
+			levelGrid.row();
+			x = world.getXSize();
+			y--;
+		}
+		addListeners(levelGrid);
 	}
 	
 	public void hide() 
