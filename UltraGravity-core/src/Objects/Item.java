@@ -9,16 +9,10 @@ public class Item {
   int gravity;
   int x;
   int y;
-  int angle;
-  int xSpeed;
-  int ySpeed;
-  int rotSpeed;
-  int xAccel;
-  int yAccel;
-  int rotAccel;
-  Boolean phys = false;
+
   
   World world;
+  MovingItem movingItem;
   public MyGame myGame;
   public TextureRegion texture;
   
@@ -28,54 +22,13 @@ public class Item {
     this.x = x;
     this.y = y;
     TextureRegion texture = new TextureRegion();
-//    this.xSpeed = xSpeed;
-//    this.ySpeed = ySpeed;
-//    this.rotSpeed = rotSpeed;
-//    this.angle = angle;
-  }
-  
-  
-  public void update() {
-    if (phys) {
-      updatePhysics();
-    }
-    else {
-      updateEditor();
-    }
-  }
 
-  public void updateEditor() {
-    
-  }
-  
-  public void updatePhysics() {
-    if (gravity == 0) {  // direction towards home button when home button is in right hand
-      xAccel++;
-    }
-    if (gravity == 1) { // up when home button is in right hand
-      yAccel--;
-    }
-    if (gravity == 2) { // left of standard
-      xAccel--;
-    }
-    if (gravity == 3) { // down of standard
-      yAccel++;
-    }
-    xSpeed = xSpeed + xAccel;
-    ySpeed = ySpeed + yAccel;
-
-    x = x + xSpeed;
-    y = y + ySpeed;
   }
 
   public void draw() {
 
   }
-  
-  public void setPhys(Boolean phys) {
-    this.phys = phys;
-  }
-  
+
   public TextureRegion getTexture() {
     return this.texture;
   }
@@ -88,6 +41,11 @@ public class Item {
   public int getY()
   {
     return y;
+  }
+  
+  public void update(int gravity) {
+    this.gravity = gravity;
+    movingItem.update(gravity);
   }
 
 }

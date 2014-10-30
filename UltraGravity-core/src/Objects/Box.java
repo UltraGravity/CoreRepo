@@ -4,7 +4,7 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Box extends Item{
+public class Box extends MovingItem{
   private Box box;
 
 //  Texture texture = new Texture(Gdx.files.internal("data/box.png"));

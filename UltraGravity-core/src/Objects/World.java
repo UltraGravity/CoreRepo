@@ -11,6 +11,8 @@ public class World {
   
   int boundX = worldX * 100;
   int boundY = worldY * 100;
+  
+  int gravity;
 
   ArrayList<Item> world = new ArrayList();
   
@@ -23,14 +25,17 @@ public class World {
   }
 
 
-  public ArrayList<Item> physUpdate() {
+  public ArrayList<Item> update(int gravity) {
     for(int i = 0; i < world.size(); i++) {
       Item current = world.get(i);
-      current.updatePhysics();      
+      current.update(gravity);      
     }
     return world;
   }
   
+  public void setGravity(int grav) {
+    this.gravity = grav;
+  }
   
   public void addItem(int item, int x, int y) 
   {
