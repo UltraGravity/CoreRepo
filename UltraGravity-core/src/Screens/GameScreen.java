@@ -44,9 +44,7 @@ public class GameScreen extends GenericScreen
 	public void show()
 	{
 	    System.out.println("beginning");
-	    world = new World(6,12);
-	    System.out.println("World is Set");
-	    Item[][] stuff = world.getWorld();
+	    setWorld(getLevelString(true));
 	}
 
 	public void hide() 
@@ -82,13 +80,12 @@ public class GameScreen extends GenericScreen
 	
 	
 	//TODO use below to set the level based on the string from either a file or the level editor
-  public void setLevel(String level) {
-    levelString = level;
-  }
   
   public String getLevelString(Boolean editor)
   {
-    levelEditor.get
+    String level = levelEditor.getLevelString();
+    setWorld(level);
+    System.out.println(level);
     return level;
   }
   
@@ -120,6 +117,8 @@ public class GameScreen extends GenericScreen
     
     i = xSizeString.length() + ySizeString.length() + 2;
     System.out.println(index);
+    
+    world.setBounds(x * 100, y * 100);
     
       while(y > 0) {
         while(x > 0) {   //The x and y loops are here to help place in a grid
