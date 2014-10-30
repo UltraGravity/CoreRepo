@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class World {
+  //made this class a bit more usefull without those pesky arrays
   int worldX = 12;
   int worldY = 6;
   
