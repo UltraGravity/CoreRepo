@@ -13,6 +13,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -174,7 +175,7 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.center().bottom();
 		
 		int index = 0;
-		world = new World(20, 10);
+		world = new World(new Vector2(0,-10), true);
 		cell = new GridImage[world.getXSize() * world.getYSize()];
 		createGrid(cell);
 		
