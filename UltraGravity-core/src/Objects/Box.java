@@ -3,9 +3,11 @@ package Objects;
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Box extends MovingItem{
   private Box box;
+  
 
 //  Texture texture = new Texture(Gdx.files.internal("data/box.png"));
   
@@ -13,6 +15,8 @@ public class Box extends MovingItem{
   {
     super(myGame, x, y);
     texture = myGame.assetLoader.crate;
+    shape = new PolygonShape();
+    shape.setAsBox(100, 100);
   }
   
   

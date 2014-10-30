@@ -3,9 +3,12 @@ package Screens;
 import Loaders.GameAssets;
 import Objects.GridImage;
 import Objects.Item;
-import Objects.World;
+import Objects.ThePlane;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class GameScreen extends GenericScreen
 {
@@ -14,6 +17,7 @@ public class GameScreen extends GenericScreen
 	World world; 
 	LevelEditorScreen levelEditor;
 	Item[][] stuff;
+	ThePlane thePlane;
 	
 	public GameScreen(MyGame myGame) 
 	{
@@ -26,14 +30,7 @@ public class GameScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{
-    for (int x = 0; x < world.getXSize(); x++) {
-      for (int y = 0; y < world.getYSize(); y++) {
-        Item nextItem = stuff[x][y];
-        if(nextItem != null) {
-          batch.draw(nextItem.getTexture(), nextItem.getX(), nextItem.getY());
-        }
-      }
-    }
+	  
 	}
 
 	public void resize(int width, int height) 
@@ -45,6 +42,7 @@ public class GameScreen extends GenericScreen
 	{
 	    System.out.println("beginning");
 	    setWorld(getLevelString(true));
+	    world = new World(new Vector2(0,-10),true);
 	}
 
 	public void hide() 
@@ -110,15 +108,15 @@ public class GameScreen extends GenericScreen
     int y = Integer.parseInt(ySizeString);
     System.out.println(y);
     
-    world.setSize(x, y);
-    System.out.println(world.getXSize());
-    System.out.println(world.getYSize());
+    thePlane.setSize(x, y);
+    System.out.println(thePlane.getXSize());
+    System.out.println(thePlane.getYSize());
     System.out.println("New grid created " + (x*y));
     
     i = xSizeString.length() + ySizeString.length() + 2;
     System.out.println(index);
     
-    world.setBounds(x * 100, y * 100);
+    thePlane.setBounds(x * 100, y * 100);
     
       while(y > 0) {
         while(x > 0) {   //The x and y loops are here to help place in a grid
@@ -129,17 +127,17 @@ public class GameScreen extends GenericScreen
           }
           if(nextInt == '1') {
             System.out.print(" " + 1 + " ");
-            world.addItem(1, x * 100, y * 100);
+            thePlane.addItem(1, x * 100, y * 100);
             //add ground block
           }
           if(nextInt == '2') {
             System.out.print(" " + 2 + " ");
-            world.addItem(2, x * 100, y * 100);
+            thePlane.addItem(2, x * 100, y * 100);
             //add crate
           }
           if(nextInt == '3') {
             System.out.print(" " + 3 + " ");
-            world.addItem(3, x * 100, y * 100);
+            thePlane.addItem(3, x * 100, y * 100);
             //add character
           }
           index++;
@@ -147,7 +145,7 @@ public class GameScreen extends GenericScreen
           x--;
         }
         System.out.println();
-        x = world.getXSize();
+        x = thePlane.getXSize();
         y--;
       }
       

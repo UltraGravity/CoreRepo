@@ -3,6 +3,7 @@ package Objects;
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class FinishLine extends Item{
   private FinishLine finish;
@@ -13,6 +14,8 @@ public class FinishLine extends Item{
   {
     super(myGame, x, y);
     texture = myGame.assetLoader.crate;
+    shape = new PolygonShape();
+    shape.setAsBox(100, 100);
   }
   
   

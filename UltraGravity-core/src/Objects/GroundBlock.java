@@ -1,6 +1,7 @@
 package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class GroundBlock extends Item
 {
@@ -11,6 +12,8 @@ public class GroundBlock extends Item
   {
     super(myGame, x, y);
     texture = myGame.assetLoader.ground;
+    shape = new PolygonShape();
+    shape.setAsBox(100, 100);
   }
   
   public void setGroundBlock(int x, int y) 

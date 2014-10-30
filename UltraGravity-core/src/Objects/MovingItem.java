@@ -1,12 +1,12 @@
 package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class MovingItem extends Item{
-  Fixture fixture;
-  FixtureDef fixtureDef;
   int angle;
   int xSpeed;
   int ySpeed;
@@ -17,6 +17,7 @@ public class MovingItem extends Item{
 
   public MovingItem(MyGame myGame, int x, int y) {
     super(myGame, x, y);
+    bodyDef.type = BodyDef.BodyType.DynamicBody;
   }
 
   public void update(int gravity) {
