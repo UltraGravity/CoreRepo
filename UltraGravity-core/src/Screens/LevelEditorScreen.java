@@ -2,7 +2,7 @@ package Screens;
 
 import FileIO.LevelFile;
 import Objects.GridImage;
-import Objects.World;
+import Objects.ThePlane;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
@@ -70,7 +70,7 @@ public class LevelEditorScreen extends GenericScreen
 	LabelStyle ultraGravityFont;
 	
 	LevelFile levelFile;
-	World world;
+	ThePlane thePlane;
 
 	
 	
@@ -176,9 +176,9 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.center().bottom();
 		
 		int index = 0;
-		world = new World(20,10);
+		thePlane = new ThePlane(20,10);
 		// world = new World(new Vector2(0,-10), true);
-		cell = new GridImage[world.getXSize() * world.getYSize()];
+		cell = new GridImage[thePlane.getXSize() * thePlane.getYSize()];
 		createGrid(cell);
 		
 		mapTable.row();
@@ -294,9 +294,9 @@ public class LevelEditorScreen extends GenericScreen
 	private void createGrid(GridImage[] cell2)
 	{
 		int index = 0;
-		for (int y = 0; y < world.getYSize(); y++)
+		for (int y = 0; y < thePlane.getYSize(); y++)
 		{
-			for (int x = 0; x < world.getXSize(); x++)
+			for (int x = 0; x < thePlane.getXSize(); x++)
 			{
 				cell[index] = new GridImage(blankBlockStyle);
 				levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
@@ -342,8 +342,8 @@ public class LevelEditorScreen extends GenericScreen
 	public String getLevelString()
 	{
 
-		String level = Integer.toString(world.getXSize()) + ","
-				+ Integer.toString(world.getYSize()) + ":";
+		String level = Integer.toString(thePlane.getXSize()) + ","
+				+ Integer.toString(thePlane.getYSize()) + ":";
 		for (Actor A : levelGrid.getChildren())
 		{
 			GridImage item = (GridImage) A;
@@ -400,9 +400,9 @@ public class LevelEditorScreen extends GenericScreen
 		int y = Integer.parseInt(ySizeString);
 		System.out.println(y);
 
-		world.setSize(x, y);
-		System.out.println(world.getXSize());
-		System.out.println(world.getYSize());
+		thePlane.setSize(x, y);
+		System.out.println(thePlane.getXSize());
+		System.out.println(thePlane.getYSize());
 		cell = new GridImage[x * y];
 		System.out.println("New grid created " + (x * y));
 		createGrid(cell);
@@ -450,7 +450,7 @@ public class LevelEditorScreen extends GenericScreen
 			}
 			System.out.println();
 			levelGrid.row();
-			x = world.getXSize();
+			x = thePlane.getXSize();
 			y--;
 		}
 		addListeners(levelGrid);

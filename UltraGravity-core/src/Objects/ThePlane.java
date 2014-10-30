@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 
-public class World {
+public class ThePlane {
   //made this class a bit more usefull without those pesky arrays
-  int worldX = 12;
-  int worldY = 6;
+  int planeX = 12;
+  int planeY = 6;
   
-  int boundX = worldX * 100;
-  int boundY = worldY * 100;
+  int boundX = planeX * 100;
+  int boundY = planeY * 100;
   
   int gravity;
 
@@ -18,9 +18,9 @@ public class World {
   
   MyGame myGame;
   
-  public World(int x, int y) {
-    this.worldX = x;
-    this.worldY = y;
+  public ThePlane(int x, int y) {
+    this.planeX = x;
+    this.planeY = y;
     // TODO Auto-generated constructor stub
   }
 
@@ -55,17 +55,17 @@ public class World {
   }
   
   public int getXSize() {
-    return worldX;
+    return planeX;
   }
   
   public int getYSize() {
-    return worldY;
+    return planeY;
   }
 
   public void setSize(int x, int y) {
     System.out.println("new world created at size "  +x + "," + y);
-    worldX =  x;
-    worldY = y;
+    planeX =  x;
+    planeY = y;
   }
 
   public void setBounds(int x, int y) {
