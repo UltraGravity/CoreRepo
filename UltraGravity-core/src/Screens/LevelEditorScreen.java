@@ -33,7 +33,7 @@ public class LevelEditorScreen extends GenericScreen
 	
 	Stage stage;
 
-	Skin skin;
+	Skin buttonSkin;
 	
 	Table mapTable;
 	Table toolTable;
@@ -42,7 +42,6 @@ public class LevelEditorScreen extends GenericScreen
 	ScrollPane scrollPane;
 	TextButtonStyle textButtonStyle;
 	
-	Skin buttonSkin;
 	TextureAtlas buttonAtlas;
 	
 	ImageButtonStyle groundBlockStyle;
@@ -82,7 +81,7 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{	
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0, .25f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         stage.act();
@@ -90,12 +89,12 @@ public class LevelEditorScreen extends GenericScreen
         
 		batch.begin();
 		
-			mapTable.debug();
-			mapTable.debugTable();
-			toolTable.debug();
-			toolTable.debugTable();
-			levelGrid.debug();
-			levelGrid.debugTable();
+			//mapTable.debug();
+			//mapTable.debugTable();
+			//toolTable.debug();
+			//toolTable.debugTable();
+			//levelGrid.debug();
+			//levelGrid.debugTable();
 			stage.draw();
 			
 		batch.end();
@@ -111,20 +110,24 @@ public class LevelEditorScreen extends GenericScreen
 		
 		mapTable = new Table(); // Holds the ScrollPane
 		levelGrid = new Table(); // Holds all the items you place
-		toolTable = new Table(); // Holds all the tools
+		toolTable = new Table(myGame.assetLoader.menuButtonSkin); // Holds all the tools
 		scrollPane = new ScrollPane(levelGrid);
-		
+				
 		mapTable.setHeight(screenHeight);
 		mapTable.setWidth(screenWidth);		
 		
-		toolTable.setFillParent(true);
-		mapTable.add(scrollPane).height(screenHeight - screenHeight/8);
+		//toolTable.setFillParent(true);
+		mapTable.add(scrollPane).height(screenHeight - screenHeight/7);
 		mapTable.top();
-		toolTable.bottom().center().bottom();
+		//toolTable.center().bottom();
 		
+		//toolTable.setX(screenWidth/2 - toolTable.getWidth()/2);
+		
+
 		// Styles and stuff
 		font = myGame.assetLoader.font;
 		buttonSkin = new Skin();
+
 		buttonAtlas = myGame.assetLoader.gameScreenAtlas;
 		buttonSkin.addRegions(buttonAtlas);
 		groundBlockStyle = new ImageButtonStyle();
@@ -156,28 +159,31 @@ public class LevelEditorScreen extends GenericScreen
 		
 		selectedStyle = blankBlockStyle;
 		
-		toolTable.add(backButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(safeZoneButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(blankButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(saveButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(loadButton).pad(screenWidth/100).size(screenHeight/12);
-		toolTable.add(playButton).pad(screenWidth/100).size(screenHeight/12);
+		toolTable.add(backButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(groundButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(boxButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(safeZoneButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(blankButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(saveButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(loadButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(playButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+	
 		
-		//toolTable.bottom().center().bottom();
-		//levelGrid.setSize(screenWidth, screenHeight);
+		toolTable.setBackground("Button-Pressed");
+		//toolTable.pack();
+		toolTable.center().bottom();
 		
 		int index = 0;
 		world = new World(20, 10);
 		cell = new GridImage[world.getXSize() * world.getYSize()];
 		createGrid(cell);
 		
+		mapTable.row();
+		mapTable.add(toolTable).bottom();
 		
 		addListeners(levelGrid);
 		
 		stage.addActor(mapTable);
-		stage.addActor(toolTable);
 		
 		// This might not be working because the action listener is set to the stage.
 		InputProcessor backProcessor = new InputAdapter() 

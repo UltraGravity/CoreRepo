@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class AssetLoader 
 {
@@ -18,6 +19,8 @@ public class AssetLoader
 	public TextureRegion ground;
 	public TextureRegion safeZone;
 	public TextureRegion blank;
+	
+	public Skin menuButtonSkin;
 //	public TextureRegion character;
 	
 	 public AssetLoader(MyGame myGame)
@@ -42,7 +45,11 @@ public class AssetLoader
 		 ground = gameScreenAtlas.findRegion("metal");
 		 safeZone = gameScreenAtlas.findRegion("safezone");
 		 blank = gameScreenAtlas.findRegion("blank");
-	 }
+		 
+		 
+		 menuButtonSkin = new Skin();
+		 menuButtonSkin.addRegions(mainMenuButtonAtlas);
+	 }	
 	 
 	 public void loadGameAssets()
 	 {
