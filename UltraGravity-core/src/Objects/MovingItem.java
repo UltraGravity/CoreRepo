@@ -1,8 +1,12 @@
 package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class MovingItem extends Item{
+  Fixture fixture;
+  FixtureDef fixtureDef;
   int angle;
   int xSpeed;
   int ySpeed;
