@@ -104,6 +104,7 @@ public class LevelEditorScreen extends GenericScreen
 
 	public void show()
 	{
+		// Show
 		Gdx.input.setCatchBackKey(true);
     
 		stage = new Stage();
