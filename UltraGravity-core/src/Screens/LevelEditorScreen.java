@@ -24,15 +24,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class LevelEditorScreen extends GenericScreen
 {
 	
 	int selectedBlock = 0;
+	BitmapFont font;
 	
 	Stage stage;
-	BitmapFont font;
+
 	Skin skin;
 	
 	Table mapTable;
@@ -109,35 +109,24 @@ public class LevelEditorScreen extends GenericScreen
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
-		mapTable = new Table();
-		
-		mapTable.setHeight(screenHeight);
-		mapTable.setWidth(screenWidth);
-		mapTable.top();
-		mapTable.setBounds(0, 0, screenWidth, screenHeight);
-		
-		mapTable.setX(0);
-		
-		System.out.println(screenHeight);
-		
-		levelGrid = new Table();
-		//levelGrid.setFillParent(true);
-		//levelGrid.setHeight(screenHeight - screenHeight/10);
-		
+		mapTable = new Table(); // Holds the ScrollPane
+		levelGrid = new Table(); // Holds all the items you place
+		toolTable = new Table(); // Holds all the tools
 		scrollPane = new ScrollPane(levelGrid);
 		
-		toolTable = new Table();
+		mapTable.setHeight(screenHeight);
+		mapTable.setWidth(screenWidth);		
+		
 		toolTable.setFillParent(true);
-		
-		mapTable.add(scrollPane);
+		mapTable.add(scrollPane).height(screenHeight - screenHeight/8);
 		mapTable.top();
+		toolTable.bottom().center().bottom();
 		
+		// Styles and stuff
 		font = myGame.assetLoader.font;
-		
 		buttonSkin = new Skin();
 		buttonAtlas = myGame.assetLoader.gameScreenAtlas;
 		buttonSkin.addRegions(buttonAtlas);
-		
 		groundBlockStyle = new ImageButtonStyle();
 		groundBlockStyle.up = buttonSkin.getDrawable("metal");
 		boxBlockStyle = new ImageButtonStyle();
@@ -155,8 +144,7 @@ public class LevelEditorScreen extends GenericScreen
 		playButtonStyle = new ImageButtonStyle();
 		playButtonStyle.up = buttonSkin.getDrawable("play");
 		
-		selectedStyle = blankBlockStyle;
-		
+		// Buttons
 		groundButton = new ImageButton(groundBlockStyle);
 		boxButton = new ImageButton(boxBlockStyle);
 		safeZoneButton = new ImageButton(safeZoneBlockStyle);
@@ -165,7 +153,9 @@ public class LevelEditorScreen extends GenericScreen
 		loadButton = new ImageButton(loadButtonStyle);
 		backButton = new ImageButton(backButtonStyle);
 		playButton = new ImageButton(playButtonStyle);
-
+		
+		selectedStyle = blankBlockStyle;
+		
 		toolTable.add(backButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(groundButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(boxButton).pad(screenWidth/100).size(screenHeight/12);
@@ -175,7 +165,7 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.add(loadButton).pad(screenWidth/100).size(screenHeight/12);
 		toolTable.add(playButton).pad(screenWidth/100).size(screenHeight/12);
 		
-		toolTable.bottom().center().bottom();
+		//toolTable.bottom().center().bottom();
 		//levelGrid.setSize(screenWidth, screenHeight);
 		
 		int index = 0;
