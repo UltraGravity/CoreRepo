@@ -6,18 +6,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Item {
 
-  int gravity;
-  int x;
-  int y;
+  int                  gravity;
+  int                  x;
+  int                  y;
 
-  
-  World world;
-  MovingItem movingItem;
-  public MyGame myGame;
+  World                world;
+  MovingItem           movingItem;
+  public MyGame        myGame;
   public TextureRegion texture;
-  
-  public Item(MyGame myGame, int x, int y) 
-  {
+
+  public Item(MyGame myGame, int x, int y) {
     this.myGame = myGame;
     this.x = x;
     this.y = y;
@@ -32,20 +30,20 @@ public class Item {
   public TextureRegion getTexture() {
     return this.texture;
   }
-  
-  public int getX() 
-  {
+
+  public int getX() {
     return x;
   }
-  
-  public int getY()
-  {
+
+  public int getY() {
     return y;
   }
-  
+
   public void update(int gravity) {
     this.gravity = gravity;
-    movingItem.update(gravity);
+    if (this instanceof MovingItem) {
+      movingItem.update(gravity);
+    }
   }
 
 }

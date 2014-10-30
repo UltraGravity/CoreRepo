@@ -15,7 +15,7 @@ public class MovingItem extends Item{
     super(myGame, x, y);
   }
 
-  public void update(int gravity2) {
+  public void update(int gravity) {
     if (gravity == 0) {  // direction towards home button when home button is in right hand
       xAccel++;
     }
