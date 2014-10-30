@@ -176,7 +176,8 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.center().bottom();
 		
 		int index = 0;
-		world = new World(new Vector2(0,-10), true);
+		world = new World(20,10);
+		// world = new World(new Vector2(0,-10), true);
 		cell = new GridImage[world.getXSize() * world.getYSize()];
 		createGrid(cell);
 		
