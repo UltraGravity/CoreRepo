@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
@@ -25,16 +26,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class LevelEditorScreen extends GenericScreen implements GestureListener
+public class LevelEditorScreen extends GenericScreen
 {
 	
 	int selectedBlock = 0;
 	BitmapFont font;
 	
 	Stage stage;
-
+	
 	Skin buttonSkin;
 	
 	Table mapTable;
@@ -257,6 +259,22 @@ public class LevelEditorScreen extends GenericScreen implements GestureListener
 	        {	
 	        	myGame.changeToGameScreen();
 	        }});
+		
+		
+		
+		
+		
+//		scrollPane.addListener(new ActorGestureListener() {
+//			
+//			public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) 
+//			{
+//				scrollPane.stageToLocalCoordinates(initialPointer1.set(initialPointer1));
+//				scrollPane.stageToLocalCoordinates(initialPointer2.set(initialPointer2));
+//				scrollPane.stageToLocalCoordinates(pointer1.set(pointer1));
+//				scrollPane.stageToLocalCoordinates(pointer2.set(pointer2));
+//				pinch(event, initialPointer1, initialPointer2, pointer1, pointer2);
+//			}
+//		});
 	}
 	
 	
@@ -479,70 +497,5 @@ public class LevelEditorScreen extends GenericScreen implements GestureListener
 	public void pause() {}
 	public void resume() {}
 	public void resize(int width, int height) {}
-
-
-	@Override
-	public boolean touchDown(float x, float y, int pointer, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean tap(float x, float y, int count, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean longPress(float x, float y)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean fling(float velocityX, float velocityY, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean pan(float x, float y, float deltaX, float deltaY)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean panStop(float x, float y, int pointer, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean zoom(float initialDistance, float distance)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-			Vector2 pointer1, Vector2 pointer2)
-	{
-		
-		return false;
-	}
 	
 }
