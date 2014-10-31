@@ -58,7 +58,7 @@ public class MainMenuScreen extends GenericScreen
 
 	public void show()
 	{
-		stage = new Stage(new ScreenViewport());
+		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		table = new Table();
 		table.setFillParent(true);

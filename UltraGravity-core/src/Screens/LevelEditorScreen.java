@@ -28,6 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LevelEditorScreen extends GenericScreen
 {
@@ -75,7 +76,9 @@ public class LevelEditorScreen extends GenericScreen
 	LevelFile levelFile;
 	ThePlane thePlane;
 
-	
+	float currentScaleX = screenWidth;
+	float currentScaleY = screenHeight;
+	float previous = -1;
 	
 	public LevelEditorScreen(MyGame myGame)
 	{
@@ -92,13 +95,15 @@ public class LevelEditorScreen extends GenericScreen
         
         
 		batch.begin();
-		
-			//mapTable.debug();
-			//mapTable.debugTable();
-			//toolTable.debug();
-			//toolTable.debugTable();
-			//levelGrid.debug();
-			//levelGrid.debugTable();
+			
+			scrollPane.debug();
+			scrollPane.debugAll();
+			mapTable.debug();
+			mapTable.debugTable();
+			toolTable.debug();
+			toolTable.debugTable();
+			levelGrid.debug();
+			levelGrid.debugTable();
 			stage.draw();
 			
 		batch.end();
@@ -111,6 +116,7 @@ public class LevelEditorScreen extends GenericScreen
 		Gdx.input.setCatchBackKey(true);
     
 		stage = new Stage();
+		stage.getViewport().setCamera(camera);
 		Gdx.input.setInputProcessor(stage);
 		
 		mapTable = new Table(); // Holds the ScrollPane
@@ -127,6 +133,8 @@ public class LevelEditorScreen extends GenericScreen
 		//toolTable.center().bottom();
 		
 		//toolTable.setX(screenWidth/2 - toolTable.getWidth()/2);
+		
+		
 		
 
 		// Styles and stuff
@@ -264,17 +272,41 @@ public class LevelEditorScreen extends GenericScreen
 		
 		
 		
-//		scrollPane.addListener(new ActorGestureListener() {
-//			
-//			public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) 
-//			{
-//				scrollPane.stageToLocalCoordinates(initialPointer1.set(initialPointer1));
-//				scrollPane.stageToLocalCoordinates(initialPointer2.set(initialPointer2));
-//				scrollPane.stageToLocalCoordinates(pointer1.set(pointer1));
-//				scrollPane.stageToLocalCoordinates(pointer2.set(pointer2));
-//				pinch(event, initialPointer1, initialPointer2, pointer1, pointer2);
-//			}
-//		});
+		levelGrid.addListener(new ActorGestureListener() {
+			
+			public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) 
+			{
+				
+//				float origDist = (float)(Math.sqrt(Math.pow(initialPointer1.x - initialPointer2.x, 2) + Math.pow(initialPointer1.y - initialPointer2.y, 2)));
+//				float newDist = (float)(Math.sqrt(Math.pow(pointer1.x - pointer2.x, 2) + Math.pow(pointer1.y - pointer2.y, 2)));
+//				
+//				
+//				
+//				float zoom = (float) ((newDist - origDist)/100);
+//				
+//				if (zoom <= 0 && zoom >= -1)
+//				{
+//					camera.zoom = zoom;	
+//				}
+//				
+//				camera.zoom = zoom;
+//				System.out.println(origDist + ",  " + newDist + ",  " + ",  " + zoom);
+//						
+//				
+//				
+				
+				//System.out.println(camera.zoom);
+				
+				//stage.getViewport().update(screenWidth, screenHeight, true);
+				
+				//mapTable.pack();
+				
+				//System.out.println(camera.zoom);
+				
+				//camera.update();
+				
+			}
+		});
 	}
 	
 	

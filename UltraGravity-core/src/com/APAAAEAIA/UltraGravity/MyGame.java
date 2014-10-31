@@ -63,7 +63,6 @@ public class MyGame extends Game
 		/* When you need to load the assets for the main menu or
 		 * the game screen, use this method.
 		 */
-		
 		loadingScreen = new LoadingScreen(this);
 		nextScreen = screen;
 		
@@ -82,6 +81,7 @@ public class MyGame extends Game
 	
 	public void switchScreen()
 	{
+		camera.setToOrtho(false);
 		if (nextScreen == mainMenuScreen)
 		{
 			// This sets up the textures so we can reference them.
