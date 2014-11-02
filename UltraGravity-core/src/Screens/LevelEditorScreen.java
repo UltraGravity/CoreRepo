@@ -1,5 +1,6 @@
 package Screens;
 
+import Dialog.LevelEditDialog;
 import FileIO.LevelFile;
 import Objects.GridImage;
 import Objects.ThePlane;
@@ -127,10 +128,7 @@ public class LevelEditorScreen extends GenericScreen
 		stage.getViewport().setCamera(camera);
 		
 		
-		
-		
-		
-		
+
 		
 		
 		Gdx.input.setInputProcessor(stage);
@@ -214,6 +212,12 @@ public class LevelEditorScreen extends GenericScreen
 		addListeners(levelGrid);
 		
 		stage.addActor(mapTable);
+		
+		
+		
+		
+		//LevelEditDialog dialog = new LevelEditDialog(myGame, "Test", myGame.assetLoader.menuButtonSkin);
+		//dialog.show(stage);
 		
 		// This might not be working because the action listener is set to the stage.
 		InputProcessor backProcessor = new InputAdapter() 

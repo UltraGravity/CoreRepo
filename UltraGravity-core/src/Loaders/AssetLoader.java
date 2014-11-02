@@ -46,7 +46,6 @@ public class AssetLoader
 		 safeZone = gameScreenAtlas.findRegion("safezone");
 		 blank = gameScreenAtlas.findRegion("blank");
 		 
-		 
 		 menuButtonSkin = new Skin();
 		 menuButtonSkin.addRegions(mainMenuButtonAtlas);
 	 }	
