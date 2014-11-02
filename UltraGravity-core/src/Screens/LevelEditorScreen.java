@@ -113,6 +113,11 @@ public class LevelEditorScreen extends GenericScreen
 		batch.end();
 	}
 
+	
+
+	
+	
+	
 
 	public void show()
 	{
@@ -120,6 +125,12 @@ public class LevelEditorScreen extends GenericScreen
 
 		stage = new Stage();
 		stage.getViewport().setCamera(camera);
+		
+		
+		
+		
+		
+		
 		
 		
 		Gdx.input.setInputProcessor(stage);
