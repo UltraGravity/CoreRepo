@@ -28,6 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -216,8 +218,8 @@ public class LevelEditorScreen extends GenericScreen
 		
 		
 		
-		//LevelEditDialog dialog = new LevelEditDialog(myGame, "Test", myGame.assetLoader.menuButtonSkin);
-		//dialog.show(stage);
+		LevelEditDialog dialog = new LevelEditDialog(myGame, "Load A File?", myGame.assetLoader.uiSkin);
+		dialog.show(stage);
 		
 		// This might not be working because the action listener is set to the stage.
 		InputProcessor backProcessor = new InputAdapter() 

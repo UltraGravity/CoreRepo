@@ -15,12 +15,14 @@ public class AssetLoader
 	public BitmapFont font;
 	public TextureAtlas gameScreenAtlas;
 	public TextureAtlas mainMenuButtonAtlas;
+	public TextureAtlas uiSkinAtlas;
 	public TextureRegion crate;
 	public TextureRegion ground;
 	public TextureRegion safeZone;
 	public TextureRegion blank;
 	
 	public Skin menuButtonSkin;
+	public Skin uiSkin;
 //	public TextureRegion character;
 	
 	 public AssetLoader(MyGame myGame)
@@ -34,18 +36,22 @@ public class AssetLoader
 		 assetManager.load("GameAssets.atlas", TextureAtlas.class);
 		 assetManager.load("MenuButtonAtlas.atlas", TextureAtlas.class);
 		 assetManager.load("Font.fnt", BitmapFont.class);
+		 assetManager.load("uiskin.atlas", TextureAtlas.class);
 	 }
 	 
 	 public void setupMenu()
 	 {
 		 gameScreenAtlas = assetManager.get("GameAssets.atlas", TextureAtlas.class);
 		 mainMenuButtonAtlas = new TextureAtlas(Gdx.files.internal("MenuButtonAtlas.atlas"));
+		 uiSkinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
+	 
 		 font = assetManager.get("Font.fnt", BitmapFont.class);
 		 crate = gameScreenAtlas.findRegion("crate");
 		 ground = gameScreenAtlas.findRegion("metal");
 		 safeZone = gameScreenAtlas.findRegion("safezone");
 		 blank = gameScreenAtlas.findRegion("blank");
 		 
+		 uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 		 menuButtonSkin = new Skin();
 		 menuButtonSkin.addRegions(mainMenuButtonAtlas);
 	 }	
