@@ -39,38 +39,18 @@ public class LevelEditorScreen extends GenericScreen
 	
 	int selectedBlock = 0;
 	BitmapFont font;
-	
 	Stage stage;
-
 	Skin buttonSkin;
 	Table mapTable;
 	Table toolTable;
 	Table levelGrid;
-	
 	ScrollPane scrollPane;
 	TextButtonStyle textButtonStyle;
 	TextureAtlas buttonAtlas;
 	
-	ImageButtonStyle groundBlockStyle;
-	ImageButtonStyle boxBlockStyle;
-	ImageButtonStyle safeZoneBlockStyle;
-	ImageButtonStyle blankBlockStyle;
-	ImageButtonStyle saveButtonStyle;
-	ImageButtonStyle loadButtonStyle;
-	ImageButtonStyle playButtonStyle;
-	ImageButtonStyle backButtonStyle;
-	
 	GridImage cell[];
 	ImageButtonStyle selectedStyle;
 	
-	ImageButton groundButton;
-	ImageButton boxButton;
-	ImageButton safeZoneButton;
-	ImageButton blankButton;
-	ImageButton saveButton;
-	ImageButton loadButton;
-	ImageButton playButton;
-	ImageButton backButton;
 	
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
@@ -90,112 +70,57 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{	
-        
 		Gdx.gl.glClearColor(0, .25f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
 		camera.update();										
 		batch.setProjectionMatrix(camera.combined);
         
-		stage.draw();
 		stage.act();
         
 		batch.begin();
-			
 			//scrollPane.debug();
 			//scrollPane.debugAll();
-			mapTable.debug();
-			mapTable.debugTable();
-			toolTable.debug();
-			toolTable.debugTable();
-			levelGrid.debug();
-			levelGrid.debugTable();
-			
+			//mapTable.debug();
+			//mapTable.debugTable();
+			//toolTable.debug();
+			//toolTable.debugTable();
+			//levelGrid.debug();
+			//levelGrid.debugTable();
 			stage.draw();
-			
 		batch.end();
 	}
 
-	
-
-	
-	
-	
 
 	public void show()
 	{
-		Gdx.input.setCatchBackKey(true);
-
 		stage = new Stage();
 		stage.getViewport().setCamera(camera);
 		
-		
-
-		
-		
 		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setCatchBackKey(true);
 		
 		mapTable = new Table(); // Holds the ScrollPane
 		levelGrid = new Table(); // Holds all the items you place
 		toolTable = new Table(myGame.assetLoader.menuButtonSkin); // Holds all the tools
 		scrollPane = new ScrollPane(levelGrid);
-				
 		mapTable.setHeight(screenHeight);
 		mapTable.setWidth(screenWidth);		
-		
-		//toolTable.setFillParent(true);
 		mapTable.add(scrollPane).height(screenHeight - screenHeight/7);
 		mapTable.top();
-		//toolTable.center().bottom();
-		
-		//toolTable.setX(screenWidth/2 - toolTable.getWidth()/2);
-		
-		
-		
 
-		// Styles and stuff
-		font = myGame.assetLoader.font;
-		buttonSkin = new Skin();
-
-		buttonAtlas = myGame.assetLoader.gameScreenAtlas;
-		buttonSkin.addRegions(buttonAtlas);
-		groundBlockStyle = new ImageButtonStyle();
-		groundBlockStyle.up = buttonSkin.getDrawable("metal");
-		boxBlockStyle = new ImageButtonStyle();
-		boxBlockStyle.up = buttonSkin.getDrawable("crate");
-		safeZoneBlockStyle = new ImageButtonStyle();
-		safeZoneBlockStyle.up = buttonSkin.getDrawable("safezone");
-		blankBlockStyle = new ImageButtonStyle();
-		blankBlockStyle.up = buttonSkin.getDrawable("blank");
-		saveButtonStyle = new ImageButtonStyle();
-		saveButtonStyle.up = buttonSkin.getDrawable("save");
-		loadButtonStyle = new ImageButtonStyle();
-		loadButtonStyle.up = buttonSkin.getDrawable("load");
-		backButtonStyle = new ImageButtonStyle();
-		backButtonStyle.up = buttonSkin.getDrawable("back");
-		playButtonStyle = new ImageButtonStyle();
-		playButtonStyle.up = buttonSkin.getDrawable("play");
+	
 		
-		// Buttons
-		groundButton = new ImageButton(groundBlockStyle);
-		boxButton = new ImageButton(boxBlockStyle);
-		safeZoneButton = new ImageButton(safeZoneBlockStyle);
-		blankButton = new ImageButton(blankBlockStyle);
-		saveButton = new ImageButton(saveButtonStyle);
-		loadButton = new ImageButton(loadButtonStyle);
-		backButton = new ImageButton(backButtonStyle);
-		playButton = new ImageButton(playButtonStyle);
+		selectedStyle = myGame.assetLoader.blankBlockStyle;
 		
-		selectedStyle = blankBlockStyle;
-		
-		toolTable.add(backButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(groundButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(boxButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(safeZoneButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(blankButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(saveButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(loadButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
-		toolTable.add(playButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.backButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.groundButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.boxButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.safeZoneButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.blankButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.saveButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.loadButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
+		toolTable.add(myGame.assetLoader.playButton).size(screenHeight/12).padLeft(screenWidth/100).padRight(screenWidth/100);
 	
 		
 		toolTable.setBackground("Button-Pressed");
@@ -232,49 +157,49 @@ public class LevelEditorScreen extends GenericScreen
 				return false;
 			}};
     
-		backButton.addListener(new ChangeListener() 
+		myGame.assetLoader.backButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	        	myGame.changeToMainMenuScreen();
 	        }});
 		
-		groundButton.addListener(new ChangeListener() 
+		myGame.assetLoader.groundButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	selectedStyle = groundBlockStyle;
+	        	selectedStyle = myGame.assetLoader.groundBlockStyle;
 	        }});
 		
-		boxButton.addListener(new ChangeListener() 
+		myGame.assetLoader.boxButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	selectedStyle = boxBlockStyle;
+	        	selectedStyle = myGame.assetLoader.boxBlockStyle;
 	        }});
 		
-		safeZoneButton.addListener(new ChangeListener() 
+		myGame.assetLoader.safeZoneButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	selectedStyle = safeZoneBlockStyle;
+	        	selectedStyle = myGame.assetLoader.safeZoneBlockStyle;
 	        }});
 		
-		blankButton.addListener(new ChangeListener() 
+		myGame.assetLoader.blankButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	        	selectedStyle = blankBlockStyle;
+	        	selectedStyle = myGame.assetLoader.blankBlockStyle;
 	        }});
 		
-		saveButton.addListener(new ChangeListener() 
+		myGame.assetLoader.saveButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	        	save();
 	        }});
 		
-		loadButton.addListener(new ChangeListener() 
+		myGame.assetLoader.loadButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
@@ -283,7 +208,7 @@ public class LevelEditorScreen extends GenericScreen
 	        	//load(that_file);
 	        }});
 		
-		playButton.addListener(new ChangeListener() 
+		myGame.assetLoader.playButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {	
@@ -297,9 +222,7 @@ public class LevelEditorScreen extends GenericScreen
 		stage.addListener(new ActorGestureListener() {
 			
 			public void pinch(InputEvent event, Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) 
-			{
-				
-				
+			{	
 //				System.out.println(initialPointer1);
 //				
 //				
@@ -323,8 +246,7 @@ public class LevelEditorScreen extends GenericScreen
 //				//System.out.println(origDist + ",  " + (origDist + (origDist * .20)) + ",  " + newDist);
 //				
 //				
-//				mapTable.pack();
-				
+//				mapTable.pack();	
 			}
 		});
 	}
@@ -341,25 +263,24 @@ public class LevelEditorScreen extends GenericScreen
 				GridImage image = (GridImage) actor;
 				image.setStyle(selectedStyle);
             
-				if (selectedStyle == blankBlockStyle)
+				if (selectedStyle == myGame.assetLoader.blankBlockStyle)
 				{
 					image.cellValue = 0;
 				}
-				if (selectedStyle == groundBlockStyle)
+				if (selectedStyle == myGame.assetLoader.groundBlockStyle)
 				{
 					image.cellValue = 1;
 				}
-				if (selectedStyle == boxBlockStyle)
+				if (selectedStyle == myGame.assetLoader.boxBlockStyle)
 				{
 					image.cellValue = 2;
 				}
-				if (selectedStyle == safeZoneBlockStyle)
+				if (selectedStyle == myGame.assetLoader.safeZoneBlockStyle)
 				{
 					image.cellValue = 3;
 				}
 			}});
-    
-  }
+    }
 
 
 	private void createGrid(GridImage[] cell2)
@@ -369,7 +290,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			for (int x = 0; x < thePlane.getXSize(); x++)
 			{
-				cell[index] = new GridImage(blankBlockStyle);
+				cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
 				levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
 				index++;
 			}
@@ -490,28 +411,28 @@ public class LevelEditorScreen extends GenericScreen
 				if (nextInt == '0')
 				{
 					System.out.print(" " + 0 + " ");
-					cell[index] = new GridImage(blankBlockStyle);
+					cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
 					levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
 					// add blank space
 				}
 				if (nextInt == '1')
 				{
 					System.out.print(" " + 1 + " ");
-					cell[index] = new GridImage(groundBlockStyle);
+					cell[index] = new GridImage(myGame.assetLoader.groundBlockStyle);
 					levelGrid.add(cell[index]).size(screenHeight / 8);
 					// add ground block
 				}
 				if (nextInt == '2')
 				{
 					System.out.print(" " + 2 + " ");
-					cell[index] = new GridImage(boxBlockStyle);
+					cell[index] = new GridImage(myGame.assetLoader.boxBlockStyle);
 					levelGrid.add(cell[index]).size(screenHeight / 8);
 					// add crate
 				}
 				if (nextInt == '3')
 				{
 					System.out.print(" " + 3 + " ");
-					cell[index] = new GridImage(safeZoneBlockStyle);
+					cell[index] = new GridImage(myGame.assetLoader.safeZoneBlockStyle);
 					levelGrid.add(cell[index]).size(screenHeight / 8);
 					// add character
 				}
@@ -535,14 +456,6 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void dispose() 
 	{
-		/*
-		 * It is very important that everything created is disposed of properly when it is no longer needed. I find it best
-		 * to explicitly set everything equal to null so the garbage collector knows it can remove the stuff from memory.
-		 * 
-		 * Calling super.dispose() will get rid of the built in variables, but it is important that anything that is
-		 * uniquely created in this class be disposed.
-		 */
-
 		super.dispose();
 		stage.dispose();
 	}
