@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.APAAAEAIA.UltraGravity.MyGame;
 
 public class ThePlane {
-  //yeah made this class a bit more usefull without those pesky arrays
+  //made this class a bit more usefull without those pesky arrays
   int planeX = 12;
   int planeY = 6;
   
