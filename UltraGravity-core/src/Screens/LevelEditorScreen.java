@@ -50,7 +50,7 @@ public class LevelEditorScreen extends GenericScreen
 	TextureAtlas buttonAtlas;
 	
 	GridImage cell[];
-	ImageButtonStyle selectedStyle;
+	public ImageButtonStyle selectedStyle;
 	
 	
 	Label ultraGravity;
@@ -72,6 +72,7 @@ public class LevelEditorScreen extends GenericScreen
 	public void render(float delta) 
 	{	
 		Gdx.gl.glClearColor(0, .25f, .25f, 1);
+		Gdx.gl.glClearColor(.65f, .65f, .65f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
 		camera.update();										
@@ -157,64 +158,8 @@ public class LevelEditorScreen extends GenericScreen
 				}
 				return false;
 			}};
-    
-			 myGame.assetLoader.backButton.addListener(new ChangeListener() 
-				{
-			        public void changed (ChangeEvent event, Actor actor) 
-			        {
-			        	myGame.changeToMainMenuScreen();
-			        }});
+
 		
-		myGame.assetLoader.groundButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	selectedStyle = myGame.assetLoader.groundBlockStyle;
-	        }});
-		
-		myGame.assetLoader.boxButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	selectedStyle = myGame.assetLoader.boxBlockStyle;
-	        }});
-		
-		myGame.assetLoader.safeZoneButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	selectedStyle = myGame.assetLoader.safeZoneBlockStyle;
-	        }});
-		
-		myGame.assetLoader.blankButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	selectedStyle = myGame.assetLoader.blankBlockStyle;
-	        }});
-		
-		myGame.assetLoader.saveButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	save();
-	        }});
-		
-		myGame.assetLoader.loadButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	          load("CL_0.txt");
-	        	// open a pop up window or something to select specific level to edit.
-	        	//load(that_file);
-	        }});
-		
-		myGame.assetLoader.playButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {	
-	        	myGame.changeToGameScreen();
-	        }});
 		
 		
 		

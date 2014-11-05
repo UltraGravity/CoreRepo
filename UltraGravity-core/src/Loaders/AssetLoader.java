@@ -120,13 +120,72 @@ public class AssetLoader
 		backButton = new ImageButton(backButtonStyle);
 		playButton = new ImageButton(playButtonStyle);
 		
-		
-		 myGame.assetLoader.backButton.addListener(new ChangeListener() 
+		backButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
 			{
-		        public void changed (ChangeEvent event, Actor actor) 
-		        {
-		        	myGame.changeToMainMenuScreen();
-		        }});
+				myGame.changeToMainMenuScreen();
+			}
+		});
+
+		groundButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.selectedStyle = groundBlockStyle;
+			}
+		});
+
+		boxButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.selectedStyle = boxBlockStyle;
+			}
+		});
+
+		safeZoneButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.selectedStyle = safeZoneBlockStyle;
+			}
+		});
+
+		blankButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.selectedStyle = blankBlockStyle;
+			}
+		});
+
+		saveButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.save();
+			}
+		});
+
+		loadButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.load("CL_0.txt");
+				// open a pop up window or something to select specific level to
+				// edit.
+				// load(that_file);
+			}
+		});
+
+		playButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.changeToGameScreen();
+			}
+		});
 	 }	
 	 
 	 public void loadGameAssets()
