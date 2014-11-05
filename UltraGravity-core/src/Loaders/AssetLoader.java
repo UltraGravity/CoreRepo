@@ -6,9 +6,12 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class AssetLoader 
 {
@@ -116,6 +119,14 @@ public class AssetLoader
 		loadButton = new ImageButton(loadButtonStyle);
 		backButton = new ImageButton(backButtonStyle);
 		playButton = new ImageButton(playButtonStyle);
+		
+		
+		 myGame.assetLoader.backButton.addListener(new ChangeListener() 
+			{
+		        public void changed (ChangeEvent event, Actor actor) 
+		        {
+		        	myGame.changeToMainMenuScreen();
+		        }});
 	 }	
 	 
 	 public void loadGameAssets()
@@ -127,5 +138,7 @@ public class AssetLoader
 	 {
 		 
 	 }
+	 
+	
 	 
 }

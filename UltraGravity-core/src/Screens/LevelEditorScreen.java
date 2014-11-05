@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LevelEditorScreen extends GenericScreen
@@ -157,12 +158,12 @@ public class LevelEditorScreen extends GenericScreen
 				return false;
 			}};
     
-		myGame.assetLoader.backButton.addListener(new ChangeListener() 
-		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	myGame.changeToMainMenuScreen();
-	        }});
+			 myGame.assetLoader.backButton.addListener(new ChangeListener() 
+				{
+			        public void changed (ChangeEvent event, Actor actor) 
+			        {
+			        	myGame.changeToMainMenuScreen();
+			        }});
 		
 		myGame.assetLoader.groundButton.addListener(new ChangeListener() 
 		{
