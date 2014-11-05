@@ -176,13 +176,13 @@ public class LevelEditorScreen extends GenericScreen
 //				float newDist = (float)(Math.sqrt(Math.pow(pointer1.x - pointer2.x, 2) + Math.pow(pointer1.y - pointer2.y, 2)));
 //
 //				
-//				if (newDist > origDist + (origDist *.20)) // Add a little bit of error in there
+//				if (newDist > origDist) // Add a little bit of error in there
 //				{
 //					currentScaleX += newDist;
 //					currentScaleY += newDist;
 //					mapTable.setScale(currentScaleX);
 //				}
-//				if (newDist < origDist + (origDist * .20))
+//				if (newDist < origDist)
 //				{
 //					currentScaleX -= newDist;
 //					currentScaleY -= newDist;
