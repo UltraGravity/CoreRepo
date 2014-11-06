@@ -1,5 +1,7 @@
 package Loaders;
 
+import FileIO.LevelFile;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -16,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 public class AssetLoader 
 {
 	MyGame myGame;
+	LevelFile levelFile;
+	
 	public AssetManager assetManager;
 	public BitmapFont font;
 	public TextureAtlas gameScreenAtlas;
@@ -183,7 +187,9 @@ public class AssetLoader
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				myGame.changeToGameScreen();
+			  levelFile = new LevelFile(myGame);
+			  System.out.println(levelFile.getLastLevelName());
+				myGame.changeToGameScreen(levelFile.LoadLevel(levelFile.getLastLevelName()));
 			}
 		});
 	 }	

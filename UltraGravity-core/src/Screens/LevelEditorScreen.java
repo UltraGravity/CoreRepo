@@ -242,7 +242,7 @@ public class LevelEditorScreen extends GenericScreen {
   public void save() {
     String fileName = "";
     levelFile = new LevelFile(myGame);
-    fileName = levelFile.getLastLevelName();
+    fileName = levelFile.getNextLevelName();
     String level = getLevelString();
     System.out.println(level);
     System.out.println(fileName);
@@ -326,6 +326,7 @@ public class LevelEditorScreen extends GenericScreen {
 
   public void hide() {
     System.out.println("Disposing Level Editor Screen");
+    save();
     this.dispose();
   }
 

@@ -115,9 +115,9 @@ public class MyGame extends Game
 		this.setScreen(levelScreen);
 	}
 
-	public void changeToGameScreen()
+	public void changeToGameScreen(String levelString)
 	{
-		gameScreen = new GameScreen(this);
+		gameScreen = new GameScreen(this, levelString);
 		this.setScreen(gameScreen);
 	}
 
