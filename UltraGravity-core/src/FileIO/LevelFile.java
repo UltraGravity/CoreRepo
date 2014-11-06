@@ -32,4 +32,28 @@ public class LevelFile {
     System.out.println(level);
     return level;
   }
+  
+  public String getLastLevelName() {
+    boolean nameFound = false;
+    String fileName = "";
+    int fName = 0;
+    while (!nameFound)
+    {
+      fileName = "CL_" + Integer.toString(fName) + ".txt";
+      System.out.println("Checking if " + fileName
+          + " is an available name");
+      FileHandle file = Gdx.files.local("Levels/" + fileName);
+      if (file.exists())
+      {
+        System.out.println("File existed");
+        fName++;
+      }
+      else
+      {
+        System.out.println(fileName + " is being created");
+        nameFound = true;
+      }
+    }
+    return fileName;
+  }
 }
