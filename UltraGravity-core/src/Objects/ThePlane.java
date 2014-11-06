@@ -14,7 +14,7 @@ public class ThePlane {
   
   int gravity;
 
-  ArrayList<Item> world = new ArrayList();
+  ArrayList<Item> worldList = new ArrayList<Item>();
   
   MyGame myGame;
   
@@ -26,11 +26,11 @@ public class ThePlane {
 
 
   public ArrayList<Item> update(int gravity) {
-    for(int i = 0; i < world.size(); i++) {
-      Item current = world.get(i);
+    for(int i = 0; i < worldList.size(); i++) {
+      Item current = worldList.get(i);
       current.update(gravity);      
     }
-    return world;
+    return worldList;
   }
   
   public void setGravity(int grav) {
@@ -41,15 +41,15 @@ public class ThePlane {
   {
     if(item == 2) {
       Item box = new Box(myGame, x,y);
-      world.add(box);
+      worldList.add(box);
     }
     if(item == 3) {
       Item character = new Character(myGame, x,y);
-      world.add(character);
+      worldList.add(character);
     }
     if(item == 1) {
       Item ground = new GroundBlock(myGame, x,y);
-      world.add(ground);
+      worldList.add(ground);
     }
 
   }
@@ -71,6 +71,15 @@ public class ThePlane {
   public void setBounds(int x, int y) {
     boundX = x;
     boundY = y;
+  }
+
+
+  public void fillWorld() {
+    for(int i = 0; i < worldList.size(); i++) {
+      Item current = worldList.get(i);
+      current.addToWorld();
+    }
+    
   }
   
 //  public Item[][] getArray() {

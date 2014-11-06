@@ -3,6 +3,8 @@ package Objects;
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Box extends MovingItem{
@@ -14,15 +16,25 @@ public class Box extends MovingItem{
   public Box(MyGame myGame, int x, int y)
   {
     super(myGame, x, y);
-    texture = myGame.assetLoader.crate;
-    shape = new PolygonShape();
-    shape.setAsBox(100, 100);
+    this.bodyType = BodyType.DynamicBody;
+    this.fixtureDef = new FixtureDef();
+    setFixture();
+    fixture = body.createFixture(fixtureDef);
   }
   
   
   public Box getBox()
   {
     return this.box;
+  }
+  
+  private void setFixture() {
+    PolygonShape boxShape= new PolygonShape();
+    boxShape.setAsBox(100, 100);
+    fixtureDef.shape = boxShape;
+    fixtureDef.density = 0.5f;
+    fixtureDef.friction = 0.4f;
+    fixtureDef.restitution = 0.6f;
   }
 
   private void setBox(int x, int y, int angle, int xSpeed, int ySpeed, int rotSpeed) 

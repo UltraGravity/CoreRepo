@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -23,6 +24,7 @@ public class Item {
   public TextureRegion texture;
   Sprite sprite;
   BodyDef bodyDef;
+  BodyType bodyType;
   Body body;
   PolygonShape shape;
   FixtureDef fixtureDef;
@@ -66,6 +68,14 @@ public class Item {
     if (this instanceof MovingItem) {
       movingItem.update(gravity);
     }
+  }
+
+  public void addToWorld() {
+    BodyDef bodyDef = new BodyDef();
+    bodyDef.position.set(x*100,y*100);
+    Body body = world.createBody(bodyDef); 
+    
+    
   }
 
 }
