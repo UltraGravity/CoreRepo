@@ -1,6 +1,5 @@
 package Screens;
 
-import Dialog.LevelEditDialog;
 import FileIO.LevelFile;
 import Objects.GridImage;
 import Objects.ThePlane;
@@ -32,7 +31,7 @@ public class LevelEditorScreen extends GenericScreen
 
 	int selectedBlock = 0;
 	BitmapFont font;
-	Stage stage;
+	public Stage stage;
 	Skin buttonSkin;
 	Table windowTable;
 	Table toolTable;
@@ -115,10 +114,6 @@ public class LevelEditorScreen extends GenericScreen
 		addListeners(levelGrid);
 
 		stage.addActor(windowTable);
-
-		//LevelEditDialog dialog = new LevelEditDialog(myGame, "Load A File?", myGame.assetLoader.uiSkin);
-		//dialog.show(stage);
-
 		
 		
 		InputProcessor backProcessor = new InputAdapter()

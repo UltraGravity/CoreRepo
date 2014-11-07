@@ -1,5 +1,6 @@
 package Loaders;
 
+import Dialog.LoadLevelDialog;
 import FileIO.LevelFile;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
@@ -211,6 +212,10 @@ public class AssetLoader
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
+				dialog.show(myGame.levelEditorScreen.stage);
+				
+				
 				myGame.levelEditorScreen.load("CL_0.txt");
 				// open a pop up window or something to select specific level to
 				// edit.
