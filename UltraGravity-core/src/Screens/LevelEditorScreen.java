@@ -116,9 +116,8 @@ public class LevelEditorScreen extends GenericScreen
 
 		stage.addActor(windowTable);
 
-		LevelEditDialog dialog = new LevelEditDialog(myGame, "Load A File?",
-				myGame.assetLoader.uiSkin);
-		dialog.show(stage);
+		//LevelEditDialog dialog = new LevelEditDialog(myGame, "Load A File?", myGame.assetLoader.uiSkin);
+		//dialog.show(stage);
 
 		
 		
@@ -178,23 +177,14 @@ public class LevelEditorScreen extends GenericScreen
 
 	private void addTools()
 	{
-		toolTable.add(myGame.assetLoader.backButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.groundButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.boxButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.safeZoneButton)
-				.size(screenHeight / 12).padLeft(screenWidth / 100)
-				.padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.blankButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.saveButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.loadButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
-		toolTable.add(myGame.assetLoader.playButton).size(screenHeight / 8)
-				.padLeft(screenWidth / 100).padRight(screenWidth / 100);
+		toolTable.add(myGame.assetLoader.backButton).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.groundTool).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.boxTool).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.safeTool).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.blankTool).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.saveButton).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.loadButton).size(screenHeight / 8);
+		toolTable.add(myGame.assetLoader.playButton).size(screenHeight / 8);
 	}
 	
 	private void addListeners(Table levelGrid2)

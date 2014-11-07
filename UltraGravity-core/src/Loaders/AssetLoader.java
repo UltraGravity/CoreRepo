@@ -44,6 +44,13 @@ public class AssetLoader
 	public ImageButtonStyle playButtonStyle;
 	public ImageButtonStyle backButtonStyle;
 	
+	// Tool Button Styles
+	public ImageButtonStyle boxStyle;
+	public ImageButtonStyle groundStyle;
+	public ImageButtonStyle safeStyle;
+	public ImageButtonStyle blankStyle;
+	
+	
 	// Buttons
 	public ImageButton groundButton;
 	public ImageButton boxButton;
@@ -53,6 +60,11 @@ public class AssetLoader
 	public ImageButton loadButton;
 	public ImageButton playButton;
 	public ImageButton backButton;
+	
+	public ImageButton boxTool;
+	public ImageButton groundTool;
+	public ImageButton safeTool;
+	public ImageButton blankTool;
 	
 	
 	// Skins
@@ -77,10 +89,8 @@ public class AssetLoader
 	 
 	 public void setupMenu()
 	 {
-		gameScreenAtlas = assetManager.get("GameAssets.atlas",
-				TextureAtlas.class);
-		mainMenuButtonAtlas = new TextureAtlas(
-				Gdx.files.internal("MenuButtonAtlas.atlas"));
+		gameScreenAtlas = assetManager.get("GameAssets.atlas", TextureAtlas.class);
+		mainMenuButtonAtlas = new TextureAtlas(Gdx.files.internal("MenuButtonAtlas.atlas"));
 		uiSkinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
 		gameButtonSkin = new Skin(gameScreenAtlas);
 		uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -111,6 +121,26 @@ public class AssetLoader
 		loadButtonStyle.up = gameButtonSkin.getDrawable("load");
 		backButtonStyle = new ImageButtonStyle();
 		backButtonStyle.up = gameButtonSkin.getDrawable("back");
+		backButtonStyle.down = gameButtonSkin.getDrawable("back-pressed");
+		
+		boxStyle = new ImageButtonStyle();
+		boxStyle.up = gameButtonSkin.getDrawable("boxbutton");
+		boxStyle.down = gameButtonSkin.getDrawable("boxbutton-pressed");
+		
+		groundStyle = new ImageButtonStyle();
+		groundStyle.up = gameButtonSkin.getDrawable("groundbutton");
+		groundStyle.down = gameButtonSkin.getDrawable("groundbutton-pressed");
+		
+		safeStyle = new ImageButtonStyle();
+		safeStyle.up = gameButtonSkin.getDrawable("safebutton");
+		safeStyle.down = gameButtonSkin.getDrawable("safebutton-pressed");		
+		
+		blankStyle = new ImageButtonStyle();
+		blankStyle.up = gameButtonSkin.getDrawable("blankbutton");
+		blankStyle.down = gameButtonSkin.getDrawable("blankbutton-pressed");
+		
+		
+		
 		playButtonStyle = new ImageButtonStyle();
 		playButtonStyle.up = gameButtonSkin.getDrawable("play");
 
@@ -124,6 +154,11 @@ public class AssetLoader
 		backButton = new ImageButton(backButtonStyle);
 		playButton = new ImageButton(playButtonStyle);
 		
+		boxTool = new ImageButton(boxStyle);
+		groundTool = new ImageButton(groundStyle);
+		safeTool = new ImageButton(safeStyle);
+		blankTool = new ImageButton(blankStyle);
+		
 		backButton.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
@@ -132,7 +167,7 @@ public class AssetLoader
 			}
 		});
 
-		groundButton.addListener(new ChangeListener()
+		groundTool.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
@@ -140,7 +175,7 @@ public class AssetLoader
 			}
 		});
 
-		boxButton.addListener(new ChangeListener()
+		boxTool.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
@@ -148,7 +183,7 @@ public class AssetLoader
 			}
 		});
 
-		safeZoneButton.addListener(new ChangeListener()
+		safeTool.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
@@ -156,7 +191,7 @@ public class AssetLoader
 			}
 		});
 
-		blankButton.addListener(new ChangeListener()
+		blankTool.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
