@@ -214,7 +214,7 @@ public class AssetLoader
 			{
 				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(myGame.levelEditorScreen.stage);
-				
+				dialog.setHeight(myGame.screenHeight);
 				
 				myGame.levelEditorScreen.load("CL_0.txt");
 				// open a pop up window or something to select specific level to

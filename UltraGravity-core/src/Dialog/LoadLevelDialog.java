@@ -97,15 +97,16 @@ public class LoadLevelDialog extends Dialog
 		
 		
 		
-		backTable.setFillParent(true);
+		//backTable.setFillParent(true);
 		
 		backTable.row();
 		backTable.add(scrollPane);
 		
 		this.add(backTable);
 		
-		this.pack();
+		//this.pack();
 		
+		//this.setHeight(myGame.screenHeight);
 		
 		
 		back.addListener(new ChangeListener()
