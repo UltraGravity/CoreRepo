@@ -215,7 +215,7 @@ public class AssetLoader
 				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(myGame.levelEditorScreen.stage);
 				
-				/*
+				
 				if (dialog.getHeight() < myGame.screenHeight)
 				{
 					dialog.pack();
@@ -224,11 +224,7 @@ public class AssetLoader
 				{
 					dialog.setHeight(myGame.screenHeight);
 				}
-				*/
 				
-				dialog.pack();
-				dialog.setHeight((float)(myGame.screenHeight - myGame.screenHeight/8));
-				dialog.setCenterPosition(myGame.screenWidth/2, myGame.screenHeight/2);
 				
 				
 				//myGame.levelEditorScreen.load("CL_0.txt");
