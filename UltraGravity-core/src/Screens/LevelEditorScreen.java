@@ -1,6 +1,7 @@
 package Screens;
 
 import Dialog.LoadLevelDialog;
+import Dialog.SaveDialog;
 import Dialog.SettingsDialog;
 import FileIO.LevelFile;
 import Objects.GridImage;
@@ -219,7 +220,7 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				SettingsDialog dialog = new SettingsDialog(myGame, "", myGame.assetLoader.uiSkin);
-				dialog.show(myGame.levelEditorScreen.stage);
+				dialog.show(stage);
 			}
 		});
 		
@@ -228,7 +229,8 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				myGame.changeToMainMenuScreen();
+				SaveDialog dialog = new SaveDialog(myGame, "", myGame.assetLoader.uiSkin);
+				dialog.show(stage);
 			}
 		});
 
@@ -277,7 +279,7 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
-				dialog.show(myGame.levelEditorScreen.stage);
+				dialog.show(stage);
 				
 				
 				if (dialog.getHeight() < screenHeight)
