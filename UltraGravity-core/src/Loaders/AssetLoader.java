@@ -216,7 +216,7 @@ public class AssetLoader
 				dialog.show(myGame.levelEditorScreen.stage);
 				dialog.setHeight(myGame.screenHeight);
 				
-				myGame.levelEditorScreen.load("CL_0.txt");
+				//myGame.levelEditorScreen.load("CL_0.txt");
 				// open a pop up window or something to select specific level to
 				// edit.
 				// load(that_file);

@@ -28,6 +28,7 @@ public class LoadLevelDialog extends Dialog
 	Table levelTable;
 	Table backTable;
 	ScrollPane scrollPane;
+	TextButton back;
 	FileHandle[] files;
 	
 	public LoadLevelDialog(MyGame myGame, String title, Skin skin)
@@ -49,7 +50,7 @@ public class LoadLevelDialog extends Dialog
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 		
 		
-		TextButton back = new TextButton("Back", skin);
+		back = new TextButton("Back", skin);
 		backTable.add(back);
 		levelTable.row();
 		
@@ -104,11 +105,12 @@ public class LoadLevelDialog extends Dialog
 		
 		this.add(backTable);
 		
-		//this.pack();
-		
-		//this.setHeight(myGame.screenHeight);
-		
-		
+		setupButtons();
+	}
+	
+	
+	public void setupButtons()
+	{
 		back.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
@@ -117,6 +119,14 @@ public class LoadLevelDialog extends Dialog
 			}
 		});
 
+		levelTable.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	            LevelButton button = (LevelButton) actor;
+	        	myGame.levelEditorScreen.load(button.play());
+	        	hide();
+	        }});
 	}
 	
 	

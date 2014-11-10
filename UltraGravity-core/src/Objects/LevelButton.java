@@ -13,13 +13,9 @@ public class LevelButton extends TextButton
 		this.fileName = fileName;
 	}
 	
-	public void play()
+	public String play()
 	{
-		System.out.println("PLAY: " + fileName);
-		
-		/*
-		 * load this file, switch screens, etc.
-		 */
+		return fileName;
 	}
 
 }
