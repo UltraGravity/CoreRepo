@@ -52,21 +52,6 @@ public class AssetLoader
 	public ImageButtonStyle blankStyle;
 	
 	
-	// Buttons
-	public ImageButton groundButton;
-	public ImageButton boxButton;
-	public ImageButton safeZoneButton;
-	public ImageButton blankButton;
-	public ImageButton saveButton;
-	public ImageButton loadButton;
-	public ImageButton playButton;
-	public ImageButton backButton;
-	
-	public ImageButton boxTool;
-	public ImageButton groundTool;
-	public ImageButton safeTool;
-	public ImageButton blankTool;
-	
 	
 	// Skins
 	public Skin menuButtonSkin;
@@ -140,109 +125,8 @@ public class AssetLoader
 		blankStyle.up = gameButtonSkin.getDrawable("blankbutton");
 		blankStyle.down = gameButtonSkin.getDrawable("blankbutton-pressed");
 		
-		
-		
 		playButtonStyle = new ImageButtonStyle();
 		playButtonStyle.up = gameButtonSkin.getDrawable("play");
-
-		// Buttons
-		groundButton = new ImageButton(groundBlockStyle);
-		boxButton = new ImageButton(boxBlockStyle);
-		safeZoneButton = new ImageButton(safeZoneBlockStyle);
-		blankButton = new ImageButton(blankBlockStyle);
-		saveButton = new ImageButton(saveButtonStyle);
-		loadButton = new ImageButton(loadButtonStyle);
-		backButton = new ImageButton(backButtonStyle);
-		playButton = new ImageButton(playButtonStyle);
-		
-		boxTool = new ImageButton(boxStyle);
-		groundTool = new ImageButton(groundStyle);
-		safeTool = new ImageButton(safeStyle);
-		blankTool = new ImageButton(blankStyle);
-		
-		backButton.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				myGame.changeToMainMenuScreen();
-			}
-		});
-
-		groundTool.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				myGame.levelEditorScreen.selectedStyle = groundBlockStyle;
-			}
-		});
-
-		boxTool.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				myGame.levelEditorScreen.selectedStyle = boxBlockStyle;
-			}
-		});
-
-		safeTool.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				myGame.levelEditorScreen.selectedStyle = safeZoneBlockStyle;
-			}
-		});
-
-		blankTool.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				myGame.levelEditorScreen.selectedStyle = blankBlockStyle;
-			}
-		});
-
-		saveButton.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				myGame.levelEditorScreen.save();
-			}
-		});
-
-		loadButton.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
-				dialog.show(myGame.levelEditorScreen.stage);
-				
-				
-				if (dialog.getHeight() < myGame.screenHeight)
-				{
-					dialog.pack();
-				}
-				else
-				{
-					dialog.setHeight(myGame.screenHeight);
-				}
-				
-				
-				
-				//myGame.levelEditorScreen.load("CL_0.txt");
-				// open a pop up window or something to select specific level to
-				// edit.
-				// load(that_file);
-			}
-		});
-
-		playButton.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-			  levelFile = new LevelFile(myGame);
-			  System.out.println(levelFile.getLastLevelName());
-				myGame.changeToGameScreen(levelFile.LoadLevel(levelFile.getLastLevelName()));
-			}
-		});
 	 }	
 	 
 	 public void loadGameAssets()

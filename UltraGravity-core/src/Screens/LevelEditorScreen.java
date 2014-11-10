@@ -1,5 +1,7 @@
 package Screens;
 
+import Dialog.LoadLevelDialog;
+import Dialog.SettingsDialog;
 import FileIO.LevelFile;
 import Objects.GridImage;
 import Objects.ThePlane;
@@ -16,6 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -25,29 +28,48 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class LevelEditorScreen extends GenericScreen
 {
 
-	int selectedBlock = 0;
-	BitmapFont font;
+	public int selectedBlock = 0;
+	public BitmapFont font;
 	public Stage stage;
-	Skin buttonSkin;
-	Table windowTable;
-	Table toolTable;
-	Table levelGrid;
-	ScrollPane scrollPane;
-	TextButtonStyle textButtonStyle;
-	TextureAtlas buttonAtlas;
+	public Skin buttonSkin;
+	public Table windowTable;
+	public Table toolTable;
+	public Table levelGrid;
+	public ScrollPane scrollPane;
+	public TextButtonStyle textButtonStyle;
+	public TextureAtlas buttonAtlas;
+	
+	
+	public ImageButton groundButton;
+	public ImageButton boxButton;
+	public ImageButton safeZoneButton;
+	public ImageButton blankButton;
+	public ImageButton saveButton;
+	public ImageButton loadButton;
+	public ImageButton playButton;
+	public ImageButton backButton;
+	public ImageButton settingsButton;
+	public ImageButton boxTool;
+	public ImageButton groundTool;
+	public ImageButton safeTool;
+	public ImageButton blankTool;
 
-	GridImage cell[];
+	
+	
+
+	public GridImage cell[];
 	public ImageButtonStyle selectedStyle;
 
-	Label ultraGravity;
-	LabelStyle ultraGravityFont;
+	public Label ultraGravity;
+	public LabelStyle ultraGravityFont;
 
-	LevelFile levelFile;
-	ThePlane thePlane;
+	public LevelFile levelFile;
+	public ThePlane thePlane;
 
 	float currentScaleX = screenWidth;
 	float currentScaleY = screenHeight;
@@ -96,14 +118,7 @@ public class LevelEditorScreen extends GenericScreen
 		addTools();
 		toolTable.center().bottom();
 	
-
-		
-		
-
-		
-		
-		
-		thePlane = new ThePlane(20, 10);
+		thePlane = new ThePlane(10, 5);
 		// world = new World(new Vector2(0,-10), true);
 		cell = new GridImage[thePlane.getXSize() * thePlane.getYSize()];
 		createGrid(cell);
@@ -172,17 +187,122 @@ public class LevelEditorScreen extends GenericScreen
 
 	private void addTools()
 	{
-		toolTable.add(myGame.assetLoader.backButton).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.groundTool).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.boxTool).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.safeTool).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.blankTool).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.saveButton).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.loadButton).size(screenHeight / 8);
-		toolTable.add(myGame.assetLoader.playButton).size(screenHeight / 8);
+		// Buttons
+		groundButton = new ImageButton(myGame.assetLoader.groundBlockStyle);
+		boxButton = new ImageButton(myGame.assetLoader.boxBlockStyle);
+		safeZoneButton = new ImageButton(myGame.assetLoader.safeZoneBlockStyle);
+		blankButton = new ImageButton(myGame.assetLoader.blankBlockStyle);
+		saveButton = new ImageButton(myGame.assetLoader.saveButtonStyle);
+		loadButton = new ImageButton(myGame.assetLoader.loadButtonStyle);
+		backButton = new ImageButton(myGame.assetLoader.backButtonStyle);
+		playButton = new ImageButton(myGame.assetLoader.playButtonStyle);
+		
+		boxTool = new ImageButton(myGame.assetLoader.boxStyle);
+		groundTool = new ImageButton(myGame.assetLoader.groundStyle);
+		safeTool = new ImageButton(myGame.assetLoader.safeStyle);
+		blankTool = new ImageButton(myGame.assetLoader.blankStyle);
+		settingsButton = new ImageButton(myGame.assetLoader.blankStyle);
+		
+		toolTable.add(backButton).size(screenHeight / 8);
+		toolTable.add(groundTool).size(screenHeight / 8);
+		toolTable.add(boxTool).size(screenHeight / 8);
+		toolTable.add(safeTool).size(screenHeight / 8);
+		toolTable.add(blankTool).size(screenHeight / 8);
+		toolTable.add(settingsButton).size(screenHeight / 8);
+		toolTable.add(saveButton).size(screenHeight / 8);
+		toolTable.add(loadButton).size(screenHeight / 8);
+		toolTable.add(playButton).size(screenHeight / 8);
+		
+
+		settingsButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				SettingsDialog dialog = new SettingsDialog(myGame, "", myGame.assetLoader.uiSkin);
+				dialog.show(myGame.levelEditorScreen.stage);
+			}
+		});
+		
+		
+		backButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.changeToMainMenuScreen();
+			}
+		});
+
+		groundTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				selectedStyle = myGame.assetLoader.groundBlockStyle;
+			}
+		});
+
+		boxTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				selectedStyle = myGame.assetLoader.boxBlockStyle;
+			}
+		});
+
+		safeTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				selectedStyle = myGame.assetLoader.safeZoneBlockStyle;
+			}
+		});
+
+		blankTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				selectedStyle = myGame.assetLoader.blankBlockStyle;
+			}
+		});
+
+		saveButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				save();
+			}
+		});
+
+		loadButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
+				dialog.show(myGame.levelEditorScreen.stage);
+				
+				
+				if (dialog.getHeight() < screenHeight)
+				{
+					dialog.pack();
+				}
+				else
+				{
+					dialog.setHeight(screenHeight);
+				}
+			}
+		});
+
+		playButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+			  levelFile = new LevelFile(myGame);
+			  System.out.println(levelFile.getLastLevelName());
+				myGame.changeToGameScreen(levelFile.LoadLevel(levelFile.getLastLevelName()));
+			}
+		});
 	}
 	
-	private void addListeners(Table levelGrid2)
+	public void addListeners(Table levelGrid2)
 	{
 		levelGrid.addListener(new ChangeListener()
 		{
@@ -211,7 +331,7 @@ public class LevelEditorScreen extends GenericScreen
 		});
 	}
 
-	private void createGrid(GridImage[] cell2)
+	public void createGrid(GridImage[] cell2)
 	{
 		int index = 0;
 		for (int y = 0; y < thePlane.getYSize(); y++)
@@ -219,7 +339,7 @@ public class LevelEditorScreen extends GenericScreen
 			for (int x = 0; x < thePlane.getXSize(); x++)
 			{
 				cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
-				levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
+				levelGrid.add(cell[index]).size(screenHeight / 8);
 				index++;
 			}
 			levelGrid.row();
