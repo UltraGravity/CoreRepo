@@ -50,7 +50,7 @@ public class AssetLoader
 	public ImageButtonStyle groundStyle;
 	public ImageButtonStyle safeStyle;
 	public ImageButtonStyle blankStyle;
-	
+	public ImageButtonStyle settingsStyle;
 	
 	
 	// Skins
@@ -103,8 +103,10 @@ public class AssetLoader
 		blankBlockStyle.up = gameButtonSkin.getDrawable("blank");
 		saveButtonStyle = new ImageButtonStyle();
 		saveButtonStyle.up = gameButtonSkin.getDrawable("save");
+		saveButtonStyle.down = gameButtonSkin.getDrawable("save-pressed");
 		loadButtonStyle = new ImageButtonStyle();
 		loadButtonStyle.up = gameButtonSkin.getDrawable("load");
+		loadButtonStyle.down = gameButtonSkin.getDrawable("load-pressed");
 		backButtonStyle = new ImageButtonStyle();
 		backButtonStyle.up = gameButtonSkin.getDrawable("back");
 		backButtonStyle.down = gameButtonSkin.getDrawable("back-pressed");
@@ -127,6 +129,11 @@ public class AssetLoader
 		
 		playButtonStyle = new ImageButtonStyle();
 		playButtonStyle.up = gameButtonSkin.getDrawable("play");
+		playButtonStyle.down = gameButtonSkin.getDrawable("play-pressed");
+		
+		settingsStyle = new ImageButtonStyle();
+		settingsStyle.up = gameButtonSkin.getDrawable("settingsbutton");
+		settingsStyle.down = gameButtonSkin.getDrawable("settingsbutton-pressed");
 	 }	
 	 
 	 public void loadGameAssets()

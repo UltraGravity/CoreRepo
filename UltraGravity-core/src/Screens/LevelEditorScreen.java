@@ -202,7 +202,7 @@ public class LevelEditorScreen extends GenericScreen
 		groundTool = new ImageButton(myGame.assetLoader.groundStyle);
 		safeTool = new ImageButton(myGame.assetLoader.safeStyle);
 		blankTool = new ImageButton(myGame.assetLoader.blankStyle);
-		settingsButton = new ImageButton(myGame.assetLoader.blankStyle);
+		settingsButton = new ImageButton(myGame.assetLoader.settingsStyle);
 		
 		toolTable.add(backButton).size(screenHeight / 8);
 		toolTable.add(groundTool).size(screenHeight / 8);
@@ -239,6 +239,7 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				selectedStyle = myGame.assetLoader.groundBlockStyle;
+				groundTool.setChecked(true);
 			}
 		});
 
