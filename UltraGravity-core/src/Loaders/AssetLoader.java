@@ -52,6 +52,9 @@ public class AssetLoader
 	public ImageButtonStyle blankStyle;
 	public ImageButtonStyle settingsStyle;
 	
+	public ImageButtonStyle plusStyle;
+	public ImageButtonStyle minusStyle;
+	
 	
 	// Skins
 	public Skin menuButtonSkin;
@@ -138,6 +141,14 @@ public class AssetLoader
 		settingsStyle = new ImageButtonStyle();
 		settingsStyle.up = gameButtonSkin.getDrawable("settingsbutton");
 		settingsStyle.down = gameButtonSkin.getDrawable("settingsbutton-pressed");
+		
+		plusStyle = new ImageButtonStyle();
+		plusStyle.up = gameButtonSkin.getDrawable("plus");
+		plusStyle.down = gameButtonSkin.getDrawable("plus-pressed");
+		
+		minusStyle = new ImageButtonStyle();
+		minusStyle.up = gameButtonSkin.getDrawable("minus");
+		minusStyle.down = gameButtonSkin.getDrawable("minus-pressed");
 	 }	
 	 
 	 public void loadGameAssets()

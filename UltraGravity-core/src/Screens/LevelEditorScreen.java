@@ -60,7 +60,8 @@ public class LevelEditorScreen extends GenericScreen
 	public ImageButton groundTool;
 	public ImageButton safeTool;
 	public ImageButton blankTool;
-
+	public ImageButton plusButton;
+	public ImageButton minusButton;
 	
 	
 
@@ -207,12 +208,17 @@ public class LevelEditorScreen extends GenericScreen
 		blankTool = new ImageButton(myGame.assetLoader.blankStyle);
 		settingsButton = new ImageButton(myGame.assetLoader.settingsStyle);
 		
+		plusButton = new ImageButton(myGame.assetLoader.plusStyle);
+		minusButton = new ImageButton(myGame.assetLoader.minusStyle);
+		
 		toolTable.add(backButton).size(screenHeight / 8);
 		toolTable.add(groundTool).size(screenHeight / 8);
 		toolTable.add(boxTool).size(screenHeight / 8);
 		toolTable.add(safeTool).size(screenHeight / 8);
 		toolTable.add(blankTool).size(screenHeight / 8);
 		toolTable.add(settingsButton).size(screenHeight / 8);
+		toolTable.add(minusButton).size(screenHeight / 8);
+		toolTable.add(plusButton).size(screenHeight / 8);
 		toolTable.add(saveButton).size(screenHeight / 8);
 		toolTable.add(loadButton).size(screenHeight / 8);
 		toolTable.add(playButton).size(screenHeight / 8);
@@ -282,6 +288,34 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				save();
+			}
+		});
+		
+		minusButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				if (zoomFactor <= 14)
+				{
+					zoomFactor += 1;
+				}
+				levelGrid.clearChildren();
+				createGrid(cell);
+				System.out.println(zoomFactor);
+			}
+		});
+		
+		plusButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				if (zoomFactor >= 5)
+				{
+					zoomFactor -= 1;
+				}
+				levelGrid.clearChildren();
+				createGrid(cell);
+				System.out.println(zoomFactor);
 			}
 		});
 
@@ -484,7 +518,6 @@ public class LevelEditorScreen extends GenericScreen
 	public void hide()
 	{
 		System.out.println("Disposing Level Editor Screen");
-		save();
 		this.dispose();
 	}
 
