@@ -114,18 +114,22 @@ public class AssetLoader
 		boxStyle = new ImageButtonStyle();
 		boxStyle.up = gameButtonSkin.getDrawable("boxbutton");
 		boxStyle.down = gameButtonSkin.getDrawable("boxbutton-pressed");
+		boxStyle.checked = gameButtonSkin.getDrawable("boxbutton-pressed");
 		
 		groundStyle = new ImageButtonStyle();
 		groundStyle.up = gameButtonSkin.getDrawable("groundbutton");
 		groundStyle.down = gameButtonSkin.getDrawable("groundbutton-pressed");
+		groundStyle.checked = gameButtonSkin.getDrawable("groundbutton-pressed");
 		
 		safeStyle = new ImageButtonStyle();
 		safeStyle.up = gameButtonSkin.getDrawable("safebutton");
-		safeStyle.down = gameButtonSkin.getDrawable("safebutton-pressed");		
+		safeStyle.down = gameButtonSkin.getDrawable("safebutton-pressed");	
+		safeStyle.checked = gameButtonSkin.getDrawable("safebutton-pressed");	
 		
 		blankStyle = new ImageButtonStyle();
 		blankStyle.up = gameButtonSkin.getDrawable("blankbutton");
 		blankStyle.down = gameButtonSkin.getDrawable("blankbutton-pressed");
+		blankStyle.checked = gameButtonSkin.getDrawable("blankbutton-pressed");
 		
 		playButtonStyle = new ImageButtonStyle();
 		playButtonStyle.up = gameButtonSkin.getDrawable("play");

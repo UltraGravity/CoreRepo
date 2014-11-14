@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -75,6 +76,8 @@ public class LevelEditorScreen extends GenericScreen
 	float currentScaleX = screenWidth;
 	float currentScaleY = screenHeight;
 
+	int zoomFactor = 8;
+	
 	public LevelEditorScreen(MyGame myGame)
 	{
 		super(myGame);
@@ -181,7 +184,7 @@ public class LevelEditorScreen extends GenericScreen
 			}
 		});
 	
-		selectedStyle = myGame.assetLoader.blankBlockStyle;
+		selectedStyle = myGame.assetLoader.groundBlockStyle;
 		Gdx.input.setInputProcessor(stage);
 		Gdx.input.setCatchBackKey(true);
 	}
@@ -214,7 +217,15 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.add(loadButton).size(screenHeight / 8);
 		toolTable.add(playButton).size(screenHeight / 8);
 		
+		// So we have radio button effect
+		ButtonGroup group = new ButtonGroup();
+		group.add(boxTool);
+		group.add(groundTool);
+		group.add(safeTool);
+		group.add(blankTool);
 
+		groundTool.setChecked(true);
+		
 		settingsButton.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
@@ -239,7 +250,6 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				selectedStyle = myGame.assetLoader.groundBlockStyle;
-				groundTool.setChecked(true);
 			}
 		});
 
@@ -342,7 +352,7 @@ public class LevelEditorScreen extends GenericScreen
 			for (int x = 0; x < thePlane.getXSize(); x++)
 			{
 				cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
-				levelGrid.add(cell[index]).size(screenHeight / 8);
+				levelGrid.add(cell[index]).size(screenHeight / zoomFactor);
 				index++;
 			}
 			levelGrid.row();
