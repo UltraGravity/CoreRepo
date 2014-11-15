@@ -62,7 +62,7 @@ public class LevelEditorScreen extends GenericScreen
 	public ImageButton blankTool;
 	public ImageButton plusButton;
 	public ImageButton minusButton;
-	
+	public ImageButton characterButton;
 	
 
 	public GridImage cell[];
@@ -148,42 +148,52 @@ public class LevelEditorScreen extends GenericScreen
 			}
 		};
 
-		stage.addListener(new ActorGestureListener()
-		{
-			public void pinch(InputEvent event, Vector2 initialPointer1,
-					Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
-			{
-				// System.out.println(initialPointer1);
-				//
-				//
-				// float origDist = (float)(Math.sqrt(Math.pow(initialPointer1.x
-				// - initialPointer2.x, 2) +
-				// Math.pow(initialPointer1.y - initialPointer2.y, 2)));
-				// float newDist = (float)(Math.sqrt(Math.pow(pointer1.x -
-				// pointer2.x, 2) + Math.pow(pointer1.y - pointer2.y,
-				// 2)));
-				//
-				//
-				// if (newDist > origDist) // Add a little bit of error in there
-				// {
-				// currentScaleX += newDist;
-				// currentScaleY += newDist;
-				// windowTable.setScale(currentScaleX);
-				// }
-				// if (newDist < origDist)
-				// {
-				// currentScaleX -= newDist;
-				// currentScaleY -= newDist;
-				// windowTable.setScale(currentScaleX);
-				// }
-				//
-				// //System.out.println(origDist + ",  " + (origDist + (origDist
-				// * .20)) + ",  " + newDist);
-				//
-				//
-				// windowTable.pack();
-			}
-		});
+//		stage.addListener(new ActorGestureListener()
+//		{
+//			public void pinch(InputEvent event, Vector2 initialPointer1,
+//					Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
+//			{
+//								
+//				float origDist = (float) (Math.sqrt(Math.pow(initialPointer1.x
+//						- initialPointer2.x, 2)
+//						+ Math.pow(initialPointer1.y - initialPointer2.y, 2)));
+//				float newDist = (float) (Math.sqrt(Math.pow(pointer1.x
+//						- pointer2.x, 2)
+//						+ Math.pow(pointer1.y - pointer2.y, 2)));
+//				
+//				if (newDist > origDist)
+//				{
+//					if (zoomFactor >= 5)
+//					{
+//						zoomFactor -= 1;
+//						for (Actor A : levelGrid.getChildren())
+//						{
+//							System.out.println("ZOOMING IN");
+//							GridImage item = (GridImage) A;
+//							item.setSize(screenHeight/zoomFactor, screenHeight/zoomFactor);
+//						}
+//					}
+//				}
+//				
+//
+//				if (newDist < origDist)
+//				{
+//					if (zoomFactor <= 14)
+//					{
+//						zoomFactor += 1;
+//						for (Actor A : levelGrid.getChildren())
+//						{
+//							System.out.println("ZOOMING OUT");
+//							GridImage item = (GridImage) A;
+//							item.setSize(screenHeight/zoomFactor, screenHeight/zoomFactor);
+//						}
+//					}
+//				}
+//				
+//				levelGrid.pack();
+//				
+//			}
+//		});
 	
 		selectedStyle = myGame.assetLoader.groundBlockStyle;
 		Gdx.input.setInputProcessor(stage);
@@ -201,6 +211,7 @@ public class LevelEditorScreen extends GenericScreen
 		loadButton = new ImageButton(myGame.assetLoader.loadButtonStyle);
 		backButton = new ImageButton(myGame.assetLoader.backButtonStyle);
 		playButton = new ImageButton(myGame.assetLoader.playButtonStyle);
+		characterButton = new ImageButton(myGame.assetLoader.characterButtonStyle);
 		
 		boxTool = new ImageButton(myGame.assetLoader.boxStyle);
 		groundTool = new ImageButton(myGame.assetLoader.groundStyle);
@@ -212,6 +223,7 @@ public class LevelEditorScreen extends GenericScreen
 		minusButton = new ImageButton(myGame.assetLoader.minusStyle);
 		
 		toolTable.add(backButton).size(screenHeight / 8);
+		toolTable.add(characterButton).size(screenHeight / 8);
 		toolTable.add(groundTool).size(screenHeight / 8);
 		toolTable.add(boxTool).size(screenHeight / 8);
 		toolTable.add(safeTool).size(screenHeight / 8);
@@ -231,6 +243,15 @@ public class LevelEditorScreen extends GenericScreen
 		group.add(blankTool);
 
 		groundTool.setChecked(true);
+
+		
+		characterButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				selectedStyle = myGame.assetLoader.characterBlockStyle;
+			}
+		});
 		
 		settingsButton.addListener(new ChangeListener()
 		{

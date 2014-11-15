@@ -28,11 +28,17 @@ public class SettingsDialog extends Dialog
 	TextButton minusY;
 	Label widthLabel;
 	Label heightLabel;
+
 	
 	public SettingsDialog(MyGame myGame, String title, Skin skin)
 	{
 		super(title, skin);
+		
+		
 		this.myGame = myGame;
+
+		// Scale
+		float s = myGame.screenHeight;
 		
 		table = new Table();
 		settingsTable = new Table();
@@ -46,12 +52,13 @@ public class SettingsDialog extends Dialog
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 		
 		
-		back = new TextButton("Back", skin);
+		back = new TextButton("Select", skin);
 		backTable.add(back);
+		back.getLabel().setFontScale(s/1280);
 			
 		
 		minusX = new TextButton("-", skin);
-		widthLabel = new Label("Width", skin);
+		widthLabel = new Label(" Width ", skin);
 		plusX = new TextButton("+", skin);
 		
 		settingsTable.add(minusX);
@@ -60,15 +67,27 @@ public class SettingsDialog extends Dialog
 		settingsTable.row();
 		
 		minusY = new TextButton("-", skin);
-		heightLabel = new Label("Height", skin);
+		heightLabel = new Label(" Height ", skin);
 		plusY = new TextButton("+", skin);
+		
+		
+		
+		
+		heightLabel.setFontScale(s/1280);
+		widthLabel.setFontScale(s/1280);
+		minusX.getLabel().setFontScale(s/1280);
+		minusY.getLabel().setFontScale(s/1280);
+		plusX.getLabel().setFontScale(s/1280);
+		plusY.getLabel().setFontScale(s/1280);
+		
+
 		
 		settingsTable.add(minusY);
 		settingsTable.add(heightLabel);
 		settingsTable.add(plusY);
 		
 		
-		table.add(backTable);
+		table.add(backTable).top();
 		table.row();
 		table.add(settingsTable);
 		

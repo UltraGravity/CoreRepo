@@ -34,6 +34,7 @@ public class AssetLoader
 	public TextureRegion save;
 	public TextureRegion load;
 	public TextureRegion back;
+	public TextureRegion character;
 	
 	// Button Styles
 	public ImageButtonStyle groundBlockStyle;
@@ -44,6 +45,7 @@ public class AssetLoader
 	public ImageButtonStyle loadButtonStyle;
 	public ImageButtonStyle playButtonStyle;
 	public ImageButtonStyle backButtonStyle;
+	public ImageButtonStyle characterBlockStyle;
 	
 	// Tool Button Styles
 	public ImageButtonStyle boxStyle;
@@ -54,6 +56,8 @@ public class AssetLoader
 	
 	public ImageButtonStyle plusStyle;
 	public ImageButtonStyle minusStyle;
+	
+	public ImageButtonStyle characterButtonStyle;
 	
 	
 	// Skins
@@ -95,6 +99,7 @@ public class AssetLoader
 		load = gameScreenAtlas.findRegion("load");
 		back = gameScreenAtlas.findRegion("back");
 		play = gameScreenAtlas.findRegion("play");
+		character = gameScreenAtlas.findRegion("character");
 
 		groundBlockStyle = new ImageButtonStyle();
 		groundBlockStyle.up = gameButtonSkin.getDrawable("metal");
@@ -149,6 +154,14 @@ public class AssetLoader
 		minusStyle = new ImageButtonStyle();
 		minusStyle.up = gameButtonSkin.getDrawable("minus");
 		minusStyle.down = gameButtonSkin.getDrawable("minus-pressed");
+		
+		characterButtonStyle = new ImageButtonStyle();
+		characterButtonStyle.up = gameButtonSkin.getDrawable("main");
+		characterButtonStyle.down = gameButtonSkin.getDrawable("main-pressed");
+		characterButtonStyle.checked = gameButtonSkin.getDrawable("main-pressed");
+		
+		characterBlockStyle = new ImageButtonStyle();
+		characterBlockStyle.up = gameButtonSkin.getDrawable("main-level");
 	 }	
 	 
 	 public void loadGameAssets()
