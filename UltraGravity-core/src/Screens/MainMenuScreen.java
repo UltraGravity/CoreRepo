@@ -2,6 +2,7 @@ package Screens;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Orientation;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -30,6 +31,8 @@ public class MainMenuScreen extends GenericScreen
 	TextButton optionsButton;
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
+	
+	float rotation;
 
 	public MainMenuScreen(MyGame myGame)
 	{
@@ -39,6 +42,13 @@ public class MainMenuScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{	
+		
+		//rotation = Gdx.input.getAccelerometerY()/10;
+		//System.out.println(rotation);
+		
+		
+		//stage.getCamera().rotate(-rotation, 0, 0, screenWidth/2);
+		
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
