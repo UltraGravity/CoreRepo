@@ -1,6 +1,5 @@
 package Loaders;
 
-import Dialog.LoadLevelDialog;
 import FileIO.LevelFile;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
@@ -9,20 +8,19 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class AssetLoader 
 {
 	MyGame myGame;
 	LevelFile levelFile;
 	
+	public String buttonFont;
+	
 	public AssetManager assetManager;
 	public BitmapFont font;
+	public BitmapFont titleFont;
 	public TextureAtlas gameScreenAtlas;
 	public TextureAtlas mainMenuButtonAtlas;
 	public TextureAtlas uiSkinAtlas;
@@ -76,8 +74,12 @@ public class AssetLoader
 	 {
 		 assetManager.load("GameAssets.atlas", TextureAtlas.class);
 		 assetManager.load("MenuButtonAtlas.atlas", TextureAtlas.class);
-		 assetManager.load("Font.fnt", BitmapFont.class);
+		 assetManager.load("title.fnt", BitmapFont.class);
 		 assetManager.load("uiskin.atlas", TextureAtlas.class);
+		 
+		 chooseFont();
+		 
+		 
 	 }
 	 
 	 public void setupMenu()
@@ -89,7 +91,8 @@ public class AssetLoader
 		uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 		menuButtonSkin = new Skin();
 		menuButtonSkin.addRegions(mainMenuButtonAtlas);
-		font = assetManager.get("Font.fnt", BitmapFont.class);
+		font = assetManager.get(buttonFont, BitmapFont.class);
+		titleFont = assetManager.get("title.fnt", BitmapFont.class);
 
 		box = gameScreenAtlas.findRegion("crate");
 		ground = gameScreenAtlas.findRegion("metal");
@@ -164,16 +167,14 @@ public class AssetLoader
 		characterBlockStyle.up = gameButtonSkin.getDrawable("main-level");
 	 }	
 	 
-	 public void loadGameAssets()
+
+	 public void chooseFont()
 	 {
 		 
-	 }
-	 
-	 public void setupGame()
-	 {
 		 
+		 buttonFont = "font_small.fnt";
+		 assetManager.load(buttonFont, BitmapFont.class);
 	 }
-	 
 	
 	 
 }

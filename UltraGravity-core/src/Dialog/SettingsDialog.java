@@ -54,7 +54,7 @@ public class SettingsDialog extends Dialog
 		
 		back = new TextButton("Select", skin);
 		backTable.add(back);
-		back.getLabel().setFontScale(s/1280);
+		//back.getLabel().setFontScale(s/640);
 			
 		
 		minusX = new TextButton("-", skin);
@@ -73,12 +73,12 @@ public class SettingsDialog extends Dialog
 		
 		
 		
-		heightLabel.setFontScale(s/1280);
-		widthLabel.setFontScale(s/1280);
-		minusX.getLabel().setFontScale(s/1280);
-		minusY.getLabel().setFontScale(s/1280);
-		plusX.getLabel().setFontScale(s/1280);
-		plusY.getLabel().setFontScale(s/1280);
+		//heightLabel.setFontScale(s/640);
+		//widthLabel.setFontScale(s/640);
+		//minusX.getLabel().setFontScale(s/640);
+		//minusY.getLabel().setFontScale(s/640);
+		//plusX.getLabel().setFontScale(s/640);
+		//plusY.getLabel().setFontScale(s/640);
 		
 
 		
