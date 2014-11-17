@@ -18,6 +18,7 @@ public class AssetLoader
 	
 	public AssetManager assetManager;
 	public BitmapFont font;
+	public BitmapFont titleFont;
 	public TextureAtlas gameScreenAtlas;
 	public TextureAtlas mainMenuButtonAtlas;
 	public TextureAtlas uiSkinAtlas;
@@ -72,6 +73,7 @@ public class AssetLoader
 		 assetManager.load("GameAssets.atlas", TextureAtlas.class);
 		 assetManager.load("MenuButtonAtlas.atlas", TextureAtlas.class);
 		 assetManager.load("Font.fnt", BitmapFont.class);
+		 assetManager.load("title.fnt", BitmapFont.class);
 		 assetManager.load("uiskin.atlas", TextureAtlas.class);
 	 }
 	 
@@ -85,6 +87,7 @@ public class AssetLoader
 		menuButtonSkin = new Skin();
 		menuButtonSkin.addRegions(mainMenuButtonAtlas);
 		font = assetManager.get("Font.fnt", BitmapFont.class);
+		titleFont = assetManager.get("title.fnt", BitmapFont.class);
 
 		box = gameScreenAtlas.findRegion("crate");
 		ground = gameScreenAtlas.findRegion("metal");
