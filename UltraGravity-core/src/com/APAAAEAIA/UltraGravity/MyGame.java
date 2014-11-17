@@ -73,7 +73,7 @@ public class MyGame extends Game
 		
 		if (screen == gameScreen)
 		{
-			assetLoader.loadGameAssets();
+
 		}
 		
 		this.setScreen(loadingScreen);

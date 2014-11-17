@@ -76,7 +76,8 @@ public class MainMenuScreen extends GenericScreen
 		table = new Table();
 		table.setFillParent(true);
 		
-		font = myGame.assetLoader.font;
+
+		font = myGame.assetLoader.font;		
 		skin = new Skin();
 		buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
 		skin.addRegions(buttonAtlas);
@@ -84,9 +85,9 @@ public class MainMenuScreen extends GenericScreen
 		textButtonStyle.font = font;
 		textButtonStyle.up = skin.getDrawable("grey");
 		textButtonStyle.down = skin.getDrawable("grey-pressed");
-		levelSelectButton = new TextButton("LEVEL SELECT", textButtonStyle);
-		levelEditorButton = new TextButton("LEVEL EDITOR", textButtonStyle);
-		optionsButton = new TextButton("OPTIONS", textButtonStyle);
+		levelSelectButton = new TextButton("Level Select", textButtonStyle);
+		levelEditorButton = new TextButton("Level Editor", textButtonStyle);
+		optionsButton = new TextButton("Options", textButtonStyle);
 		ultraGravityFont = new LabelStyle();
 		ultraGravityFont.font = myGame.assetLoader.titleFont;
 		ultraLabel = new Label("ULTRA", ultraGravityFont);
@@ -107,7 +108,15 @@ public class MainMenuScreen extends GenericScreen
 		table.row();
 		table.add(optionsButton).fillX();
 		
-
+		
+//		
+//		table.add(levelSelectButton).size(screenWidth/4, screenHeight/8);
+//		table.row();
+//		table.add(levelEditorButton).size(screenWidth/4, screenHeight/8);
+//		table.row();
+//		table.add(optionsButton).size(screenWidth/4, screenHeight/8);
+//		table.pack();
+//		
 		
 		stage.addActor(table);
 
@@ -138,6 +147,9 @@ public class MainMenuScreen extends GenericScreen
 	            myGame.changeToOptionsScreen();
 	        }});
 	}
+	
+	
+	
 
 	public void hide() 
 	{

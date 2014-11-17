@@ -16,6 +16,8 @@ public class AssetLoader
 	MyGame myGame;
 	LevelFile levelFile;
 	
+	public String buttonFont;
+	
 	public AssetManager assetManager;
 	public BitmapFont font;
 	public BitmapFont titleFont;
@@ -72,9 +74,12 @@ public class AssetLoader
 	 {
 		 assetManager.load("GameAssets.atlas", TextureAtlas.class);
 		 assetManager.load("MenuButtonAtlas.atlas", TextureAtlas.class);
-		 assetManager.load("Font.fnt", BitmapFont.class);
 		 assetManager.load("title.fnt", BitmapFont.class);
 		 assetManager.load("uiskin.atlas", TextureAtlas.class);
+		 
+		 chooseFont();
+		 
+		 
 	 }
 	 
 	 public void setupMenu()
@@ -86,7 +91,7 @@ public class AssetLoader
 		uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
 		menuButtonSkin = new Skin();
 		menuButtonSkin.addRegions(mainMenuButtonAtlas);
-		font = assetManager.get("Font.fnt", BitmapFont.class);
+		font = assetManager.get(buttonFont, BitmapFont.class);
 		titleFont = assetManager.get("title.fnt", BitmapFont.class);
 
 		box = gameScreenAtlas.findRegion("crate");
@@ -162,16 +167,14 @@ public class AssetLoader
 		characterBlockStyle.up = gameButtonSkin.getDrawable("main-level");
 	 }	
 	 
-	 public void loadGameAssets()
+
+	 public void chooseFont()
 	 {
 		 
-	 }
-	 
-	 public void setupGame()
-	 {
 		 
+		 buttonFont = "font_small.fnt";
+		 assetManager.load(buttonFont, BitmapFont.class);
 	 }
-	 
 	
 	 
 }
