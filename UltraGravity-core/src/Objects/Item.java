@@ -1,6 +1,7 @@
 package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -23,6 +24,11 @@ public class Item
 		this.myGame = myGame;
 		this.x = x;
 		this.y = y;
+		this.shape = new PolygonShape();
+		create();
+	}
+	public void create() {
+		
 	}
 
 	public BodyDef getBodyDef()

@@ -2,6 +2,7 @@ package Physics;
 
 import Objects.Item;
 
+import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -10,6 +11,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class WorldUtils
 {
+	MyGame myGame;
+
+	public WorldUtils(MyGame myGame)
+	{
+		this.myGame = myGame;
+	}
 
 	public World createWorld()
 	{
@@ -30,7 +37,7 @@ public class WorldUtils
 		Body body = world.createBody(bodyDef);
 		PolygonShape shape = item.getShape();
 		body.createFixture(shape, 0f);
-		shape.dispose();
+//		shape.dispose();
 		return body;
 	}
 

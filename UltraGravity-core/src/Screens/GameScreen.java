@@ -1,20 +1,16 @@
 package Screens;
 
 import FileIO.LevelFile;
-import Loaders.GameAssets;
-import Objects.GridImage;
-import Objects.Item;
 import Objects.ThePlane;
-import Physics.Direction;
 import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
 
 public class GameScreen extends GenericScreen
 {
@@ -37,6 +33,7 @@ public class GameScreen extends GenericScreen
 	public GameScreen(MyGame myGame, String levelString)
 	{
 		super(myGame);
+		// new SharedLibraryLoader().load("gdx-box2d");
 		// this.levelString = levelString;
 
 	}
@@ -75,6 +72,7 @@ public class GameScreen extends GenericScreen
 		}
 
 		renderer.render(world, camera.combined);
+		System.out.println("Render");
 	}
 
 	public void resize(int width, int height)
@@ -85,15 +83,17 @@ public class GameScreen extends GenericScreen
 	public void show()
 	{
 		System.out.println("beginning");
+		System.out.println("Creating a new world!");
+		WorldUtils worldUtils = new WorldUtils(myGame);
+		world = worldUtils.createWorld(); // Why is this shit null
+
 		fillThePlane(LevelFile.LoadLevel(LevelFile.getLastLevelName()));
 		// fillWorld(levelString);
 		System.out.println("Plane Filled");
 		// world = worldUtils.createWorld();
 		// thePlane.fillWorld(world);
-		System.out.println("Creating a new world!");
+
 		// world = new World(Direction.DOWN, true);
-		WorldUtils worldUtils = new WorldUtils();
-		world = worldUtils.createWorld(); // Why is this shit null
 
 		thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
@@ -155,7 +155,7 @@ public class GameScreen extends GenericScreen
 		}
 		int y = Integer.parseInt(ySizeString);
 		System.out.println(y);
-		thePlane = new ThePlane(x * 100, y * 100);
+		thePlane = new ThePlane(myGame, x * 100, y * 100);
 		// thePlane.setSize(x * 100, y * 100);
 		System.out.println(thePlane.getXSize());
 		System.out.println(thePlane.getYSize());

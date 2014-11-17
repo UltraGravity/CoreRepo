@@ -11,13 +11,20 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Box extends MovingItem
 {
-	private Box box;
-	TextureRegion texture = myGame.assetLoader.box;
+//	private Box box;
+	TextureRegion texture;
 
 	public Box(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
-		 shape.setAsBox(100, 100);
+		texture = myGame.assetLoader.box;
+		setShape();
+		System.out.println("Box Created");
+	}
+
+	public void setShape()
+	{
+		shape.setAsBox(100, 100);
 	}
 
 }

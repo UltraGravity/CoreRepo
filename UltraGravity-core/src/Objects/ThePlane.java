@@ -22,10 +22,11 @@ public class ThePlane
 
 	MyGame myGame;
 
-	WorldUtils worldUtils;
+//	WorldUtils worldUtils;
 
-	public ThePlane(int x, int y)
+	public ThePlane(MyGame myGame, int x, int y)
 	{
+		this.myGame = myGame;
 		this.planeX = x;
 		this.planeY = y;
 		// TODO Auto-generated constructor stub
@@ -81,12 +82,13 @@ public class ThePlane
 
 	public void fillWorld(World world)
 	{
+		WorldUtils worldUtils = new WorldUtils(myGame);
 		System.out.println("Filling the world" + worldList.size());
 		for (int i = 0; i < worldList.size(); i++)
 		{
 			// System.out.println("adding item")
 			Item current = worldList.get(i);
-
+			
 			worldUtils.createItemInWorld(current, world);
 			System.out.println("Added an item to the world");
 

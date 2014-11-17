@@ -121,7 +121,7 @@ public class LevelEditorScreen extends GenericScreen
 		addTools();
 		toolTable.center().bottom();
 	
-		thePlane = new ThePlane(10, 5);
+		thePlane = new ThePlane(myGame, 10, 5);
 		// world = new World(new Vector2(0,-10), true);
 		cell = new GridImage[thePlane.getXSize() * thePlane.getYSize()];
 		createGrid(cell);
