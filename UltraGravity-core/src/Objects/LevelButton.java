@@ -6,13 +6,13 @@ public class LevelButton extends TextButton
 {
 
 	String fileName;
-	
-	public LevelButton(String text, TextButtonStyle style, String fileName) 
+
+	public LevelButton(String text, TextButtonStyle style, String fileName)
 	{
 		super(text, style);
 		this.fileName = fileName;
 	}
-	
+
 	public String play()
 	{
 		return fileName;
