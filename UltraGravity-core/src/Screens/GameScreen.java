@@ -7,6 +7,7 @@ import Objects.Box;
 import Objects.Item;
 import Objects.ThePlane;
 import Physics.Constants;
+import Physics.Direction;
 import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -37,8 +39,8 @@ public class GameScreen extends GenericScreen
 
 	private float accumulator = 0;
 
-	private static final int VIEWPORT_WIDTH = 20;
-	private static final int VIEWPORT_HEIGHT = 13;
+	// private static final int VIEWPORT_WIDTH = 20;
+	// private static final int VIEWPORT_HEIGHT = 13;
 
 	public GameScreen(MyGame myGame, String levelString)
 	{
@@ -52,13 +54,13 @@ public class GameScreen extends GenericScreen
 
 	}
 
-	private void setupCamera()
-	{
-		camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-		camera.position.set(camera.viewportWidth / 2,
-				camera.viewportHeight / 2, 0f);
-		camera.update();
-	}
+	// private void setupCamera()
+	// {
+	// camera = new OrthographicCamera(screenWidth, screenHeight);
+	// camera.position.set(camera.viewportWidth / 2,
+	// camera.viewportHeight / 2, 0f);
+	// camera.update();
+	// }
 
 	private enum GameState {
 		PLAY, PAUSE, GAMEOVER
@@ -74,8 +76,7 @@ public class GameScreen extends GenericScreen
 		batch.begin();
 		doPhysics(delta);
 		batch.end();
-		renderer.render(world, camera.combined);
-
+		renderer.render(world, myGame.camera.combined);
 	}
 
 	private void doPhysics(float deltaTime)
@@ -83,11 +84,10 @@ public class GameScreen extends GenericScreen
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
 		{
-			System.out.println(b.getUserData());
-			System.out.print(b.getPosition().toString());
-			System.out.println(b.getLinearVelocity().toString());
+			// System.out.print(b.getPosition().toString());
+			// System.out.println(b.getLinearVelocity().toString());
 			draw(b);
-			
+
 		}
 		// Body check = worldArray.get(0);
 		float frameTime = Math.min(deltaTime, 0.25f);
@@ -103,11 +103,19 @@ public class GameScreen extends GenericScreen
 
 	private void draw(Body body)
 	{
-		if(body.getUserData() instanceof TextureRegion) {
+		if (body.getUserData() instanceof TextureRegion)
+		{
 			TextureRegion texture = (TextureRegion) body.getUserData();
-//			System.out.println(texture);
-			batch.draw(texture, body.getPosition().x, body.getPosition().y, screenHeight/8, screenHeight/8 );
-//			batch.draw(texture, body.getPosition().x, body.getPosition().y, 0, 0, 10, 100, 10, 10, body.getAngle());
+			// System.out.println(texture);
+			// batch.draw(texture, body.getPosition().x - (screenHeight/16),
+			// body.getPosition().y - (screenHeight/16),
+			// screenHeight / 8, screenHeight / 8, 10f, 10f, body.getAngle());
+			// System.out.println(body.getAngle());
+			batch.draw(texture, body.getPosition().x - (screenHeight / 16),
+					body.getPosition().y - (screenHeight / 16),
+					screenHeight / 16, screenHeight / 16, screenHeight / 8,
+					screenHeight / 8, 1, 1, body.getAngle()
+							* MathUtils.radiansToDegrees);
 		}
 	}
 
@@ -132,7 +140,7 @@ public class GameScreen extends GenericScreen
 		// world = new World(Direction.DOWN, true);
 		worldArray = thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
-		setupCamera();
+		// setupCamera();
 
 	}
 
@@ -190,7 +198,8 @@ public class GameScreen extends GenericScreen
 		}
 		int y = Integer.parseInt(ySizeString);
 		System.out.println(y);
-		thePlane = new ThePlane(myGame, x * screenHeight/8, y * screenHeight/8);
+		thePlane = new ThePlane(myGame, x * screenHeight / 8, y * screenHeight
+				/ 8);
 		// thePlane.setSize(x * 100, y * 100);
 		System.out.println(thePlane.getXSize());
 		System.out.println(thePlane.getYSize());
@@ -206,15 +215,18 @@ public class GameScreen extends GenericScreen
 				int nextInt = levelString.charAt(i);
 				if (nextInt == '1')
 				{
-					thePlane.addItem(1, x * screenHeight/8, y * screenHeight/8);
+					thePlane.addItem(1, x * screenHeight / 8, y * screenHeight
+							/ 8);
 				}
 				if (nextInt == '2')
 				{
-					thePlane.addItem(2, x * screenHeight/8, y * screenHeight/8);
+					thePlane.addItem(2, x * screenHeight / 8, y * screenHeight
+							/ 8);
 				}
 				if (nextInt == '3')
 				{
-					thePlane.addItem(3, x * screenHeight/8, y * screenHeight/8);
+					thePlane.addItem(3, x * screenHeight / 8, y * screenHeight
+							/ 8);
 				}
 				i++;
 				x--;

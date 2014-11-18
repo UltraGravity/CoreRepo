@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Direction
 {
-	private static float gravity = 120;
+	private static float gravity = 150;
 
 	public static final Vector2 UP = new Vector2(0, gravity);
 	public static final Vector2 DOWN = new Vector2(0, -gravity);

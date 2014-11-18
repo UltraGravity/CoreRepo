@@ -40,7 +40,7 @@ public class WorldUtils
 		bodyDef.position.set(new Vector2(item.getX(), item.getY()));
 		Body body = world.createBody(bodyDef);
 		PolygonShape shape = item.getShape();
-		body.createFixture(shape, 0f);
+		body.createFixture(shape, 1);
 		body.setUserData(item.getTextureRegion());
 
 		return body;
