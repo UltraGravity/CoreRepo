@@ -1,6 +1,10 @@
 package Physics;
 
+import Objects.Box;
+import Objects.SafeZone;
+import Objects.GroundBlock;
 import Objects.Item;
+import Objects.MainCharacter;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.math.Vector2;
@@ -37,7 +41,18 @@ public class WorldUtils
 		Body body = world.createBody(bodyDef);
 		PolygonShape shape = item.getShape();
 		body.createFixture(shape, 0f);
-//		shape.dispose();
+		if (item instanceof Box)
+			body.setUserData("Box");
+
+		if (item instanceof GroundBlock)
+			body.setUserData("Ground Block");
+
+		if (item instanceof MainCharacter)
+			body.setUserData("Character");
+
+		if (item instanceof SafeZone)
+			body.setUserData("Safe");
+
 		return body;
 	}
 

@@ -1,15 +1,23 @@
 package Screens;
 
+import java.util.ArrayList;
+
 import FileIO.LevelFile;
+import Objects.Box;
+import Objects.Item;
 import Objects.ThePlane;
+import Physics.Constants;
 import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
 
 public class GameScreen extends GenericScreen
@@ -19,22 +27,22 @@ public class GameScreen extends GenericScreen
 	World world;
 	LevelEditorScreen levelEditor;
 	ThePlane thePlane;
+
+	Array<Body> worldArray = new Array<Body>();
 	// WorldUtils worldUtils;
 
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
 
+	private float accumulator = 0;
+
 	private static final int VIEWPORT_WIDTH = 20;
 	private static final int VIEWPORT_HEIGHT = 13;
-
-	private final float TIME_STEP = 1 / 300f;
-	private float accumulator = 0f;
 
 	public GameScreen(MyGame myGame, String levelString)
 	{
 		super(myGame);
-		// new SharedLibraryLoader().load("gdx-box2d");
-		// this.levelString = levelString;
+		this.levelString = levelString;
 
 	}
 
@@ -63,16 +71,40 @@ public class GameScreen extends GenericScreen
 		Gdx.gl.glClearColor(.65f, .65f, .65f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		accumulator += delta;
+		doPhysics(delta);
+		renderer.render(world, camera.combined);
 
-		while (accumulator >= delta)
+	}
+
+	private void doPhysics(float deltaTime)
+	{
+		world.getBodies(worldArray);
+		for (Body b : worldArray)
 		{
-			world.step(TIME_STEP, 6, 2);
-			accumulator -= TIME_STEP;
+			System.out.print(b.getPosition().toString());
+			System.out.println(b.getLinearVelocity().toString());
+			System.out.println(b.getUserData());
+			draw(b);
+			
+		}
+		// Body check = worldArray.get(0);
+		float frameTime = Math.min(deltaTime, 0.25f);
+		accumulator += frameTime;
+		while (accumulator >= Constants.TIME_STEP)
+		{
+			world.step(Constants.TIME_STEP, Constants.VELOCITY_ITERATIONS,
+					Constants.POSITION_ITERATIONS);
+			accumulator -= Constants.TIME_STEP;
 		}
 
-		renderer.render(world, camera.combined);
-		System.out.println("Render");
+	}
+
+	private void draw(Body body)
+	{
+		if(body.getUserData().equals("Box")) {
+			System.out.println("This is where i should render a box");
+		}
+
 	}
 
 	public void resize(int width, int height)
@@ -94,8 +126,7 @@ public class GameScreen extends GenericScreen
 		// thePlane.fillWorld(world);
 
 		// world = new World(Direction.DOWN, true);
-
-		thePlane.fillWorld(world);
+		worldArray = thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
 		setupCamera();
 

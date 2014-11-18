@@ -4,12 +4,12 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Character extends MovingItem
+public class MainCharacter extends MovingItem
 {
-	private Character character;
+	private MainCharacter character;
 	TextureRegion texture = myGame.assetLoader.character;
 
-	public Character(MyGame myGame, int x, int y)
+	public MainCharacter(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
 		shape.setRadius(100);

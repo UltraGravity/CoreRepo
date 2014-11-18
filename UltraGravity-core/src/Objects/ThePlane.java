@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class ThePlane
 {
@@ -22,7 +24,7 @@ public class ThePlane
 
 	MyGame myGame;
 
-//	WorldUtils worldUtils;
+	// WorldUtils worldUtils;
 
 	public ThePlane(MyGame myGame, int x, int y)
 	{
@@ -46,7 +48,7 @@ public class ThePlane
 		}
 		if (item == 3)
 		{
-			Item character = new Character(myGame, x, y);
+			Item character = new MainCharacter(myGame, x, y);
 			worldList.add(character);
 		}
 		if (item == 1)
@@ -80,19 +82,22 @@ public class ThePlane
 		boundY = y;
 	}
 
-	public void fillWorld(World world)
+	public Array<Body> fillWorld(World world)
 	{
+		Array<Body> worldArray = new Array<Body>();
+
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		System.out.println("Filling the world" + worldList.size());
 		for (int i = 0; i < worldList.size(); i++)
 		{
 			// System.out.println("adding item")
 			Item current = worldList.get(i);
-			
-			worldUtils.createItemInWorld(current, world);
-			System.out.println("Added an item to the world");
 
+			Body currentBody = worldUtils.createItemInWorld(current, world);
+			System.out.println("Added an item to the world");
+			worldArray.add(currentBody);
 		}
+		return worldArray;
 
 	}
 	// public Item[][] getArray() {
