@@ -1,5 +1,7 @@
 package Objects;
 
+import Physics.Constants;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,12 +15,12 @@ public class SafeZone extends Item
 		super(myGame, x, y);
 		texture = myGame.assetLoader.safeZone;
 
-		shape.setAsBox(100, 100);
+		setShape();
 	}
 	
 	public void setShape()
 	{
-		shape.setAsBox(100, 100);
+		shape.setAsBox(myGame.screenHeight/(Constants.SIZE_SCALE*2), myGame.screenHeight/(Constants.SIZE_SCALE*2));
 	}
 	
 	public TextureRegion getTexture() {

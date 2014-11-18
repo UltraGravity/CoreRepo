@@ -34,7 +34,7 @@ public class GameScreen extends GenericScreen
 	Array<Body> worldArray = new Array<Body>();
 	// WorldUtils worldUtils;
 
-	private OrthographicCamera camera;
+	private OrthographicCamera boxCam;
 	private Box2DDebugRenderer renderer;
 
 	private float accumulator = 0;
@@ -49,19 +49,6 @@ public class GameScreen extends GenericScreen
 
 	}
 
-	private void fillWorld()
-	{
-
-	}
-
-	// private void setupCamera()
-	// {
-	// camera = new OrthographicCamera(screenWidth, screenHeight);
-	// camera.position.set(camera.viewportWidth / 2,
-	// camera.viewportHeight / 2, 0f);
-	// camera.update();
-	// }
-
 	private enum GameState {
 		PLAY, PAUSE, GAMEOVER
 	};
@@ -73,10 +60,18 @@ public class GameScreen extends GenericScreen
 		Gdx.gl.glClearColor(0, .25f, .25f, 1);
 		Gdx.gl.glClearColor(.65f, .65f, .65f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
 		doPhysics(delta);
-		batch.end();
-		renderer.render(world, myGame.camera.combined);
+		renderer.render(world, boxCam.combined);
+	}
+
+	public void setupBoxCam()
+	{
+		boxCam = new OrthographicCamera(screenWidth, screenHeight);
+		boxCam.setToOrtho(false, screenWidth / (8 * Constants.GRID_TO_WORLD),
+				screenHeight / (8 * Constants.GRID_TO_WORLD));
+		// System.out.println("cam height " + boxCam.viewportHeight);
+		boxCam.update();
+
 	}
 
 	private void doPhysics(float deltaTime)
@@ -84,12 +79,8 @@ public class GameScreen extends GenericScreen
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
 		{
-			// System.out.print(b.getPosition().toString());
-			// System.out.println(b.getLinearVelocity().toString());
 			draw(b);
-
 		}
-		// Body check = worldArray.get(0);
 		float frameTime = Math.min(deltaTime, 0.25f);
 		accumulator += frameTime;
 		while (accumulator >= Constants.TIME_STEP)
@@ -103,20 +94,13 @@ public class GameScreen extends GenericScreen
 
 	private void draw(Body body)
 	{
+		batch.begin();
 		if (body.getUserData() instanceof TextureRegion)
 		{
 			TextureRegion texture = (TextureRegion) body.getUserData();
-			// System.out.println(texture);
-			// batch.draw(texture, body.getPosition().x - (screenHeight/16),
-			// body.getPosition().y - (screenHeight/16),
-			// screenHeight / 8, screenHeight / 8, 10f, 10f, body.getAngle());
-			// System.out.println(body.getAngle());
-			batch.draw(texture, body.getPosition().x - (screenHeight / 16),
-					body.getPosition().y - (screenHeight / 16),
-					screenHeight / 16, screenHeight / 16, screenHeight / 8,
-					screenHeight / 8, 1, 1, body.getAngle()
-							* MathUtils.radiansToDegrees);
+			float rotation = body.getAngle() * MathUtils.degreesToRadians;
 		}
+		batch.end();
 	}
 
 	public void resize(int width, int height)
@@ -129,18 +113,13 @@ public class GameScreen extends GenericScreen
 		System.out.println("beginning");
 		System.out.println("Creating a new world!");
 		WorldUtils worldUtils = new WorldUtils(myGame);
-		world = worldUtils.createWorld(); // Why is this shit null
+		world = worldUtils.createWorld();
 
 		fillThePlane(LevelFile.LoadLevel(LevelFile.getLastLevelName()));
-		// fillWorld(levelString);
 		System.out.println("Plane Filled");
-		// world = worldUtils.createWorld();
-		// thePlane.fillWorld(world);
-
-		// world = new World(Direction.DOWN, true);
 		worldArray = thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
-		// setupCamera();
+		setupBoxCam();
 
 	}
 
@@ -198,8 +177,8 @@ public class GameScreen extends GenericScreen
 		}
 		int y = Integer.parseInt(ySizeString);
 		System.out.println(y);
-		thePlane = new ThePlane(myGame, x * screenHeight / 8, y * screenHeight
-				/ 8);
+		thePlane = new ThePlane(myGame, x * Constants.GRID_TO_WORLD, y
+				* Constants.GRID_TO_WORLD);
 		// thePlane.setSize(x * 100, y * 100);
 		System.out.println(thePlane.getXSize());
 		System.out.println(thePlane.getYSize());
@@ -215,18 +194,18 @@ public class GameScreen extends GenericScreen
 				int nextInt = levelString.charAt(i);
 				if (nextInt == '1')
 				{
-					thePlane.addItem(1, x * screenHeight / 8, y * screenHeight
-							/ 8);
+					thePlane.addItem(1, x * (2 * Constants.GRID_TO_WORLD), y
+							* (2 * Constants.GRID_TO_WORLD));
 				}
 				if (nextInt == '2')
 				{
-					thePlane.addItem(2, x * screenHeight / 8, y * screenHeight
-							/ 8);
+					thePlane.addItem(2, x * (2 * Constants.GRID_TO_WORLD), y
+							* 2 * Constants.GRID_TO_WORLD);
 				}
 				if (nextInt == '3')
 				{
-					thePlane.addItem(3, x * screenHeight / 8, y * screenHeight
-							/ 8);
+					thePlane.addItem(3, x * (2 * Constants.GRID_TO_WORLD), y
+							* (2 * Constants.GRID_TO_WORLD));
 				}
 				i++;
 				x--;

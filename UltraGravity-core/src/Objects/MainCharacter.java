@@ -1,5 +1,7 @@
 package Objects;
 
+import Physics.Constants;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,7 +18,7 @@ public class MainCharacter extends MovingItem
 	
 	public void setShape()
 	{
-		shape.setRadius(100);
+		shape.setRadius(Constants.SIZE_SCALE);
 	}
 	
 	public TextureRegion getTexture() {

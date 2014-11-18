@@ -1,5 +1,7 @@
 package Objects;
 
+import Physics.Constants;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +25,7 @@ public class Box extends MovingItem
 
 	public void setShape()
 	{
-		shape.setAsBox(myGame.screenHeight/16, myGame.screenHeight/16);
+		shape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
 	}
 	
 	
