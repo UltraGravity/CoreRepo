@@ -7,13 +7,22 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class SafeZone extends Item
 {
-	private SafeZone finish;
-	TextureRegion texture = myGame.assetLoader.safeZone;
 
 	public SafeZone(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
+		texture = myGame.assetLoader.safeZone;
+
 		shape.setAsBox(100, 100);
+	}
+	
+	public void setShape()
+	{
+		shape.setAsBox(100, 100);
+	}
+	
+	public TextureRegion getTexture() {
+		return texture;
 	}
 
 }

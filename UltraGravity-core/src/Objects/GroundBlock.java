@@ -7,8 +7,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class GroundBlock extends StationaryItem
 {
 
-	TextureRegion texture;
-	
 	public GroundBlock(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
@@ -16,10 +14,10 @@ public class GroundBlock extends StationaryItem
 		setShape();
 		System.out.println("Ground Created");
 	}
-	
+
 	public void setShape()
 	{
-		shape.setAsBox(100, 100);
+		shape.setAsBox(myGame.screenHeight/16, myGame.screenHeight/16);
 	}
 
 }

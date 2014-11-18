@@ -6,23 +6,21 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MainCharacter extends MovingItem
 {
-	private MainCharacter character;
-	TextureRegion texture = myGame.assetLoader.character;
-
+	
 	public MainCharacter(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
+		texture = myGame.assetLoader.character;
+		setShape();
+	}
+	
+	public void setShape()
+	{
 		shape.setRadius(100);
 	}
-
-	public int getX()
-	{
-		return x;
-	}
-
-	public int getY()
-	{
-		return y;
+	
+	public TextureRegion getTexture() {
+		return texture;
 	}
 
 }

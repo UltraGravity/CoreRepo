@@ -14,6 +14,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -70,8 +71,9 @@ public class GameScreen extends GenericScreen
 		Gdx.gl.glClearColor(0, .25f, .25f, 1);
 		Gdx.gl.glClearColor(.65f, .65f, .65f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		batch.begin();
 		doPhysics(delta);
+		batch.end();
 		renderer.render(world, camera.combined);
 
 	}
@@ -81,9 +83,9 @@ public class GameScreen extends GenericScreen
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
 		{
+			System.out.println(b.getUserData());
 			System.out.print(b.getPosition().toString());
 			System.out.println(b.getLinearVelocity().toString());
-			System.out.println(b.getUserData());
 			draw(b);
 			
 		}
@@ -101,10 +103,12 @@ public class GameScreen extends GenericScreen
 
 	private void draw(Body body)
 	{
-		if(body.getUserData().equals("Box")) {
-			System.out.println("This is where i should render a box");
+		if(body.getUserData() instanceof TextureRegion) {
+			TextureRegion texture = (TextureRegion) body.getUserData();
+//			System.out.println(texture);
+			batch.draw(texture, body.getPosition().x, body.getPosition().y, screenHeight/8, screenHeight/8 );
+//			batch.draw(texture, body.getPosition().x, body.getPosition().y, 0, 0, 10, 100, 10, 10, body.getAngle());
 		}
-
 	}
 
 	public void resize(int width, int height)
@@ -186,7 +190,7 @@ public class GameScreen extends GenericScreen
 		}
 		int y = Integer.parseInt(ySizeString);
 		System.out.println(y);
-		thePlane = new ThePlane(myGame, x * 100, y * 100);
+		thePlane = new ThePlane(myGame, x * screenHeight/8, y * screenHeight/8);
 		// thePlane.setSize(x * 100, y * 100);
 		System.out.println(thePlane.getXSize());
 		System.out.println(thePlane.getYSize());
@@ -202,15 +206,15 @@ public class GameScreen extends GenericScreen
 				int nextInt = levelString.charAt(i);
 				if (nextInt == '1')
 				{
-					thePlane.addItem(1, x * 100, y * 100);
+					thePlane.addItem(1, x * screenHeight/8, y * screenHeight/8);
 				}
 				if (nextInt == '2')
 				{
-					thePlane.addItem(2, x * 100, y * 100);
+					thePlane.addItem(2, x * screenHeight/8, y * screenHeight/8);
 				}
 				if (nextInt == '3')
 				{
-					thePlane.addItem(3, x * 100, y * 100);
+					thePlane.addItem(3, x * screenHeight/8, y * screenHeight/8);
 				}
 				i++;
 				x--;

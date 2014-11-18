@@ -41,17 +41,7 @@ public class WorldUtils
 		Body body = world.createBody(bodyDef);
 		PolygonShape shape = item.getShape();
 		body.createFixture(shape, 0f);
-		if (item instanceof Box)
-			body.setUserData("Box");
-
-		if (item instanceof GroundBlock)
-			body.setUserData("Ground Block");
-
-		if (item instanceof MainCharacter)
-			body.setUserData("Character");
-
-		if (item instanceof SafeZone)
-			body.setUserData("Safe");
+		body.setUserData(item.getTextureRegion());
 
 		return body;
 	}

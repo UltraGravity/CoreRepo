@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class Box extends MovingItem
 {
 //	private Box box;
-	TextureRegion texture;
 
 	public Box(MyGame myGame, int x, int y)
 	{
@@ -24,7 +23,9 @@ public class Box extends MovingItem
 
 	public void setShape()
 	{
-		shape.setAsBox(100, 100);
+		shape.setAsBox(myGame.screenHeight/16, myGame.screenHeight/16);
 	}
+	
+	
 
 }
