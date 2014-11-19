@@ -39,8 +39,7 @@ public class GameScreen extends GenericScreen
 
 	private float accumulator = 0;
 
-	// private static final int VIEWPORT_WIDTH = 20;
-	// private static final int VIEWPORT_HEIGHT = 13;
+	private int zoomFactor = 16;
 
 	public GameScreen(MyGame myGame, String levelString)
 	{
@@ -57,8 +56,7 @@ public class GameScreen extends GenericScreen
 
 	public void render(float delta)
 	{
-		Gdx.gl.glClearColor(0, .25f, .25f, 1);
-		Gdx.gl.glClearColor(.65f, .65f, .65f, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		doPhysics(delta);
 		renderer.render(world, boxCam.combined);
@@ -67,9 +65,8 @@ public class GameScreen extends GenericScreen
 	public void setupBoxCam()
 	{
 		boxCam = new OrthographicCamera(screenWidth, screenHeight);
-		boxCam.setToOrtho(false, screenWidth / (8 * Constants.GRID_TO_WORLD),
-				screenHeight / (8 * Constants.GRID_TO_WORLD));
-		// System.out.println("cam height " + boxCam.viewportHeight);
+		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight
+				/ zoomFactor);
 		boxCam.update();
 
 	}
@@ -95,10 +92,22 @@ public class GameScreen extends GenericScreen
 	private void draw(Body body)
 	{
 		batch.begin();
-		if (body.getUserData() instanceof TextureRegion)
+		if (body.getUserData() instanceof Sprite)
 		{
-			TextureRegion texture = (TextureRegion) body.getUserData();
-			float rotation = body.getAngle() * MathUtils.degreesToRadians;
+			Sprite sprite = (Sprite) body.getUserData();
+
+			sprite.setOriginCenter();
+			sprite.setPosition((body.getPosition().x - Constants.OBJECT_SCALE)
+					* (screenWidth / boxCam.viewportWidth),
+					(body.getPosition().y - Constants.OBJECT_SCALE)
+							* (screenHeight / boxCam.viewportHeight));
+			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+			sprite.setSize((2 * Constants.OBJECT_SCALE)
+					* (screenWidth / boxCam.viewportWidth),
+					(2 * Constants.OBJECT_SCALE)
+							* (screenHeight / boxCam.viewportHeight));
+
+			sprite.draw(batch);
 		}
 		batch.end();
 	}
@@ -117,7 +126,7 @@ public class GameScreen extends GenericScreen
 
 		fillThePlane(LevelFile.LoadLevel(LevelFile.getLastLevelName()));
 		System.out.println("Plane Filled");
-		worldArray = thePlane.fillWorld(world);
+		thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
 		setupBoxCam();
 
@@ -194,18 +203,18 @@ public class GameScreen extends GenericScreen
 				int nextInt = levelString.charAt(i);
 				if (nextInt == '1')
 				{
-					thePlane.addItem(1, x * (2 * Constants.GRID_TO_WORLD), y
-							* (2 * Constants.GRID_TO_WORLD));
+					thePlane.addItem(1, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
 				}
 				if (nextInt == '2')
 				{
-					thePlane.addItem(2, x * (2 * Constants.GRID_TO_WORLD), y
-							* 2 * Constants.GRID_TO_WORLD);
+					thePlane.addItem(2, x * (Constants.GRID_TO_WORLD), y
+							* Constants.GRID_TO_WORLD);
 				}
 				if (nextInt == '3')
 				{
-					thePlane.addItem(3, x * (2 * Constants.GRID_TO_WORLD), y
-							* (2 * Constants.GRID_TO_WORLD));
+					thePlane.addItem(3, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
 				}
 				i++;
 				x--;

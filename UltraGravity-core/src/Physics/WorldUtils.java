@@ -41,7 +41,7 @@ public class WorldUtils
 		Body body = world.createBody(bodyDef);
 		PolygonShape shape = item.getShape();
 		body.createFixture(shape, 1);
-		body.setUserData(item.getTextureRegion());
+		body.setUserData(item.getSprite());
 
 		return body;
 	}

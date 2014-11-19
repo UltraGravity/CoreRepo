@@ -2,6 +2,7 @@ package Objects;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -20,6 +21,7 @@ public class Item
 	PolygonShape shape;
 	BodyDef bodyDef;
 	TextureRegion texture;
+	Sprite sprite;
 
 	public Item(MyGame myGame, int x, int y)
 	{
@@ -41,6 +43,10 @@ public class Item
 	
 	public TextureRegion getTextureRegion() {
 		return texture;
+	}
+	
+	public Sprite getSprite() {
+		return sprite;
 	}
 
 	public int getX()

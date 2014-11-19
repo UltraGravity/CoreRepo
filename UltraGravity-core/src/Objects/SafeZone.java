@@ -4,6 +4,7 @@ import Physics.Constants;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
@@ -14,7 +15,7 @@ public class SafeZone extends Item
 	{
 		super(myGame, x, y);
 		texture = myGame.assetLoader.safeZone;
-
+		sprite = new Sprite(texture);
 		setShape();
 	}
 	

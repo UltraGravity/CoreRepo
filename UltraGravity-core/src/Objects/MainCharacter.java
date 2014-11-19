@@ -4,6 +4,7 @@ import Physics.Constants;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MainCharacter extends MovingItem
@@ -13,6 +14,7 @@ public class MainCharacter extends MovingItem
 	{
 		super(myGame, x, y);
 		texture = myGame.assetLoader.character;
+		sprite = new Sprite(texture);
 		setShape();
 	}
 	

@@ -2,6 +2,7 @@ package Objects;
 
 import java.util.ArrayList;
 
+import Physics.Constants;
 import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
@@ -19,6 +20,8 @@ public class ThePlane
 	int boundY = planeY * 100;
 
 	int gravity;
+
+	ThePlane thePlane;
 
 	ArrayList<Item> worldList = new ArrayList<Item>();
 
@@ -82,22 +85,18 @@ public class ThePlane
 		boundY = y;
 	}
 
-	public Array<Body> fillWorld(World world)
+	public void fillWorld(World world)
 	{
-		Array<Body> worldArray = new Array<Body>();
 
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		System.out.println("Filling the world" + worldList.size());
 		for (int i = 0; i < worldList.size(); i++)
 		{
-			// System.out.println("adding item")
 			Item current = worldList.get(i);
 
 			Body currentBody = worldUtils.createItemInWorld(current, world);
 			System.out.println("Added an item to the world");
-			worldArray.add(currentBody);
 		}
-		return worldArray;
 
 	}
 	// public Item[][] getArray() {

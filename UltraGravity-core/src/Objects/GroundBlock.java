@@ -3,6 +3,7 @@ package Objects;
 import Physics.Constants;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
@@ -13,6 +14,7 @@ public class GroundBlock extends StationaryItem
 	{
 		super(myGame, x, y);
 		texture = myGame.assetLoader.ground;
+		sprite = new Sprite(texture);
 		setShape();
 		System.out.println("Ground Created");
 	}
