@@ -15,9 +15,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -30,11 +28,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class LevelEditorScreen extends GenericScreen
 {
-
 	public int selectedBlock = 0;
 	public BitmapFont font;
 	public Stage stage;
@@ -44,9 +40,11 @@ public class LevelEditorScreen extends GenericScreen
 	public Table levelGrid;
 	public ScrollPane scrollPane;
 	public TextButtonStyle textButtonStyle;
+	public ImageButtonStyle selectedStyle;
 	public TextureAtlas buttonAtlas;
 	
-	
+	public Label ultraGravity;
+	public LabelStyle ultraGravityFont;
 	public ImageButton groundButton;
 	public ImageButton boxButton;
 	public ImageButton safeZoneButton;
@@ -64,12 +62,7 @@ public class LevelEditorScreen extends GenericScreen
 	public ImageButton minusButton;
 	public ImageButton characterButton;
 	
-
 	public GridImage cell[];
-	public ImageButtonStyle selectedStyle;
-
-	public Label ultraGravity;
-	public LabelStyle ultraGravityFont;
 
 	public LevelFile levelFile;
 	public ThePlane thePlane;
@@ -86,7 +79,7 @@ public class LevelEditorScreen extends GenericScreen
 
 	public void render(float delta)
 	{
-		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
+		Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
@@ -95,14 +88,6 @@ public class LevelEditorScreen extends GenericScreen
 		stage.act();
 
 		batch.begin();
-			// scrollPane.debug();
-			// scrollPane.debugAll();
-			// windowTable.debug();
-			// windowTable.debugTable();
-			// toolTable.debug();
-			// toolTable.debugTable();
-			// levelGrid.debug();
-			// levelGrid.debugTable();
 			stage.draw();
 		batch.end();
 	}
@@ -122,7 +107,6 @@ public class LevelEditorScreen extends GenericScreen
 		toolTable.center().bottom();
 	
 		thePlane = new ThePlane(myGame, 10, 5);
-		// world = new World(new Vector2(0,-10), true);
 		cell = new GridImage[thePlane.getXSize() * thePlane.getYSize()];
 		createGrid(cell);
 
@@ -132,7 +116,6 @@ public class LevelEditorScreen extends GenericScreen
 		addListeners(levelGrid);
 
 		stage.addActor(windowTable);
-		
 		
 		InputProcessor backProcessor = new InputAdapter()
 		{
@@ -146,8 +129,8 @@ public class LevelEditorScreen extends GenericScreen
 			}
 		};
 
-//		stage.addListener(new ActorGestureListener()
-//		{
+		stage.addListener(new ActorGestureListener()
+		{
 //			public void pinch(InputEvent event, Vector2 initialPointer1,
 //					Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
 //			{
@@ -191,7 +174,7 @@ public class LevelEditorScreen extends GenericScreen
 //				levelGrid.pack();
 //				
 //			}
-//		});
+		});
 	
 		selectedStyle = myGame.assetLoader.groundBlockStyle;
 		Gdx.input.setInputProcessor(stage);
@@ -239,17 +222,9 @@ public class LevelEditorScreen extends GenericScreen
 		group.add(groundTool);
 		group.add(safeTool);
 		group.add(blankTool);
+		group.add(characterButton);
 
 		groundTool.setChecked(true);
-
-		
-		characterButton.addListener(new ChangeListener()
-		{
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				selectedStyle = myGame.assetLoader.characterBlockStyle;
-			}
-		});
 		
 		settingsButton.addListener(new ChangeListener()
 		{
@@ -259,7 +234,6 @@ public class LevelEditorScreen extends GenericScreen
 				dialog.show(stage);
 			}
 		});
-		
 		
 		backButton.addListener(new ChangeListener()
 		{
@@ -299,6 +273,14 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				selectedStyle = myGame.assetLoader.blankBlockStyle;
+			}
+		});
+		
+		characterButton.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				selectedStyle = myGame.assetLoader.characterBlockStyle;
 			}
 		});
 
@@ -361,8 +343,8 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-			  levelFile = new LevelFile(myGame);
-			  System.out.println(levelFile.getLastLevelName());
+				levelFile = new LevelFile(myGame);
+				System.out.println(levelFile.getLastLevelName());
 				myGame.changeToGameScreen(levelFile.LoadLevel(levelFile.getLastLevelName()));
 			}
 		});
@@ -392,6 +374,10 @@ public class LevelEditorScreen extends GenericScreen
 				if (selectedStyle == myGame.assetLoader.safeZoneBlockStyle)
 				{
 					image.cellValue = 3;
+				}
+				if (selectedStyle == myGame.assetLoader.safeZoneBlockStyle)
+				{
+					image.cellValue = 4;
 				}
 			}
 		});
