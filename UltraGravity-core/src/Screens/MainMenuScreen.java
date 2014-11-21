@@ -51,7 +51,7 @@ public class MainMenuScreen extends GenericScreen
 		//stage.getCamera().rotate(-rotation, 0, 0, screenWidth/2);
 		
 
-        Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
+        Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
         //Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
