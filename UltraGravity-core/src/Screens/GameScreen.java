@@ -175,7 +175,7 @@ public class GameScreen extends GenericScreen
 			xSizeString = xSizeString + String.valueOf(levelString.charAt(i));
 			i++;
 		}
-		int x = Integer.parseInt(xSizeString) + 1;		//added one for border
+		int x = Integer.parseInt(xSizeString);
 		System.out.println(x);
 
 		i = xSizeString.length() + 1;
@@ -184,7 +184,7 @@ public class GameScreen extends GenericScreen
 			ySizeString = ySizeString + String.valueOf(levelString.charAt(i));
 			i++;
 		}
-		int y = Integer.parseInt(ySizeString) + 1;
+		int y = Integer.parseInt(ySizeString);
 		System.out.println(y);
 		thePlane = new ThePlane(myGame, x * Constants.GRID_TO_WORLD, y
 				* Constants.GRID_TO_WORLD);
