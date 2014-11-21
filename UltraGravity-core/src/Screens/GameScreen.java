@@ -201,22 +201,22 @@ public class GameScreen extends GenericScreen
 			while (x > 0)
 			{
 				int nextInt = levelString.charAt(i);
-				if (nextInt == '1')
+				if (nextInt == '1')			//Ground
 				{
 					thePlane.addItem(1, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
-				if (nextInt == '2')
+				if (nextInt == '2')			//Crate
 				{
 					thePlane.addItem(2, x * (Constants.GRID_TO_WORLD), y
 							* Constants.GRID_TO_WORLD);
 				}
-				if (nextInt == '3')
+				if (nextInt == '3')			//Safe Zone
 				{
 					thePlane.addItem(3, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
-				if (nextInt == '4')
+				if (nextInt == '4')			//Character
 				{
 					thePlane.addItem(4, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));

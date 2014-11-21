@@ -44,6 +44,11 @@ public class ThePlane
 
 	public void addItem(int item, int x, int y)
 	{
+		if (item == 1)
+		{
+			Item ground = new GroundBlock(myGame, x, y);
+			worldList.add(ground);
+		}
 		if (item == 2)
 		{
 			Item box = new Box(myGame, x, y);
@@ -54,10 +59,10 @@ public class ThePlane
 			Item character = new MainCharacter(myGame, x, y);
 			worldList.add(character);
 		}
-		if (item == 1)
+		if (item == 4)
 		{
-			Item ground = new GroundBlock(myGame, x, y);
-			worldList.add(ground);
+			Item character = new MainCharacter(myGame, x, y);
+			worldList.add(character);
 		}
 
 	}
