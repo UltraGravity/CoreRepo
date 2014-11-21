@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import FileIO.LevelFile;
 import Objects.Box;
+import Objects.GridImage;
 import Objects.Item;
 import Objects.ThePlane;
 import Physics.Constants;
@@ -15,13 +16,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.SharedLibraryLoader;
 
 public class GameScreen extends GenericScreen
 {
@@ -30,7 +29,9 @@ public class GameScreen extends GenericScreen
 	World world;
 	LevelEditorScreen levelEditor;
 	ThePlane thePlane;
-
+	GridImage[] cell;
+	LevelFile levelFile;
+	
 	Array<Body> worldArray = new Array<Body>();
 	// WorldUtils worldUtils;
 
@@ -41,18 +42,20 @@ public class GameScreen extends GenericScreen
 
 	private int zoomFactor = 16;
 
-	public GameScreen(MyGame myGame, String levelString)
-	{
-		super(myGame);
-		this.levelString = levelString;
-
-	}
-
 	private enum GameState {
 		PLAY, PAUSE, GAMEOVER
 	};
 
 	public GameState gameState = GameState.PLAY;
+	
+	
+	
+	public GameScreen(MyGame myGame, String levelString)
+	{
+		super(myGame);
+		this.levelString = levelString;
+		levelFile = new LevelFile(myGame);
+	}
 
 	public void render(float delta)
 	{
@@ -65,10 +68,8 @@ public class GameScreen extends GenericScreen
 	public void setupBoxCam()
 	{
 		boxCam = new OrthographicCamera(screenWidth, screenHeight);
-		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight
-				/ zoomFactor);
+		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight / zoomFactor);
 		boxCam.update();
-
 	}
 
 	private void doPhysics(float deltaTime)
@@ -112,11 +113,6 @@ public class GameScreen extends GenericScreen
 		batch.end();
 	}
 
-	public void resize(int width, int height)
-	{
-
-	}
-
 	public void show()
 	{
 		System.out.println("beginning");
@@ -124,7 +120,11 @@ public class GameScreen extends GenericScreen
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		world = worldUtils.createWorld();
 
-		fillThePlane(LevelFile.LoadLevel(LevelFile.getLastLevelName()));
+		String levelName = levelFile.getLastLevelName();
+		
+		thePlane = new ThePlane(myGame, 0, 0);
+		fillThePlane(levelName);
+		
 		System.out.println("Plane Filled");
 		thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
@@ -132,91 +132,43 @@ public class GameScreen extends GenericScreen
 
 	}
 
-	public void hide()
-	{
-
-	}
-
-	public void pause()
-	{
-
-	}
-
-	public void resume()
-	{
-
-	}
-
-	public void dispose()
+	private void fillThePlane(String levelName)
 	{
 		/*
-		 * It is very important that everything created is disposed of properly
-		 * when it is no longer needed. I find it best to explicitly set
-		 * everything equal to null so the garbage collector knows it can remove
-		 * the stuff from memory.
-		 * 
-		 * Calling super.dispose() will get rid of the built in variables, but
-		 * it is important that anything that is uniquely created in this class
-		 * be disposed.
+		 * Loads a level from a file using LevelFile.
+		 * That returns a GridImage[].
+		 * Then it adds a boarder of ground blocks around the level.
 		 */
-
-		super.dispose();
-	}
-
-	private void fillThePlane(String gridString)
-	{
-		// System.out.println("string: " + gridString);
-		this.levelString = gridString;
-		int i = 0;
-		String xSizeString = "";
-		String ySizeString = "";
-		while (!String.valueOf(levelString.charAt(i)).equals(","))
-		{
-			xSizeString = xSizeString + String.valueOf(levelString.charAt(i));
-			i++;
-		}
-		int x = Integer.parseInt(xSizeString);
-		System.out.println(x);
-
-		i = xSizeString.length() + 1;
-		while (!String.valueOf(levelString.charAt(i)).equals(":"))
-		{
-			ySizeString = ySizeString + String.valueOf(levelString.charAt(i));
-			i++;
-		}
-		int y = Integer.parseInt(ySizeString);
-		System.out.println(y);
-		thePlane = new ThePlane(myGame, x * Constants.GRID_TO_WORLD, y
-				* Constants.GRID_TO_WORLD);
-		// thePlane.setSize(x * 100, y * 100);
-		System.out.println(thePlane.getXSize());
-		System.out.println(thePlane.getYSize());
-
-		i = xSizeString.length() + ySizeString.length() + 2;
-
+		
+		cell = levelFile.getLevelGrid(levelName, thePlane);
+		cell = levelFile.addGroundBoarder(cell, thePlane);
+		
+		int y = thePlane.getYSize();
+		int x = thePlane.getXSize();
 		int xIndex = x;
-
+		int i = 0;
+		
 		while (y > 0)
 		{
 			while (x > 0)
 			{
-				int nextInt = levelString.charAt(i);
-				if (nextInt == '1')			//Ground
+				int nextInt = cell[i].cellValue;
+				if (nextInt == 1)	//Ground
 				{
 					thePlane.addItem(1, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
-				if (nextInt == '2')			//Crate
+				else if (nextInt == 2) // Crate
 				{
 					thePlane.addItem(2, x * (Constants.GRID_TO_WORLD), y
 							* Constants.GRID_TO_WORLD);
 				}
-				if (nextInt == '3')			//Safe Zone
+				else if (nextInt == 3) //Safe Zone
 				{
 					thePlane.addItem(3, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
-				if (nextInt == '4')			//Character
+				else if (nextInt == 4) //Character
 				{
 					thePlane.addItem(4, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
@@ -232,4 +184,29 @@ public class GameScreen extends GenericScreen
 	// TODO use below to set the level based on the string from either a file or
 	// the level editor
 
+	
+	
+	public void hide() {}
+
+	public void pause() {}
+
+	public void resume() {}
+
+	public void resize(int width, int height) {}
+	
+	public void dispose()
+	{
+		/*
+		 * It is very important that everything created is disposed of properly
+		 * when it is no longer needed. I find it best to explicitly set
+		 * everything equal to null so the garbage collector knows it can remove
+		 * the stuff from memory.
+		 * 
+		 * Calling super.dispose() will get rid of the built in variables, but
+		 * it is important that anything that is uniquely created in this class
+		 * be disposed.
+		 */
+
+		super.dispose();
+	}
 }

@@ -10,7 +10,8 @@ import com.badlogic.gdx.files.FileHandle;
 public class LevelFile
 {
 	MyGame myGame;
-
+	GridResizer gridResizer;
+	
 	public LevelFile(MyGame myGame)
 	{
 		this.myGame = myGame;
@@ -27,7 +28,7 @@ public class LevelFile
 
 	}
 
-	public static String LoadLevel(String fileName)
+	public String LoadLevel(String fileName)
 	{
 		FileHandle file = Gdx.files.local("Levels/" + fileName);
 		if (file.exists())
@@ -43,7 +44,7 @@ public class LevelFile
 		return level;
 	}
 
-	public static String getLastLevelName()
+	public String getLastLevelName()
 	{
 		boolean nameFound = false;
 		String fileName = "";
@@ -173,6 +174,16 @@ public class LevelFile
 			x = thePlane.getXSize();
 			y--;
 		}	
+		return cell;
+	}
+	
+	public GridImage[] addGroundBoarder(GridImage[] cell, ThePlane thePlane)
+	{
+		gridResizer = new GridResizer(myGame, thePlane);
+		cell = gridResizer.addColumn(cell, false, 1);
+		cell = gridResizer.addColumn(cell, true, 1);
+		cell = gridResizer.addRow(cell, false, 1);
+		cell = gridResizer.addRow(cell, true, 1);
 		return cell;
 	}
 	
