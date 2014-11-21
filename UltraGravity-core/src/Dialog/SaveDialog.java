@@ -73,7 +73,7 @@ public class SaveDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				myGame.levelEditorScreen.addListeners(myGame.levelEditorScreen.levelGrid);
+				myGame.levelEditorScreen.addListeners();
 				hide();
 			}
 		});

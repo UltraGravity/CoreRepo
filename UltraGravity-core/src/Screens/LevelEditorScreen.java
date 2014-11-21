@@ -113,7 +113,7 @@ public class LevelEditorScreen extends GenericScreen
 		windowTable.row();
 		windowTable.add(toolTable).bottom();
 
-		addListeners(levelGrid);
+		addListeners();
 
 		stage.addActor(windowTable);
 		
@@ -350,7 +350,7 @@ public class LevelEditorScreen extends GenericScreen
 		});
 	}
 	
-	public void addListeners(Table levelGrid2)
+	public void addListeners()
 	{
 		levelGrid.addListener(new ChangeListener()
 		{
@@ -375,7 +375,7 @@ public class LevelEditorScreen extends GenericScreen
 				{
 					image.cellValue = 3;
 				}
-				if (selectedStyle == myGame.assetLoader.safeZoneBlockStyle)
+				if (selectedStyle == myGame.assetLoader.characterBlockStyle)
 				{
 					image.cellValue = 4;
 				}
@@ -383,20 +383,50 @@ public class LevelEditorScreen extends GenericScreen
 		});
 	}
 
-	public void createGrid(GridImage[] cell2)
+	public void createGrid(GridImage[] grid)
 	{
+		levelGrid.clearChildren();
 		int index = 0;
 		for (int y = 0; y < thePlane.getYSize(); y++)
 		{
 			for (int x = 0; x < thePlane.getXSize(); x++)
 			{
-				cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
+				if (grid[index] == null)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					grid[index].cellValue = 0;
+				}
+				else if (grid[index].getValue() == 0)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					grid[index].cellValue = 0;
+				}
+				else if (grid[index].getValue() == 1)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.groundBlockStyle);
+					grid[index].cellValue = 1;
+				}
+				else if (grid[index].getValue() == 2)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.boxBlockStyle);
+					grid[index].cellValue = 2;
+				}
+				else if (grid[index].getValue() == 3)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.safeZoneBlockStyle);
+					grid[index].cellValue = 3;
+				}
+				else if (grid[index].getValue() == 4)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.characterBlockStyle);
+					grid[index].cellValue = 4;
+				}
 				levelGrid.add(cell[index]).size(screenHeight / zoomFactor);
 				index++;
 			}
 			levelGrid.row();
 		}
-
+		addListeners();
 	}
 
 	public String getLastLevel()
@@ -479,35 +509,34 @@ public class LevelEditorScreen extends GenericScreen
 				if (nextInt == '0')
 				{
 					System.out.print(" " + 0 + " ");
-					cell[index] = new GridImage(
-							myGame.assetLoader.blankBlockStyle);
-					levelGrid.add(cell[index]).size(screenHeight / 8);// .size(screenHeight/7);
-					// add blank space
+					cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					cell[index].cellValue = 0;
 				}
 				if (nextInt == '1')
 				{
 					System.out.print(" " + 1 + " ");
-					cell[index] = new GridImage(
-							myGame.assetLoader.groundBlockStyle);
-					levelGrid.add(cell[index]).size(screenHeight / 8);
-					// add ground block
+					cell[index] = new GridImage(myGame.assetLoader.groundBlockStyle);
+					cell[index].cellValue = 1;
 				}
 				if (nextInt == '2')
 				{
 					System.out.print(" " + 2 + " ");
-					cell[index] = new GridImage(
-							myGame.assetLoader.boxBlockStyle);
-					levelGrid.add(cell[index]).size(screenHeight / 8);
-					// add crate
+					cell[index] = new GridImage(myGame.assetLoader.boxBlockStyle);
+					cell[index].cellValue = 2;
 				}
 				if (nextInt == '3')
 				{
 					System.out.print(" " + 3 + " ");
-					cell[index] = new GridImage(
-							myGame.assetLoader.safeZoneBlockStyle);
-					levelGrid.add(cell[index]).size(screenHeight / 8);
-					// add character
+					cell[index] = new GridImage(myGame.assetLoader.safeZoneBlockStyle);
+					cell[index].cellValue = 3;
 				}
+				if (nextInt == '4')
+				{
+					System.out.print(" " + 4 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.characterBlockStyle);
+					cell[index].cellValue = 4;
+				}
+				levelGrid.add(cell[index]).size(screenHeight / zoomFactor);
 				index++;
 				i++;
 				x--;
@@ -517,7 +546,7 @@ public class LevelEditorScreen extends GenericScreen
 			x = thePlane.getXSize();
 			y--;
 		}
-		addListeners(levelGrid);
+		createGrid(cell);
 	}
 
 	public void hide()

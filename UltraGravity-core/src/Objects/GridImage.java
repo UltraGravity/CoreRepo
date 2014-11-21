@@ -13,5 +13,9 @@ public class GridImage extends ImageButton
 		super(style);
 	}
 	
+	public int getValue()
+	{
+		return cellValue;
+	}
 
 }
