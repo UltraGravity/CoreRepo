@@ -64,7 +64,8 @@ public class LevelEditorScreen extends GenericScreen
 	public ImageButton characterButton;
 	
 	public GridImage cell[];
-
+	GridResizer gridResizer;
+	
 	public LevelFile levelFile;
 	public ThePlane thePlane;
 
@@ -72,10 +73,6 @@ public class LevelEditorScreen extends GenericScreen
 	float currentScaleY = screenHeight;
 
 	int zoomFactor = 8;
-	
-	GridResizer gridResizer;
-	
-	
 	
 	public LevelEditorScreen(MyGame myGame)
 	{
@@ -449,13 +446,14 @@ public class LevelEditorScreen extends GenericScreen
 
 		String level = Integer.toString(thePlane.getXSize()) + ","
 				+ Integer.toString(thePlane.getYSize()) + ":";
+		
 		for (Actor A : levelGrid.getChildren())
 		{
 			GridImage item = (GridImage) A;
 			System.out.println(item.cellValue);
 			level = level + item.cellValue;
-
 		}
+		
 		return level;
 	}
 
@@ -463,7 +461,10 @@ public class LevelEditorScreen extends GenericScreen
 	{
 		String fileName = "";
 		levelFile = new LevelFile(myGame);
+		
+		// Change this next line to be the name you type in via a menu.
 		fileName = levelFile.getNextLevelName();
+		
 		String level = getLevelString();
 		System.out.println(level);
 		System.out.println(fileName);
@@ -474,86 +475,7 @@ public class LevelEditorScreen extends GenericScreen
 	{
 		levelGrid.clearChildren();
 		levelFile = new LevelFile(myGame);
-		String level = levelFile.LoadLevel(file);
-
-		int i = 0;
-		String xSizeString = "";
-		String ySizeString = "";
-		int index = 0;
-
-		while (!String.valueOf(level.charAt(i)).equals(","))
-		{
-			xSizeString = xSizeString + String.valueOf(level.charAt(i));
-			i++;
-		}
-		int x = Integer.parseInt(xSizeString);
-		System.out.println(x);
-
-		i = xSizeString.length() + 1;
-		while (!String.valueOf(level.charAt(i)).equals(":"))
-		{
-			ySizeString = ySizeString + String.valueOf(level.charAt(i));
-			i++;
-		}
-		int y = Integer.parseInt(ySizeString);
-		System.out.println(y);
-
-		thePlane.setSize(x, y);
-		System.out.println(thePlane.getXSize());
-		System.out.println(thePlane.getYSize());
-		cell = new GridImage[x * y];
-		System.out.println("New grid created " + (x * y));
-		createGrid(cell);
-
-		i = xSizeString.length() + ySizeString.length() + 2;
-		System.out.println(index);
-
-		levelGrid.reset();
-		while (y > 0)
-		{
-			while (x > 0)
-			{ // The x and y loops are here to help place in a grid
-				int nextInt = level.charAt(i);
-				if (nextInt == '0')
-				{
-					System.out.print(" " + 0 + " ");
-					cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
-					cell[index].cellValue = 0;
-				}
-				if (nextInt == '1')
-				{
-					System.out.print(" " + 1 + " ");
-					cell[index] = new GridImage(myGame.assetLoader.groundBlockStyle);
-					cell[index].cellValue = 1;
-				}
-				if (nextInt == '2')
-				{
-					System.out.print(" " + 2 + " ");
-					cell[index] = new GridImage(myGame.assetLoader.boxBlockStyle);
-					cell[index].cellValue = 2;
-				}
-				if (nextInt == '3')
-				{
-					System.out.print(" " + 3 + " ");
-					cell[index] = new GridImage(myGame.assetLoader.safeZoneBlockStyle);
-					cell[index].cellValue = 3;
-				}
-				if (nextInt == '4')
-				{
-					System.out.print(" " + 4 + " ");
-					cell[index] = new GridImage(myGame.assetLoader.characterBlockStyle);
-					cell[index].cellValue = 4;
-				}
-				levelGrid.add(cell[index]).size(screenHeight / zoomFactor);
-				index++;
-				i++;
-				x--;
-			}
-			System.out.println();
-			levelGrid.row();
-			x = thePlane.getXSize();
-			y--;
-		}
+		cell = levelFile.getLevelGrid(file, thePlane);
 		createGrid(cell);
 	}
 	

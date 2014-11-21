@@ -1,5 +1,8 @@
 package FileIO;
 
+import Objects.GridImage;
+import Objects.ThePlane;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -91,4 +94,86 @@ public class LevelFile
 		}
 		return fileName;
 	}
+	
+	public GridImage[] getLevelGrid(String file, ThePlane thePlane)
+	{
+		GridImage[] cell;
+		String level = LoadLevel(file);
+
+		int i = 0;
+		String xSizeString = "";
+		String ySizeString = "";
+		int index = 0;
+
+		while (!String.valueOf(level.charAt(i)).equals(","))
+		{
+			xSizeString = xSizeString + String.valueOf(level.charAt(i));
+			i++;
+		}
+		int x = Integer.parseInt(xSizeString);
+		System.out.println(x);
+
+		i = xSizeString.length() + 1;
+		while (!String.valueOf(level.charAt(i)).equals(":"))
+		{
+			ySizeString = ySizeString + String.valueOf(level.charAt(i));
+			i++;
+		}
+		int y = Integer.parseInt(ySizeString);
+		System.out.println(y);
+
+		thePlane.setSize(x, y);
+		System.out.println(thePlane.getXSize());
+		System.out.println(thePlane.getYSize());
+		cell = new GridImage[x * y];
+		System.out.println("New grid created " + (x * y));
+
+		i = xSizeString.length() + ySizeString.length() + 2;
+		System.out.println(index);
+
+		while (y > 0)
+		{
+			while (x > 0)
+			{ // The x and y loops are here to help place in a grid
+				int nextInt = level.charAt(i);
+				if (nextInt == '0')
+				{
+					System.out.print(" " + 0 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					cell[index].cellValue = 0;
+				}
+				if (nextInt == '1')
+				{
+					System.out.print(" " + 1 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.groundBlockStyle);
+					cell[index].cellValue = 1;
+				}
+				if (nextInt == '2')
+				{
+					System.out.print(" " + 2 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.boxBlockStyle);
+					cell[index].cellValue = 2;
+				}
+				if (nextInt == '3')
+				{
+					System.out.print(" " + 3 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.safeZoneBlockStyle);
+					cell[index].cellValue = 3;
+				}
+				if (nextInt == '4')
+				{
+					System.out.print(" " + 4 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.characterBlockStyle);
+					cell[index].cellValue = 4;
+				}
+				index++;
+				i++;
+				x--;
+			}
+			x = thePlane.getXSize();
+			y--;
+		}	
+		return cell;
+	}
+	
 }
