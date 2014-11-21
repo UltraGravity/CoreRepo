@@ -176,7 +176,7 @@ public class LevelEditorScreen extends GenericScreen
 //			}
 		});
 	
-		selectedStyle = myGame.assetLoader.groundBlockStyle;
+		selectedStyle = myGame.assetLoader.characterBlockStyle;
 		Gdx.input.setInputProcessor(stage);
 		Gdx.input.setCatchBackKey(true);
 	}
@@ -224,7 +224,7 @@ public class LevelEditorScreen extends GenericScreen
 		group.add(blankTool);
 		group.add(characterButton);
 
-		groundTool.setChecked(true);
+		characterButton.setChecked(true);
 		
 		settingsButton.addListener(new ChangeListener()
 		{
@@ -548,7 +548,200 @@ public class LevelEditorScreen extends GenericScreen
 		}
 		createGrid(cell);
 	}
+	
+	public void addColumn(boolean addToRightSide)
+	{
+		/* 
+		 * if addToRightSide = true,
+		 * then add the column to the right. 
+		 * Otherwise, add the column to the left side.
+		 */
+		
+		int cellIndex = 0;
+		int oldXSize = thePlane.getXSize();
+		int newXSize = oldXSize + 1;
+		int ySize = thePlane.getYSize();
+		thePlane.setSize(newXSize, ySize);
+		GridImage biggerGrid[] = new GridImage[newXSize * ySize];
+		
+		if (addToRightSide)
+		{	
+			for (int i = 0; i < biggerGrid.length; i++)
+			{
+				if (i % newXSize + 1 == newXSize)
+				{
+					biggerGrid[i] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					biggerGrid[i].cellValue = 0;
+				}
+				else
+				{
+					biggerGrid[i] = cell[cellIndex];
+					cellIndex++;
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < biggerGrid.length; i++)
+			{
+				if (i % newXSize != 0)
+				{
+					biggerGrid[i] = cell[cellIndex];
+					cellIndex++;
+				}
+				else
+				{
+					biggerGrid[i] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					biggerGrid[i].cellValue = 0;
+				}
+			}
+		}
+		
+		cell = biggerGrid;
+		createGrid(cell);
+	}
+	
+	public void removeColumn(boolean removeFromRightSide)
+	{
+		/* 
+		 * if removeFromRightSide = true,
+		 * then remove the column from the right. 
+		 * Otherwise, remove the column from the left side.
+		 * 
+		 * Grid must be at least 1 cell wide.
+		 */
+		
+		if (thePlane.getXSize() - 1 > 0)
+		{
+			int cellIndex = 0;
+			int oldXSize = thePlane.getXSize();
+			int newXSize = oldXSize - 1;
+			int ySize = thePlane.getYSize();
+			thePlane.setSize(newXSize, ySize);
+			GridImage smallerGrid[] = new GridImage[newXSize * ySize];
 
+			if (removeFromRightSide)
+			{	
+				for (int i = 0; i < smallerGrid.length; i++)
+				{
+					if (i % newXSize + 1 == newXSize)
+					{
+						smallerGrid[i] = cell[cellIndex];
+						cellIndex = cellIndex + 2;
+					}
+					else
+					{
+						smallerGrid[i] = cell[cellIndex];
+						cellIndex++;
+					}
+				}
+			}
+			else
+			{
+				for (int i = 0; i < smallerGrid.length; i++)
+				{
+					if (i % newXSize == 0)
+					{
+						smallerGrid[i] = cell[cellIndex + 1];
+						cellIndex = cellIndex + 2;
+					}
+					else
+					{
+						smallerGrid[i] = cell[cellIndex];
+						cellIndex++;
+					}
+				}
+			}
+			cell = smallerGrid;
+			createGrid(cell);
+		}
+	}
+	
+	public void addRow(boolean addToTop)
+	{
+		/* 
+		 * if addToTop = true,
+		 * then add the row to the top. 
+		 * Otherwise, add the row to the bottom.
+		 */
+		
+		int newYSize = thePlane.getYSize() + 1;
+		int xSize = thePlane.getXSize();
+		thePlane.setSize(xSize, newYSize);
+		GridImage biggerGrid[] = new GridImage[xSize * newYSize];
+		
+		if (addToTop)
+		{	
+			for (int i = 0; i < biggerGrid.length; i++)
+			{
+				if (i < xSize)
+				{
+					biggerGrid[i] = new GridImage(myGame.assetLoader.blankBlockStyle);
+					biggerGrid[i].cellValue = 0;
+					
+				}
+				else
+				{
+					biggerGrid[i] = cell[i - xSize];
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < biggerGrid.length; i++)
+			{
+				if (i < cell.length)
+				{
+					biggerGrid[i] = cell[i];
+				}
+				else
+				{
+					biggerGrid[i] = new GridImage(myGame.assetLoader.blankBlockStyle);
+				}
+			}
+		}
+		
+		cell = biggerGrid;
+		createGrid(cell);
+	}
+	
+	public void removeRow(boolean removeFromTop)
+	{
+		/* 
+		 * if addToTop = true,
+		 * then remove the row from the top. 
+		 * Otherwise, remove the row from the bottom.
+		 * 
+		 * Grid must be at least 1 cell high.
+		 */
+		
+		if (thePlane.getYSize() - 1 > 0)
+		{
+			int newYSize = thePlane.getYSize() - 1;
+			int xSize = thePlane.getXSize();
+			thePlane.setSize(xSize, newYSize);
+			GridImage smallerGrid[] = new GridImage[xSize * newYSize];
+			
+			if (removeFromTop)
+			{	
+				for (int i = 0; i < smallerGrid.length; i++)
+				{
+					smallerGrid[i] = cell[i + xSize];
+				}
+			}
+			else
+			{
+				for (int i = 0; i < smallerGrid.length; i++)
+				{
+					smallerGrid[i] = cell[i];
+				}
+			}
+			
+			cell = smallerGrid;
+			createGrid(cell);
+		}
+	}
+	
 	public void hide()
 	{
 		System.out.println("Disposing Level Editor Screen");

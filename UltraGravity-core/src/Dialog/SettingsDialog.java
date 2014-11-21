@@ -22,23 +22,26 @@ public class SettingsDialog extends Dialog
 	Table backTable;
 	Table settingsTable;
 	TextButton back;
-	TextButton plusX;
-	TextButton minusX;
-	TextButton plusY;
-	TextButton minusY;
-	Label widthLabel;
-	Label heightLabel;
+	TextButton plusLeft;
+	TextButton plusRight;
+	TextButton minusLeft;
+	TextButton minusRight;
+	TextButton plusTop;
+	TextButton plusBottom;
+	TextButton minusTop;
+	TextButton minusBottom;
+	
+	Label addRow;
+	Label removeRow;
+	Label addColumn;
+	Label removeColumn;
 
 	
 	public SettingsDialog(MyGame myGame, String title, Skin skin)
 	{
 		super(title, skin);
 		
-		
 		this.myGame = myGame;
-
-		// Scale
-		float s = myGame.screenHeight;
 		
 		table = new Table();
 		settingsTable = new Table();
@@ -52,50 +55,47 @@ public class SettingsDialog extends Dialog
 		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 		
 		
-		back = new TextButton("Select", skin);
+		back = new TextButton("Back to Map", skin);
 		backTable.add(back);
-		//back.getLabel().setFontScale(s/640);
 			
 		
-		minusX = new TextButton("-", skin);
-		widthLabel = new Label(" Width ", skin);
-		plusX = new TextButton("+", skin);
+		plusLeft = new TextButton("+", skin);
+		plusRight = new TextButton("+", skin);
+		plusTop = new TextButton("+", skin);
+		plusBottom = new TextButton("+", skin);
 		
-		settingsTable.add(minusX);
-		settingsTable.add(widthLabel);
-		settingsTable.add(plusX);
+		minusLeft = new TextButton("-", skin);
+		minusRight = new TextButton("-", skin);
+		minusTop = new TextButton("-", skin);
+		minusBottom = new TextButton("-", skin);
+		
+		
+		addRow = new Label(" Add Row", skin);
+		removeRow = new Label("Remove Row", skin);
+		addColumn = new Label("Add Column", skin);
+		removeColumn = new Label(" Remove Column ", skin);
+		
+		settingsTable.add(plusLeft);
+		settingsTable.add(addColumn);
+		settingsTable.add(plusRight);
 		settingsTable.row();
-		
-		minusY = new TextButton("-", skin);
-		heightLabel = new Label(" Height ", skin);
-		plusY = new TextButton("+", skin);
-		
-		
-		
-		
-		//heightLabel.setFontScale(s/640);
-		//widthLabel.setFontScale(s/640);
-		//minusX.getLabel().setFontScale(s/640);
-		//minusY.getLabel().setFontScale(s/640);
-		//plusX.getLabel().setFontScale(s/640);
-		//plusY.getLabel().setFontScale(s/640);
-		
-
-		
-		settingsTable.add(minusY);
-		settingsTable.add(heightLabel);
-		settingsTable.add(plusY);
-		
-		
+		settingsTable.add(minusLeft);
+		settingsTable.add(removeColumn);
+		settingsTable.add(minusRight);
+		settingsTable.row();
+		settingsTable.add(plusBottom);
+		settingsTable.add(addRow);
+		settingsTable.add(plusTop);
+		settingsTable.row();
+		settingsTable.add(minusBottom);
+		settingsTable.add(removeRow);
+		settingsTable.add(minusTop);
+	
 		table.add(backTable).top();
 		table.row();
 		table.add(settingsTable);
-		
-		
 		settingsTable.pack();
-		
 		this.add(table);
-		
 		setupButtons();
 	}
 	
@@ -110,64 +110,69 @@ public class SettingsDialog extends Dialog
 				hide();
 			}
 		});
+		
+		plusRight.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.addColumn(true);
+			}
+		});
 
-		minusX.addListener(new ChangeListener()
+		plusLeft.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				if (myGame.levelEditorScreen.thePlane.getXSize() != 1)
-				{
-					int x = myGame.levelEditorScreen.thePlane.getXSize() - 1;					
-					myGame.levelEditorScreen.levelGrid.clear();
-					myGame.levelEditorScreen.thePlane.setSize(x, myGame.levelEditorScreen.thePlane.getYSize());
-					myGame.levelEditorScreen.cell = new GridImage[myGame.levelEditorScreen.thePlane.getXSize() * myGame.levelEditorScreen.thePlane.getYSize()];
-					myGame.levelEditorScreen.createGrid(myGame.levelEditorScreen.cell);
-				}
+				myGame.levelEditorScreen.addColumn(false);
 			}
 		});
 		
-		minusY.addListener(new ChangeListener()
+		minusRight.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				if (myGame.levelEditorScreen.thePlane.getYSize() != 1)
-				{
-					int y = myGame.levelEditorScreen.thePlane.getYSize() - 1;					
-					myGame.levelEditorScreen.levelGrid.clear();
-					myGame.levelEditorScreen.thePlane.setSize(myGame.levelEditorScreen.thePlane.getXSize(), y);
-					myGame.levelEditorScreen.cell = new GridImage[myGame.levelEditorScreen.thePlane.getXSize() * myGame.levelEditorScreen.thePlane.getYSize()];
-					myGame.levelEditorScreen.createGrid(myGame.levelEditorScreen.cell);
-				}
+				myGame.levelEditorScreen.removeColumn(true);
 			}
 		});
-		
 
-		plusY.addListener(new ChangeListener()
+		minusLeft.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-					int y = myGame.levelEditorScreen.thePlane.getYSize() + 1;					
-					myGame.levelEditorScreen.levelGrid.clear();
-					myGame.levelEditorScreen.thePlane.setSize(myGame.levelEditorScreen.thePlane.getXSize(), y);
-					myGame.levelEditorScreen.cell = new GridImage[myGame.levelEditorScreen.thePlane.getXSize() * myGame.levelEditorScreen.thePlane.getYSize()];
-					myGame.levelEditorScreen.createGrid(myGame.levelEditorScreen.cell);
+				myGame.levelEditorScreen.removeColumn(false);
 			}
 		});
 		
-		plusX.addListener(new ChangeListener()
+		plusTop.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-					int x = myGame.levelEditorScreen.thePlane.getXSize() + 1;					
-					myGame.levelEditorScreen.levelGrid.clear();
-					myGame.levelEditorScreen.thePlane.setSize(x, myGame.levelEditorScreen.thePlane.getYSize());
-					myGame.levelEditorScreen.cell = new GridImage[myGame.levelEditorScreen.thePlane.getXSize() * myGame.levelEditorScreen.thePlane.getYSize()];
-					myGame.levelEditorScreen.createGrid(myGame.levelEditorScreen.cell);
+				myGame.levelEditorScreen.addRow(true);
+			}
+		});
+
+		plusBottom.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.addRow(false);
 			}
 		});
 		
+		minusTop.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.removeRow(true);
+			}
+		});
+
+		minusBottom.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.levelEditorScreen.removeRow(false);
+			}
+		});
 	}
-	
-	
-
 }
