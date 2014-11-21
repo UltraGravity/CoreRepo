@@ -6,24 +6,30 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 
 public class MainCharacter extends MovingItem
 {
-	
+
 	public MainCharacter(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
 		texture = myGame.assetLoader.character;
 		sprite = new Sprite(texture);
-		setShape();
+		shape = setShape();
+		density = 1;
 	}
-	
-	public void setShape()
+
+	public Shape setShape()
 	{
-		shape.setRadius(Constants.SIZE_SCALE);
+		CircleShape circle = new CircleShape();
+		circle.setRadius(Constants.SIZE_SCALE);
+		return (Shape) circle;
 	}
-	
-	public TextureRegion getTexture() {
+
+	public TextureRegion getTexture()
+	{
 		return texture;
 	}
 

@@ -10,7 +10,9 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class WorldUtils
@@ -34,16 +36,14 @@ public class WorldUtils
 		world.setGravity(gravity);
 	}
 
-	public Body createItemInWorld(Item item, World world)
+	public void createItemInWorld(Item item, World world)
 	{
 		BodyDef bodyDef = item.getBodyDef();
 		bodyDef.position.set(new Vector2(item.getX(), item.getY()));
 		Body body = world.createBody(bodyDef);
-		PolygonShape shape = item.getShape();
-		body.createFixture(shape, 1);
+		Shape shape = item.getShape();
+		body.createFixture((Shape) shape, item.getDensity());
 		body.setUserData(item.getSprite());
-
-		return body;
 	}
 
 }

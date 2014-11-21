@@ -56,8 +56,8 @@ public class ThePlane
 		}
 		if (item == 3)
 		{
-			Item character = new MainCharacter(myGame, x, y);
-			worldList.add(character);
+			Item safeZone = new SafeZone(myGame, x, y);
+			worldList.add(safeZone);
 		}
 		if (item == 4)
 		{
@@ -98,8 +98,8 @@ public class ThePlane
 		for (int i = 0; i < worldList.size(); i++)
 		{
 			Item current = worldList.get(i);
-
-			Body currentBody = worldUtils.createItemInWorld(current, world);
+			
+			worldUtils.createItemInWorld(current, world);
 			System.out.println("Added an item to the world");
 		}
 

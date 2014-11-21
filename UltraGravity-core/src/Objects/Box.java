@@ -3,14 +3,9 @@ package Objects;
 import Physics.Constants;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 
 public class Box extends MovingItem
 {
@@ -20,13 +15,16 @@ public class Box extends MovingItem
 		super(myGame, x, y);
 		texture = myGame.assetLoader.box;
 		sprite = new Sprite(texture);		
-		setShape();
+		shape = setShape();
+		density = 1;
 		System.out.println("Box Created");
 	}
 
-	public void setShape()
+	public Shape setShape()
 	{
-		shape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		PolygonShape boxShape = new PolygonShape();
+		boxShape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		return (Shape) boxShape;
 	}
 	
 	

@@ -6,6 +6,7 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 
 public class GroundBlock extends StationaryItem
 {
@@ -15,13 +16,16 @@ public class GroundBlock extends StationaryItem
 		super(myGame, x, y);
 		texture = myGame.assetLoader.ground;
 		sprite = new Sprite(texture);
-		setShape();
+		shape = setShape();
+		density = 1;
 		System.out.println("Ground Created");
 	}
 
-	public void setShape()
+	public Shape setShape()
 	{
-		shape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		PolygonShape boxShape = new PolygonShape();
+		boxShape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		return (Shape) boxShape;
 	}
 
 }

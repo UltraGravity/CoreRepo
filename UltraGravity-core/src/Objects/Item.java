@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Item
@@ -15,10 +17,12 @@ public class Item
 	int x;
 	int y;
 
+	float density;
+
 	World world;
 	MovingItem movingItem;
 	public MyGame myGame;
-	PolygonShape shape;
+	Shape shape;
 	BodyDef bodyDef;
 	TextureRegion texture;
 	Sprite sprite;
@@ -28,7 +32,6 @@ public class Item
 		this.myGame = myGame;
 		this.x = x;
 		this.y = y;
-		this.shape = new PolygonShape();
 	}
 
 	public BodyDef getBodyDef()
@@ -36,16 +39,18 @@ public class Item
 		return bodyDef;
 	}
 
-	public PolygonShape getShape()
+	public Shape getShape()
 	{
 		return shape;
 	}
-	
-	public TextureRegion getTextureRegion() {
+
+	public TextureRegion getTextureRegion()
+	{
 		return texture;
 	}
-	
-	public Sprite getSprite() {
+
+	public Sprite getSprite()
+	{
 		return sprite;
 	}
 
@@ -57,6 +62,11 @@ public class Item
 	public int getY()
 	{
 		return y;
+	}
+
+	public float getDensity()
+	{
+		return density;
 	}
 
 }
