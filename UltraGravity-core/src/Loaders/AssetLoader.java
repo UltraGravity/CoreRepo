@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class AssetLoader 
 {
@@ -44,6 +45,8 @@ public class AssetLoader
 	public ImageButtonStyle playButtonStyle;
 	public ImageButtonStyle backButtonStyle;
 	public ImageButtonStyle characterBlockStyle;
+	
+	public TextButtonStyle textButtonStyle;
 	
 	// Tool Button Styles
 	public ImageButtonStyle boxStyle;
@@ -95,6 +98,12 @@ public class AssetLoader
 		font = assetManager.get(buttonFont, BitmapFont.class);
 		titleFont = assetManager.get("title.fnt", BitmapFont.class);
 
+		textButtonStyle = new TextButtonStyle();
+		textButtonStyle.font = myGame.assetLoader.font;
+		textButtonStyle.up = menuButtonSkin.getDrawable("Button");
+		textButtonStyle.down = menuButtonSkin.getDrawable("Button-Pressed");
+		
+		
 		box = gameScreenAtlas.findRegion("crate");
 		ground = gameScreenAtlas.findRegion("metal");
 		safeZone = gameScreenAtlas.findRegion("safezone");

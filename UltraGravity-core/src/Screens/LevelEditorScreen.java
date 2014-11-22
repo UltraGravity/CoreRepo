@@ -2,6 +2,7 @@ package Screens;
 
 import Dialog.LoadLevelDialog;
 import Dialog.SaveDialog;
+import Dialog.SaveLevelDialog;
 import Dialog.SettingsDialog;
 import FileIO.GridResizer;
 import FileIO.LevelFile;
@@ -294,7 +295,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				save();
+				saveDialog();
 			}
 		});
 		
@@ -350,10 +351,15 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				levelFile = new LevelFile(myGame);
-				//System.out.println(levelFile.getLastLevelName());
 				myGame.changeToGameScreen(levelName);
 			}
 		});
+	}
+	
+	public void saveDialog()
+	{
+		SaveLevelDialog dialog = new SaveLevelDialog(myGame, myGame.assetLoader.uiSkin, levelName);
+		dialog.show(stage);
 	}
 	
 	public void addListeners()
@@ -458,18 +464,11 @@ public class LevelEditorScreen extends GenericScreen
 		return level;
 	}
 
-	public void save()
+	public void save(String levelName)
 	{
-		String fileName = "";
 		levelFile = new LevelFile(myGame);
-		
-		// Change this next line to be the name you type in via a menu.
-		fileName = levelFile.getNextLevelName();
-		
 		String level = getLevelString();
-		System.out.println(level);
-		System.out.println(fileName);
-		levelFile.SaveLevel(fileName, level);
+		levelFile.SaveLevel(levelName, level);
 	}
 
 	public void load(String file)

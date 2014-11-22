@@ -82,7 +82,7 @@ public class SaveDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				myGame.levelEditorScreen.save();
+				myGame.levelEditorScreen.saveDialog();
 				hide();
 				myGame.changeToMainMenuScreen();
 			}

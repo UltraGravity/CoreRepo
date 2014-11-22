@@ -136,10 +136,10 @@ public class GameScreen extends GenericScreen
 			
 			
 			
-//			sprite.setPosition((body.getPosition().x - Constants.OBJECT_SCALE)
-//					* (screenWidth / boxCam.viewportWidth),
-//					(body.getPosition().y - Constants.OBJECT_SCALE)
-//							* (screenHeight / boxCam.viewportHeight));
+			sprite.setPosition((body.getPosition().x - Constants.OBJECT_SCALE)
+					* (screenWidth / boxCam.viewportWidth),
+					(body.getPosition().y - Constants.OBJECT_SCALE)
+							* (screenHeight / boxCam.viewportHeight));
 			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 			sprite.setSize((2 * Constants.OBJECT_SCALE)
 					* (screenWidth / boxCam.viewportWidth),
