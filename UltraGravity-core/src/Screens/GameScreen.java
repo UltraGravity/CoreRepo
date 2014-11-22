@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class GameScreen extends GenericScreen
 {
-	String levelString;
+	String levelName;
 
 	World world;
 	LevelEditorScreen levelEditor;
@@ -50,10 +50,10 @@ public class GameScreen extends GenericScreen
 	
 	
 	
-	public GameScreen(MyGame myGame, String levelString)
+	public GameScreen(MyGame myGame, String levelName)
 	{
 		super(myGame);
-		this.levelString = levelString;
+		this.levelName = levelName;
 		levelFile = new LevelFile(myGame);
 	}
 
@@ -119,9 +119,7 @@ public class GameScreen extends GenericScreen
 		System.out.println("Creating a new world!");
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		world = worldUtils.createWorld();
-
-		String levelName = levelFile.getLastLevelName();
-		
+				
 		thePlane = new ThePlane(myGame, 0, 0);
 		fillThePlane(levelName);
 		

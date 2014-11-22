@@ -41,17 +41,16 @@ public class LevelScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{	
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+
         stage.act();
         
 		batch.begin();
-		
-			//table.debug();
-			//table.debugAll();
-			stage.draw();
-			
+			stage.draw();		
 		batch.end();
 	}
 
@@ -118,7 +117,8 @@ public class LevelScreen extends GenericScreen
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	            LevelButton button = (LevelButton) actor;
-	        	button.play();
+	            System.out.println(button.getLevelName());
+	            myGame.changeToGameScreen(button.getLevelName());
 	        }});
 		
 		

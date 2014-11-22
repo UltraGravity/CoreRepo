@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class LevelButton extends TextButton
 {
-
 	String fileName;
 
 	public LevelButton(String text, TextButtonStyle style, String fileName)
@@ -13,7 +12,7 @@ public class LevelButton extends TextButton
 		this.fileName = fileName;
 	}
 
-	public String play()
+	public String getLevelName()
 	{
 		return fileName;
 	}
