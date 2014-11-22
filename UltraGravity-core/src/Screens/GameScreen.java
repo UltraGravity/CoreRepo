@@ -3,6 +3,7 @@ package Screens;
 import java.util.ArrayList;
 
 import FileIO.LevelFile;
+import Gesture.GameGestureDetector;
 import Objects.Box;
 import Objects.GridImage;
 import Objects.Item;
@@ -13,10 +14,13 @@ import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -55,6 +59,7 @@ public class GameScreen extends GenericScreen
 		super(myGame);
 		this.levelName = levelName;
 		levelFile = new LevelFile(myGame);
+		//Gdx.input.setInputProcessor(new GameGestureDetector());
 	}
 
 	public void render(float delta)
@@ -127,7 +132,6 @@ public class GameScreen extends GenericScreen
 		thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
 		setupBoxCam();
-
 	}
 
 	private void fillThePlane(String levelName)

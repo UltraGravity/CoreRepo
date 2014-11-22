@@ -21,8 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class LoadLevelDialog extends Dialog
 {
-
-
 	MyGame myGame;
 	
 	Table levelTable;
@@ -124,6 +122,7 @@ public class LoadLevelDialog extends Dialog
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
 	            LevelButton button = (LevelButton) actor;
+	            myGame.levelEditorScreen.levelName = button.getLevelName();
 	        	myGame.levelEditorScreen.load(button.getLevelName());
 	        	hide();
 	        }});

@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class LevelEditorScreen extends GenericScreen
 {
+	public String levelName = "";
 	public int selectedBlock = 0;
 	public BitmapFont font;
 	public Stage stage;
@@ -349,8 +350,8 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				levelFile = new LevelFile(myGame);
-				System.out.println(levelFile.getLastLevelName());
-				myGame.changeToGameScreen(levelFile.LoadLevel(levelFile.getLastLevelName()));
+				//System.out.println(levelFile.getLastLevelName());
+				myGame.changeToGameScreen(levelName);
 			}
 		});
 	}
