@@ -7,6 +7,7 @@ import Gesture.GameGestureDetector;
 import Objects.Box;
 import Objects.GridImage;
 import Objects.Item;
+import Objects.LevelButton;
 import Objects.ThePlane;
 import Physics.Constants;
 import Physics.Direction;
@@ -24,17 +25,27 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen extends GenericScreen
 {
 	String levelName;
-
+	Stage stage;
+	ImageButton pauseButton;
 	World world;
 	LevelEditorScreen levelEditor;
 	ThePlane thePlane;
 	GridImage[] cell;
 	LevelFile levelFile;
+	Table table;
 	
 	Array<Body> worldArray = new Array<Body>();
 	// WorldUtils worldUtils;
@@ -66,8 +77,12 @@ public class GameScreen extends GenericScreen
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		doPhysics(delta);
 		renderer.render(world, boxCam.combined);
+		
+		stage.act();
+		stage.draw();
 	}
 
 	public void setupBoxCam()
@@ -120,6 +135,29 @@ public class GameScreen extends GenericScreen
 
 	public void show()
 	{
+		Viewport view = new ScreenViewport();
+		
+		stage = new Stage(view, batch);
+		pauseButton = new ImageButton(myGame.assetLoader.pauseButtonStyle);
+		Gdx.input.setInputProcessor(stage);
+		table = new Table();
+		//table.setFillParent(true);
+		table.setSize(screenWidth/25, screenWidth/25);
+		table.setX(screenWidth - screenWidth/25);
+		table.setY(screenHeight - screenWidth/25 - 5);
+		table.add(pauseButton).top().right().size((int) screenWidth/25);
+		
+		stage.addActor(table);
+		
+		pauseButton.addListener(new ChangeListener() 
+		{
+	        public void changed (ChangeEvent event, Actor actor) 
+	        {
+	        	// ADD STUFF TO THIS
+	            myGame.changeToMainMenuScreen();
+	        }});
+		
+		
 		System.out.println("beginning");
 		System.out.println("Creating a new world!");
 		WorldUtils worldUtils = new WorldUtils(myGame);

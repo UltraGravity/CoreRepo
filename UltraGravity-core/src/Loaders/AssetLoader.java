@@ -51,6 +51,7 @@ public class AssetLoader
 	public ImageButtonStyle safeStyle;
 	public ImageButtonStyle blankStyle;
 	public ImageButtonStyle settingsStyle;
+	public ImageButtonStyle pauseButtonStyle;
 	
 	public ImageButtonStyle plusStyle;
 	public ImageButtonStyle minusStyle;
@@ -165,6 +166,10 @@ public class AssetLoader
 		
 		characterBlockStyle = new ImageButtonStyle();
 		characterBlockStyle.up = gameButtonSkin.getDrawable("main-level");
+		
+		pauseButtonStyle = new ImageButtonStyle();
+		pauseButtonStyle.up = gameButtonSkin.getDrawable("pauseButton");
+		pauseButtonStyle.down = gameButtonSkin.getDrawable("pauseButton-pressed");
 	 }	
 	 
 
