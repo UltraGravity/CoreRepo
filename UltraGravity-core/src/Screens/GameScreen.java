@@ -109,7 +109,7 @@ public class GameScreen extends GenericScreen
 	private void doPhysics(float deltaTime)
 	{
 		float acelx = Gdx.input.getAccelerometerX();
-		float acely = Gdx.input.getAccelerometerY();			//Accelerometer
+		float acely = Gdx.input.getAccelerometerY();			//Accelerometer		
 
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
@@ -119,8 +119,7 @@ public class GameScreen extends GenericScreen
 			{
 				System.out.println("Character Physics Active");
 				b.setGravityScale(0);
-				Vector2 force = new Vector2(acelx * Constants.GRAVITY, acely
-						* Constants.GRAVITY);
+				Vector2 force = new Vector2((acely * Constants.GRAVITY) + b.getLinearVelocity().x, (-acelx * Constants.GRAVITY) + b.getLinearVelocity().y);
 				System.out.println(force.x + " , " + force.y);
 				b.applyForceToCenter(force, true);
 			}
