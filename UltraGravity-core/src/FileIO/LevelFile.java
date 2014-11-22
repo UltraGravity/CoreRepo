@@ -23,7 +23,6 @@ public class LevelFile
 		System.out.println(world);
 		file.writeString(world, false);
 		System.out.println("File Saved");
-
 	}
 
 	public String LoadLevel(String fileName)
@@ -183,6 +182,13 @@ public class LevelFile
 		cell = gridResizer.addRow(cell, false, 1);
 		cell = gridResizer.addRow(cell, true, 1);
 		return cell;
+	}
+
+	public boolean checkIfExists(String fileName)
+	{
+		
+		
+		return false;
 	}
 	
 }

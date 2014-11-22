@@ -22,22 +22,21 @@ public class LevelScreen extends GenericScreen
 {
 	
 	Stage stage;
-	BitmapFont font;
-	Skin skin;
-	Table table;
+	Table builtInTable;
+	Table customTable;
 	Table window;
-	ScrollPane scroll;
+	ScrollPane builtInScroll;
+	ScrollPane customScroll;
 	TextureAtlas buttonAtlas;
 	TextButtonStyle textButtonStyle;
 
-	FileHandle[] files;
-	
+	FileHandle[] builtInLevels;
+	FileHandle[] customLevels;
 	
 	public LevelScreen(MyGame myGame)
 	{
 		super(myGame);
 	}
-	
 	
 	public void render(float delta) 
 	{	
@@ -59,57 +58,38 @@ public class LevelScreen extends GenericScreen
 	{
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
-		table = new Table();
+		textButtonStyle = myGame.assetLoader.textButtonStyle;
+		builtInTable = new Table();
+		customTable = new Table();
+		
 		window = new Table();
 		window.setFillParent(true);
-		
 		window.defaults().expand().top();
 		
-		font = myGame.assetLoader.font;
-		skin = new Skin();
-		buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
-		skin.addRegions(buttonAtlas);
-		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("Button");
-		textButtonStyle.down = skin.getDrawable("Button-Pressed");
 		
-		files = Gdx.files.local("Levels").list();
-		int numFiles = files.length;
 		
-		for (int i = 0; i < numFiles; i++)
+		
+		builtInLevels = Gdx.files.local("BuiltIn").list();
+		int nBuiltInLevels = builtInLevels.length;
+		
+		for (int i = 0; i < nBuiltInLevels; i++)
 		{
-			System.out.println(files[i].name());
+			String name = builtInLevels[i].name();
+			name = name.replace(".txt", "");
+			LevelButton button = new LevelButton(name, textButtonStyle, builtInLevels[i].name());
+			builtInTable.add(button).height(myGame.screenWidth/5);
 		}
 		
+		customLevels = Gdx.files.local("Levels").list();
+		int nCustomLevels = customLevels.length;
 		
-		/* Unfortunately, this is not a sorted array...
-		 * So I'm making this incredibly inefficient sorting code. 
-		 */
-		int numRows = 4;
-		String nextFile = "CL_0.txt";
-		String thisFile = "";
-		int index = 0;
-		for (int i = 0; i < numFiles; i++)
+		for (int i = 0; i < nCustomLevels; i++)
 		{
-			index = 0;
-			nextFile = "CL_" + i + ".txt";
-			for (int j = 0; j < numFiles; j++)
-			{
-				thisFile = files[index].name();
-				if (nextFile.equals(thisFile))
-				{
-					LevelButton button = new LevelButton(String.valueOf(i), textButtonStyle, files[index].name());
-					table.add(button).width(screenWidth/5).height(screenWidth/5);
-					if (i % numRows == numRows-1)
-					{
-						table.row();
-					}
-					break;
-				}
-				index++;
-			}
-		}
+			String name = customLevels[i].name();
+			name = name.replace(".txt", "");
+			LevelButton button = new LevelButton(name, textButtonStyle, customLevels[i].name());
+			customTable.add(button).height(myGame.screenWidth/5);
+		}	
 		
 		
 		window.addListener(new ChangeListener() 
@@ -122,10 +102,12 @@ public class LevelScreen extends GenericScreen
 	        }});
 		
 		
-		scroll = new ScrollPane(table);
+		builtInScroll = new ScrollPane(builtInTable);
+		customScroll = new ScrollPane(customTable);
 		
-		window.add(scroll);
-		
+		window.add(builtInScroll);
+		window.row();
+		window.add(customScroll);	
 		stage.addActor(window);
 	}
 

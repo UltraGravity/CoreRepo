@@ -1,6 +1,9 @@
 package Dialog;
 
+import FileIO.LevelFile;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -57,8 +60,14 @@ public class SaveLevelDialog extends Dialog
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				String fileName = textBox.getText();
-				myGame.levelEditorScreen.save(fileName);
-				hide();
+				LevelFile file = new LevelFile(myGame);
+				
+				if (fileName != "" && file.checkIfExists(fileName))
+				{
+					myGame.levelEditorScreen.save(fileName);
+					Gdx.input.setOnscreenKeyboardVisible(false);
+					hide();
+				}
 			}
 		});
 		

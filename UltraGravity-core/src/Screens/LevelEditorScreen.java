@@ -360,6 +360,7 @@ public class LevelEditorScreen extends GenericScreen
 	{
 		SaveLevelDialog dialog = new SaveLevelDialog(myGame, myGame.assetLoader.uiSkin, levelName);
 		dialog.show(stage);
+		dialog.setPosition(dialog.getX(), screenHeight - screenHeight/4);
 	}
 	
 	public void addListeners()
