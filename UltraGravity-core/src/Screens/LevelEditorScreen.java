@@ -335,13 +335,13 @@ public class LevelEditorScreen extends GenericScreen
 				dialog.show(stage);
 				
 				
-				if (dialog.getHeight() < screenHeight)
+				if (dialog.getWidth() < screenWidth)
 				{
 					dialog.pack();
 				}
 				else
 				{
-					dialog.setHeight(screenHeight);
+					dialog.setWidth(screenWidth);
 				}
 			}
 		});

@@ -44,18 +44,8 @@ public class SaveLevelDialog extends Dialog
 			this.add(table);
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		setupButtons();
-		
 
+		setupButtons();
 	}
 	
 	
@@ -66,7 +56,9 @@ public class SaveLevelDialog extends Dialog
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				myGame.levelEditorScreen.save(textBox.getMessageText());
+				String fileName = textBox.getText();
+				myGame.levelEditorScreen.save(fileName);
+				hide();
 			}
 		});
 		

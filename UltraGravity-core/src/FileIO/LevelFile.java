@@ -19,9 +19,7 @@ public class LevelFile
 
 	public void SaveLevel(String fileName, String world)
 	{
-		// BufferedWriter writer = new BufferedWriter(new FileWriter("Levels/" +
-		// fileName));
-		FileHandle file = Gdx.files.local("Levels/" + fileName);
+		FileHandle file = Gdx.files.local("Levels/" + fileName + ".txt");
 		System.out.println(world);
 		file.writeString(world, false);
 		System.out.println("File Saved");
