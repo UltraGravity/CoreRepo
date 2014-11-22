@@ -52,7 +52,6 @@ public class GameScreen extends GenericScreen
 	ActorGestureListener listener;
 
 	Array<Body> worldArray = new Array<Body>();
-	// WorldUtils worldUtils;
 
 	private OrthographicCamera boxCam;
 	private Box2DDebugRenderer renderer;
@@ -60,6 +59,9 @@ public class GameScreen extends GenericScreen
 	private float accumulator = 0;
 
 	private int zoomFactor = 16;
+
+	private int levelWidth;
+	private int levelHeight;
 
 	private enum GameState {
 		PLAY, PAUSE, GAMEOVER
@@ -88,10 +90,19 @@ public class GameScreen extends GenericScreen
 
 	public void setupBoxCam()
 	{
+		setGameDimensions();
 		boxCam = new OrthographicCamera(screenWidth, screenHeight);
 		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight
 				/ zoomFactor);
+		boxCam.position.set(levelWidth / 2f, levelHeight / 2f, 0);
 		boxCam.update();
+	}
+
+	private void setGameDimensions()
+	{
+		levelHeight = thePlane.getYSize() * Constants.GRID_TO_WORLD;
+		levelWidth = thePlane.getXSize() * Constants.GRID_TO_WORLD;
+
 	}
 
 	private void doPhysics(float deltaTime)
@@ -240,14 +251,14 @@ public class GameScreen extends GenericScreen
 		cell = levelFile.getLevelGrid(levelName, thePlane);
 		cell = levelFile.addGroundBoarder(cell, thePlane);
 
-		int y = thePlane.getYSize();
-		int x = thePlane.getXSize();
+		int y = 0;
+		int x = 0;
 		int xIndex = x;
 		int i = 0;
 
-		while (y > 0)
+		while (y < thePlane.getYSize())
 		{
-			while (x > 0)
+			while (x < thePlane.getXSize())
 			{
 				int nextInt = cell[i].cellValue;
 				if (nextInt == 1) // Ground
@@ -271,10 +282,10 @@ public class GameScreen extends GenericScreen
 							* (Constants.GRID_TO_WORLD));
 				}
 				i++;
-				x--;
+				x++;
 			}
 			x = xIndex;
-			y--;
+			y++;
 		}
 	}
 
