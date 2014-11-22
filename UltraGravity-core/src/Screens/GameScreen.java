@@ -48,9 +48,9 @@ public class GameScreen extends GenericScreen
 	GridImage[] cell;
 	LevelFile levelFile;
 	Table table;
-	
+
 	ActorGestureListener listener;
-	
+
 	Array<Body> worldArray = new Array<Body>();
 	// WorldUtils worldUtils;
 
@@ -66,9 +66,7 @@ public class GameScreen extends GenericScreen
 	};
 
 	public GameState gameState = GameState.PLAY;
-	
-	
-	
+
 	public GameScreen(MyGame myGame, String levelName)
 	{
 		super(myGame);
@@ -80,10 +78,10 @@ public class GameScreen extends GenericScreen
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		doPhysics(delta);
 		renderer.render(world, boxCam.combined);
-		
+
 		stage.act();
 		stage.draw();
 	}
@@ -91,7 +89,8 @@ public class GameScreen extends GenericScreen
 	public void setupBoxCam()
 	{
 		boxCam = new OrthographicCamera(screenWidth, screenHeight);
-		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight / zoomFactor);
+		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight
+				/ zoomFactor);
 		boxCam.update();
 	}
 
@@ -139,63 +138,77 @@ public class GameScreen extends GenericScreen
 	public void show()
 	{
 		Viewport view = new ScreenViewport();
-		
+
 		stage = new Stage(view, batch);
 		pauseButton = new ImageButton(myGame.assetLoader.pauseButtonStyle);
 		Gdx.input.setInputProcessor(stage);
 		table = new Table();
-		//table.setFillParent(true);
-		table.setSize(screenWidth/25, screenWidth/25);
-		table.setX(screenWidth - screenWidth/25);
-		table.setY(screenHeight - screenWidth/25 - 5);
-		table.add(pauseButton).top().right().size((int) screenWidth/25);
-		
+		// table.setFillParent(true);
+		table.setSize(screenWidth / 25, screenWidth / 25);
+		table.setX(screenWidth - screenWidth / 25);
+		table.setY(screenHeight - screenWidth / 25 - 5);
+		table.add(pauseButton).top().right().size((int) screenWidth / 25);
+
 		listener = new ActorGestureListener()
 		{
 			@Override
-		       public void fling (InputEvent event, float velocityX, float velocityY, int button) {
-		        
-				System.out.println(velocityX +", " + velocityY);
-				
-				if(Math.abs(velocityX)>Math.abs(velocityY)){
-					if(velocityX>0){
-							world.setGravity(Direction.RIGHT);
-					}else{
-						world.setGravity(Direction.LEFT);
+			public void fling(InputEvent event, float velocityX,
+					float velocityY, int button)
+			{
+
+				System.out.println(velocityX + ", " + velocityY);
+
+				if (Math.abs(velocityX) > Math.abs(velocityY))
+				{
+					if (velocityX > 0)
+					{
+						world.setGravity(Direction.RIGHT);
+						System.out.println("Gravity Right");
 					}
-				}else{
-					if(velocityY>0){
-						world.setGravity(Direction.UP);
-					}else{                                  
-						world.setGravity(Direction.DOWN);
+					else
+					{
+						world.setGravity(Direction.LEFT);
+						System.out.println("Gravity LEFT");
 					}
 				}
-				
-		       }
+				else
+				{
+					if (velocityY > 0)
+					{
+						world.setGravity(Direction.UP);
+						System.out.println("Gravity UP");
+					}
+					else
+					{
+						world.setGravity(Direction.DOWN);
+						System.out.println("Gravity DOWN");
+					}
+				}
+
+			}
 		};
-		
+
 		stage.addListener(listener);
-		
-		
+
 		stage.addActor(table);
-		
-		pauseButton.addListener(new ChangeListener() 
+
+		pauseButton.addListener(new ChangeListener()
 		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	// ADD STUFF TO THIS
-	            myGame.changeToMainMenuScreen();
-	        }});
-		
-		
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				// ADD STUFF TO THIS
+				myGame.changeToMainMenuScreen();
+			}
+		});
+
 		System.out.println("beginning");
 		System.out.println("Creating a new world!");
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		world = worldUtils.createWorld();
-				
+
 		thePlane = new ThePlane(myGame, 0, 0);
 		fillThePlane(levelName);
-		
+
 		System.out.println("Plane Filled");
 		thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
@@ -205,25 +218,25 @@ public class GameScreen extends GenericScreen
 	private void fillThePlane(String levelName)
 	{
 		/*
-		 * Loads a level from a file using LevelFile.
-		 * That returns a GridImage[].
-		 * Then it adds a boarder of ground blocks around the level.
+		 * Loads a level from a file using LevelFile. That returns a
+		 * GridImage[]. Then it adds a boarder of ground blocks around the
+		 * level.
 		 */
-		
+
 		cell = levelFile.getLevelGrid(levelName, thePlane);
 		cell = levelFile.addGroundBoarder(cell, thePlane);
-		
+
 		int y = thePlane.getYSize();
 		int x = thePlane.getXSize();
 		int xIndex = x;
 		int i = 0;
-		
+
 		while (y > 0)
 		{
 			while (x > 0)
 			{
 				int nextInt = cell[i].cellValue;
-				if (nextInt == 1)	//Ground
+				if (nextInt == 1) // Ground
 				{
 					thePlane.addItem(1, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
@@ -233,12 +246,12 @@ public class GameScreen extends GenericScreen
 					thePlane.addItem(2, x * (Constants.GRID_TO_WORLD), y
 							* Constants.GRID_TO_WORLD);
 				}
-				else if (nextInt == 3) //Safe Zone
+				else if (nextInt == 3) // Safe Zone
 				{
 					thePlane.addItem(3, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
-				else if (nextInt == 4) //Character
+				else if (nextInt == 4) // Character
 				{
 					thePlane.addItem(4, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
@@ -254,16 +267,22 @@ public class GameScreen extends GenericScreen
 	// TODO use below to set the level based on the string from either a file or
 	// the level editor
 
-	
-	
-	public void hide() {}
+	public void hide()
+	{
+	}
 
-	public void pause() {}
+	public void pause()
+	{
+	}
 
-	public void resume() {}
+	public void resume()
+	{
+	}
 
-	public void resize(int width, int height) {}
-	
+	public void resize(int width, int height)
+	{
+	}
+
 	public void dispose()
 	{
 		/*

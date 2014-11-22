@@ -27,7 +27,7 @@ public class WorldUtils
 	public World createWorld()
 	{
 		System.out.println("Creating a new world!");
-		World world = new World(Direction.DOWN, true);
+		World world = new World(Direction.DOWN, false);
 		return world;
 	}
 
