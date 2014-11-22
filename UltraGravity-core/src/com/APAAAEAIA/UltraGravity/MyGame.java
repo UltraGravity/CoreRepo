@@ -122,7 +122,7 @@ public class MyGame extends Game
 
 	public void changeToGameScreen(String levelString, String folder)
 	{
-		gameScreen = new GameScreen(this, levelString);
+		gameScreen = new GameScreen(this, levelString, folder);
 		this.setScreen(gameScreen);
 	}
 

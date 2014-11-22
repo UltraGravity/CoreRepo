@@ -351,7 +351,7 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				levelFile = new LevelFile(myGame);
-				myGame.changeToGameScreen(levelName);
+				myGame.changeToGameScreen(levelName, "Levels");
 			}
 		});
 	}
