@@ -117,7 +117,7 @@ public class GameScreen extends GenericScreen
 			Item i = (Item) b.getUserData();
 			if (i instanceof MainCharacter)
 			{
-				System.out.println("Character Physics Active");
+				System.out.println("Character Physics Active");	//Pushing
 				b.setGravityScale(0);
 				Vector2 force = new Vector2((acely * Constants.GRAVITY)
 						+ b.getLinearVelocity().x, (-acelx * Constants.GRAVITY)
