@@ -49,6 +49,8 @@ public class GameScreen extends GenericScreen
 	GridImage[] cell;
 	LevelFile levelFile;
 	Table table;
+	
+	String folder;
 
 	ActorGestureListener listener;
 
@@ -70,10 +72,11 @@ public class GameScreen extends GenericScreen
 
 	public GameState gameState = GameState.PLAY;
 
-	public GameScreen(MyGame myGame, String levelName)
+	public GameScreen(MyGame myGame, String levelName, String folder)
 	{
 		super(myGame);
 		this.levelName = levelName;
+		this.folder = folder;
 		levelFile = new LevelFile(myGame);
 	}
 
@@ -146,14 +149,13 @@ public class GameScreen extends GenericScreen
 			Sprite sprite = ((Item) body.getUserData()).getSprite();
 
 			sprite.setOriginCenter();
-			// sprite.setPosition((body.getPosition().x * (screenWidth /
-			// boxCam.viewportWidth)) + (levelWidth), body.getPosition().y);
-
-			// sprite.setPosition((body.getPosition().x -
-			// Constants.OBJECT_SCALE)
-			// * (screenWidth / boxCam.viewportWidth),
-			// (body.getPosition().y - Constants.OBJECT_SCALE)
-			// * (screenHeight / boxCam.viewportHeight));
+						
+			float scaleX = screenWidth/boxCam.viewportWidth;
+			float scaleY = screenHeight/boxCam.viewportHeight;
+			
+//			sprite.setPosition(((boxCam.position.x) + ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().x + Constants.OBJECT_SCALE) * scaleX), 
+//					((boxCam.position.y) + ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().y) * scaleY));
+			
 			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 			sprite.setSize((2 * Constants.OBJECT_SCALE)
 					* (screenWidth / boxCam.viewportWidth),
@@ -267,7 +269,7 @@ public class GameScreen extends GenericScreen
 		 * level.
 		 */
 
-		cell = levelFile.getLevelGrid(levelName, thePlane);
+		cell = levelFile.getLevelGrid(levelName, thePlane, folder);
 		cell = levelFile.addGroundBoarder(cell, thePlane);
 
 		int y = thePlane.getYSize();

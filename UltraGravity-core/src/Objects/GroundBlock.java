@@ -24,7 +24,7 @@ public class GroundBlock extends StationaryItem
 	public Shape setShape()
 	{
 		PolygonShape boxShape = new PolygonShape();
-		boxShape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		boxShape.setAsBox(Constants.GROUND_SCALE, Constants.GROUND_SCALE);
 		return (Shape) boxShape;
 	}
 
