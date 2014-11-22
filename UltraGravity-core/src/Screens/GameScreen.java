@@ -158,10 +158,14 @@ public class GameScreen extends GenericScreen
 
 				System.out.println(velocityX + ", " + velocityY);
 
+				wakeAllItems();
+
 				if (Math.abs(velocityX) > Math.abs(velocityY))
 				{
+
 					if (velocityX > 0)
 					{
+
 						world.setGravity(Direction.RIGHT);
 						System.out.println("Gravity Right");
 					}
@@ -186,6 +190,7 @@ public class GameScreen extends GenericScreen
 				}
 
 			}
+
 		};
 
 		stage.addListener(listener);
@@ -213,6 +218,15 @@ public class GameScreen extends GenericScreen
 		thePlane.fillWorld(world);
 		renderer = new Box2DDebugRenderer();
 		setupBoxCam();
+	}
+
+	protected void wakeAllItems()
+	{
+		System.out.println("Waking items");
+		for (Body b : worldArray)
+		{
+			b.setAwake(true);
+		}
 	}
 
 	private void fillThePlane(String levelName)
