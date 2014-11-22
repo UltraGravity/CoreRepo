@@ -26,9 +26,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.Array;
@@ -46,6 +48,8 @@ public class GameScreen extends GenericScreen
 	GridImage[] cell;
 	LevelFile levelFile;
 	Table table;
+	
+	ActorGestureListener listener;
 	
 	Array<Body> worldArray = new Array<Body>();
 	// WorldUtils worldUtils;
@@ -70,7 +74,6 @@ public class GameScreen extends GenericScreen
 		super(myGame);
 		this.levelName = levelName;
 		levelFile = new LevelFile(myGame);
-		//Gdx.input.setInputProcessor(new GameGestureDetector());
 	}
 
 	public void render(float delta)
@@ -146,6 +149,33 @@ public class GameScreen extends GenericScreen
 		table.setX(screenWidth - screenWidth/25);
 		table.setY(screenHeight - screenWidth/25 - 5);
 		table.add(pauseButton).top().right().size((int) screenWidth/25);
+		
+		listener = new ActorGestureListener()
+		{
+			@Override
+		       public void fling (InputEvent event, float velocityX, float velocityY, int button) {
+		        
+				System.out.println(velocityX +", " + velocityY);
+				
+				if(Math.abs(velocityX)>Math.abs(velocityY)){
+					if(velocityX>0){
+							world.setGravity(Direction.RIGHT);
+					}else{
+						world.setGravity(Direction.LEFT);
+					}
+				}else{
+					if(velocityY>0){
+						world.setGravity(Direction.UP);
+					}else{                                  
+						world.setGravity(Direction.DOWN);
+					}
+				}
+				
+		       }
+		};
+		
+		stage.addListener(listener);
+		
 		
 		stage.addActor(table);
 		
