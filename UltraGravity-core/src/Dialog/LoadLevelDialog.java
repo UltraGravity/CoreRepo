@@ -62,31 +62,13 @@ public class LoadLevelDialog extends Dialog
 			System.out.println(files[i].name());
 		}
 		
-		
-
-		int numRows = 4;
-		String nextFile = "CL_0.txt";
-		String thisFile = "";
-		int index = 0;
+	
 		for (int i = 0; i < numFiles; i++)
 		{
-			index = 0;
-			nextFile = "CL_" + i + ".txt";
-			for (int j = 0; j < numFiles; j++)
-			{
-				thisFile = files[index].name();
-				if (nextFile.equals(thisFile))
-				{
-					LevelButton button = new LevelButton(String.valueOf(i), textButtonStyle, files[index].name());
-					levelTable.add(button).width(myGame.screenWidth/5).height(myGame.screenWidth/5);
-					if (i % numRows == numRows-1)
-					{
-						levelTable.row();
-					}
-					break;
-				}
-				index++;
-			}
+			String name = files[i].name();
+			name = name.replace(".txt", "");
+			LevelButton button = new LevelButton(name, textButtonStyle, files[i].name());
+			levelTable.add(button).height(myGame.screenWidth/5);
 		}	
 		
 		
