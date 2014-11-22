@@ -270,12 +270,12 @@ public class GameScreen extends GenericScreen
 		cell = levelFile.getLevelGrid(levelName, thePlane);
 		cell = levelFile.addGroundBoarder(cell, thePlane);
 
-		int y = 0;
+		int y = thePlane.getYSize();
 		int x = 0;
 		int xIndex = x;
 		int i = 0;
 
-		while (y < thePlane.getYSize())
+		while (y > 0)
 		{
 			while (x < thePlane.getXSize())
 			{
@@ -304,7 +304,7 @@ public class GameScreen extends GenericScreen
 				x++;
 			}
 			x = xIndex;
-			y++;
+			y--;
 		}
 	}
 
