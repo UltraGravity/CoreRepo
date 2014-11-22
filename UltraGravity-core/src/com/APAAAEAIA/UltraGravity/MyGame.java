@@ -47,6 +47,7 @@ public class MyGame extends Game
 		LevelFile levelFile = new LevelFile(this);
 		levelFile.SaveLevel("Level 1", "10,4:0000000003040000000300000000030000000003", "BuiltIn");
 		levelFile.SaveLevel("Level 2", "10,4:1111001111111100111140002200030000220003", "BuiltIn");
+		levelFile.SaveLevel("Level 3", "13,5:40100220000000010022000000001001100111100022110011110002211331111", "BuiltIn");
 		
 		music = true; // Change this to be a setting that is loaded
 		sfx = true; // same with this.
