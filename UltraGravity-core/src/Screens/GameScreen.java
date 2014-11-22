@@ -8,6 +8,7 @@ import Objects.Box;
 import Objects.GridImage;
 import Objects.Item;
 import Objects.LevelButton;
+import Objects.MainCharacter;
 import Objects.ThePlane;
 import Physics.Constants;
 import Physics.Direction;
@@ -107,9 +108,22 @@ public class GameScreen extends GenericScreen
 
 	private void doPhysics(float deltaTime)
 	{
+		float acelx = Gdx.input.getAccelerometerX();
+		float acely = Gdx.input.getAccelerometerY();			//Accelerometer
+
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
 		{
+			Item i = (Item) b.getUserData();
+			if (i instanceof MainCharacter)
+			{
+				System.out.println("Character Physics Active");
+				b.setGravityScale(0);
+				Vector2 force = new Vector2(acelx * Constants.GRAVITY, acely
+						* Constants.GRAVITY);
+				System.out.println(force.x + " , " + force.y);
+				b.applyForceToCenter(force, true);
+			}
 			draw(b);
 		}
 		float frameTime = Math.min(deltaTime, 0.25f);
@@ -126,20 +140,19 @@ public class GameScreen extends GenericScreen
 	private void draw(Body body)
 	{
 		batch.begin();
-		if (body.getUserData() instanceof Sprite)
+		if (body.getUserData() instanceof Item)
 		{
-			Sprite sprite = (Sprite) body.getUserData();
+			Sprite sprite = ((Item) body.getUserData()).getSprite();
 
 			sprite.setOriginCenter();
-			
-//			sprite.setPosition((body.getPosition().x * (screenWidth / boxCam.viewportWidth)) + (levelWidth), body.getPosition().y);
-			
-			
-			
-			sprite.setPosition((body.getPosition().x - Constants.OBJECT_SCALE)
-					* (screenWidth / boxCam.viewportWidth),
-					(body.getPosition().y - Constants.OBJECT_SCALE)
-							* (screenHeight / boxCam.viewportHeight));
+			// sprite.setPosition((body.getPosition().x * (screenWidth /
+			// boxCam.viewportWidth)) + (levelWidth), body.getPosition().y);
+
+			// sprite.setPosition((body.getPosition().x -
+			// Constants.OBJECT_SCALE)
+			// * (screenWidth / boxCam.viewportWidth),
+			// (body.getPosition().y - Constants.OBJECT_SCALE)
+			// * (screenHeight / boxCam.viewportHeight));
 			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 			sprite.setSize((2 * Constants.OBJECT_SCALE)
 					* (screenWidth / boxCam.viewportWidth),

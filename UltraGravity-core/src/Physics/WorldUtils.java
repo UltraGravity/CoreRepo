@@ -43,7 +43,7 @@ public class WorldUtils
 		Body body = world.createBody(bodyDef);
 		Shape shape = item.getShape();
 		body.createFixture((Shape) shape, item.getDensity());
-		body.setUserData(item.getSprite());
+		body.setUserData(item);
 	}
 
 }
