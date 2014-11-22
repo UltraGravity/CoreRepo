@@ -67,16 +67,9 @@ public class LoadLevelDialog extends Dialog
 		{
 			String name = files[i].name();
 			name = name.replace(".txt", "");
-			LevelButton button = new LevelButton(name, textButtonStyle, files[i].name());
+			LevelButton button = new LevelButton(name, textButtonStyle, files[i].name(), "Levels");
 			levelTable.add(button).height(myGame.screenWidth/5);
 		}	
-		
-		
-		
-		
-		
-		
-		
 		
 		//backTable.setFillParent(true);
 		

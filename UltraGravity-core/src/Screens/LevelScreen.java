@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -29,6 +30,8 @@ public class LevelScreen extends GenericScreen
 	ScrollPane customScroll;
 	TextureAtlas buttonAtlas;
 	TextButtonStyle textButtonStyle;
+	Label builtInLabel;
+	Label customLabel;
 
 	FileHandle[] builtInLevels;
 	FileHandle[] customLevels;
@@ -76,7 +79,7 @@ public class LevelScreen extends GenericScreen
 		{
 			String name = builtInLevels[i].name();
 			name = name.replace(".txt", "");
-			LevelButton button = new LevelButton(name, textButtonStyle, builtInLevels[i].name());
+			LevelButton button = new LevelButton(name, textButtonStyle, builtInLevels[i].name(), "BuiltIn");
 			builtInTable.add(button).height(myGame.screenWidth/5);
 		}
 		
@@ -87,10 +90,13 @@ public class LevelScreen extends GenericScreen
 		{
 			String name = customLevels[i].name();
 			name = name.replace(".txt", "");
-			LevelButton button = new LevelButton(name, textButtonStyle, customLevels[i].name());
+			LevelButton button = new LevelButton(name, textButtonStyle, customLevels[i].name(), "Levels");
 			customTable.add(button).height(myGame.screenWidth/5);
 		}	
 		
+		
+		builtInLabel = new Label("TEST", myGame.assetLoader.uiSkin);
+		customLabel = new Label("TEST", myGame.assetLoader.uiSkin);
 		
 		window.addListener(new ChangeListener() 
 		{
@@ -98,14 +104,19 @@ public class LevelScreen extends GenericScreen
 	        {
 	            LevelButton button = (LevelButton) actor;
 	            System.out.println(button.getLevelName());
-	            myGame.changeToGameScreen(button.getLevelName());
+	            myGame.changeToGameScreen(button.getLevelName(), button.getFolder());
 	        }});
 		
 		
 		builtInScroll = new ScrollPane(builtInTable);
 		customScroll = new ScrollPane(customTable);
 		
+		
+		window.add(builtInLabel);
+		window.row();
 		window.add(builtInScroll);
+		window.row();
+		window.add(customLabel);
 		window.row();
 		window.add(customScroll);	
 		stage.addActor(window);

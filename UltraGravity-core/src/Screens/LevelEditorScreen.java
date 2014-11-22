@@ -445,7 +445,7 @@ public class LevelEditorScreen extends GenericScreen
 	public String getLastLevel()
 	{
 		String level = "";
-		level = levelFile.LoadLevel(levelFile.getLastLevelName());
+		level = levelFile.LoadLevel(levelFile.getLastLevelName(), "Levels");
 		return level;
 	}
 
@@ -469,14 +469,14 @@ public class LevelEditorScreen extends GenericScreen
 	{
 		levelFile = new LevelFile(myGame);
 		String level = getLevelString();
-		levelFile.SaveLevel(levelName, level);
+		levelFile.SaveLevel(levelName, level, "Levels");
 	}
 
 	public void load(String file)
 	{
 		levelGrid.clearChildren();
 		levelFile = new LevelFile(myGame);
-		cell = levelFile.getLevelGrid(file, thePlane);
+		cell = levelFile.getLevelGrid(file, thePlane, "Levels");
 		createGrid(cell);
 	}
 	

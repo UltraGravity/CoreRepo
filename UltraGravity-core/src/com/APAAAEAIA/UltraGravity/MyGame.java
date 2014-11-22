@@ -1,5 +1,6 @@
 package com.APAAAEAIA.UltraGravity;
 
+import FileIO.LevelFile;
 import Loaders.AssetLoader;
 import Screens.*;
 
@@ -42,6 +43,10 @@ public class MyGame extends Game
 		 * The AssetLoader is what handles all the loading and unloading of all
 		 * the images in the entire game. We use this to get the textures and stuff.
 		 */
+		
+		LevelFile levelFile = new LevelFile(this);
+		levelFile.SaveLevel("Level 1", "10,4:0000000003040000000300000000030000000003", "BuiltIn");
+		levelFile.SaveLevel("Level 2", "10,4:1111001111111100111100002200030000220003", "BuiltIn");
 		
 		music = true; // Change this to be a setting that is loaded
 		sfx = true; // same with this.
@@ -115,7 +120,7 @@ public class MyGame extends Game
 		this.setScreen(levelScreen);
 	}
 
-	public void changeToGameScreen(String levelString)
+	public void changeToGameScreen(String levelString, String folder)
 	{
 		gameScreen = new GameScreen(this, levelString);
 		this.setScreen(gameScreen);

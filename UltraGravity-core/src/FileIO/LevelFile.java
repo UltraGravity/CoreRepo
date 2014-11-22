@@ -17,17 +17,17 @@ public class LevelFile
 		this.myGame = myGame;
 	}
 
-	public void SaveLevel(String fileName, String world)
+	public void SaveLevel(String fileName, String world, String folder)
 	{
-		FileHandle file = Gdx.files.local("Levels/" + fileName + ".txt");
+		FileHandle file = Gdx.files.local(folder + "/" + fileName + ".txt");
 		System.out.println(world);
 		file.writeString(world, false);
 		System.out.println("File Saved");
 	}
 
-	public String LoadLevel(String fileName)
+	public String LoadLevel(String fileName, String folder)
 	{
-		FileHandle file = Gdx.files.local("Levels/" + fileName);
+		FileHandle file = Gdx.files.local(folder + "/" + fileName);
 		if (file.exists())
 		{
 			System.out.println("The file exists");
@@ -93,10 +93,10 @@ public class LevelFile
 		return fileName;
 	}
 	
-	public GridImage[] getLevelGrid(String file, ThePlane thePlane)
+	public GridImage[] getLevelGrid(String file, ThePlane thePlane, String folder)
 	{
 		GridImage[] cell;
-		String level = LoadLevel(file);
+		String level = LoadLevel(file, folder);
 
 		int i = 0;
 		String xSizeString = "";
@@ -188,7 +188,7 @@ public class LevelFile
 	{
 		
 		
-		return false;
+		return true;
 	}
 	
 }
