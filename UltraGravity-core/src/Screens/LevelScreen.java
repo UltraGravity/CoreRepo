@@ -95,8 +95,8 @@ public class LevelScreen extends GenericScreen
 		}	
 		
 		
-		builtInLabel = new Label("TEST", myGame.assetLoader.uiSkin);
-		customLabel = new Label("TEST", myGame.assetLoader.uiSkin);
+		builtInLabel = new Label("Standard Levels", myGame.assetLoader.uiSkin);
+		customLabel = new Label("My Custom Levels", myGame.assetLoader.uiSkin);
 		
 		window.addListener(new ChangeListener() 
 		{

@@ -45,10 +45,28 @@ public class SaveLevelDialog extends Dialog
 			table.add(cancelButton);
 			table.add(saveButton);
 			this.add(table);
+			setupButtons();
+		}
+		
+		else
+		{
+			// Change this to overwrite? yes or no
+			System.out.println("New Level!");
+			table = new Table();
+			nameLabel = new Label("Level Name: ", skin);
+			textBox = new TextField("", skin);
+			saveButton = new TextButton("Save", skin);
+			cancelButton = new TextButton("Cancel", skin);
+			table.add(nameLabel);
+			table.add(textBox);
+			table.row();
+			table.add(cancelButton);
+			table.add(saveButton);
+			this.add(table);
+			setupButtons();
 		}
 		
 
-		setupButtons();
 	}
 	
 	
