@@ -248,6 +248,7 @@ public class LevelEditorScreen extends GenericScreen
 			{
 				SaveDialog dialog = new SaveDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(stage);
+				dialog.setPosition(dialog.getX(), screenHeight - screenHeight/3);
 			}
 		});
 
@@ -295,7 +296,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				saveDialog();
+				saveDialog(false);
 			}
 		});
 		
@@ -351,16 +352,17 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				levelFile = new LevelFile(myGame);
+				saveDialog(false);
 				myGame.changeToGameScreen(levelName, "Levels");
 			}
 		});
 	}
 	
-	public void saveDialog()
+	public void saveDialog(boolean closeAfterSave)
 	{
-		SaveLevelDialog dialog = new SaveLevelDialog(myGame, myGame.assetLoader.uiSkin, levelName);
+		SaveLevelDialog dialog = new SaveLevelDialog(myGame, myGame.assetLoader.uiSkin, levelName, closeAfterSave);
 		dialog.show(stage);
-		dialog.setPosition(dialog.getX(), screenHeight - screenHeight/4);
+		dialog.setPosition(dialog.getX(), screenHeight - screenHeight/3);
 	}
 	
 	public void addListeners()

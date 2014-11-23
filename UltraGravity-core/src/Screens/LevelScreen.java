@@ -69,9 +69,6 @@ public class LevelScreen extends GenericScreen
 		window.setFillParent(true);
 		window.defaults().expand().top();
 		
-		
-		
-		
 		builtInLevels = Gdx.files.local("BuiltIn").list();
 		int nBuiltInLevels = builtInLevels.length;
 		

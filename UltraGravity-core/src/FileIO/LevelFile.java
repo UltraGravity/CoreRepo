@@ -186,9 +186,16 @@ public class LevelFile
 
 	public boolean checkIfExists(String fileName)
 	{
+		FileHandle file = Gdx.files.local("Levels/" + fileName + ".txt");
 		
-		
-		return true;
+		for (int i = 0; i < file.length(); i ++)
+		{
+			if (file.exists())
+			{
+				return true;
+			}
+		}	
+		return false;
 	}
 	
 }
