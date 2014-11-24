@@ -186,11 +186,15 @@ public class GameScreen extends GenericScreen
 
 	private void draw(Body body)
 	{
+		
+		System.out.println(boxCam.zoom);
+		
 		batch.begin();
 		if (body.getUserData() instanceof Item)
 		{
 			Sprite sprite = ((Item) body.getUserData()).getSprite();
 
+			
 			sprite.setOriginCenter();
 
 			float scaleX = screenWidth / boxCam.viewportWidth;
@@ -200,18 +204,30 @@ public class GameScreen extends GenericScreen
 //					((boxCam.position.x) + ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().x + Constants.OBJECT_SCALE) * scaleX),
 //					((boxCam.position.y) + ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().y) * scaleY));
 
+			sprite.setSize((2 * Constants.OBJECT_SCALE)
+					* (screenWidth / boxCam.viewportWidth)/boxCam.zoom,
+					(2 * Constants.OBJECT_SCALE)
+							* (screenHeight / boxCam.viewportHeight)/boxCam.zoom);
+
+			// This works more or less
+//			sprite.setPosition(
+//					screenWidth/2 + body.getPosition().x * scaleX + boxCam.view.getScaleX()/2*scaleX - boxCam.position.x/boxCam.viewportWidth*screenWidth,
+//					screenHeight/2 + body.getPosition().y * scaleY + boxCam.view.getScaleY()/2*scaleY - boxCam.position.y/boxCam.viewportHeight*screenHeight);
+			
 			sprite.setPosition(
-					body.getPosition().x * scaleX + boxCam.view.getScaleX()/2*scaleX - boxCam.position.x/boxCam.viewportWidth*screenWidth,
-					body.getPosition().y * scaleY + boxCam.view.getScaleY()/2*scaleY - boxCam.position.y/boxCam.viewportHeight*screenHeight);
+					screenWidth/2 + body.getPosition().x * scaleX + boxCam.view.getScaleX()/2*scaleX - boxCam.position.x/boxCam.viewportWidth*screenWidth,
+					screenHeight/2 + body.getPosition().y * scaleY + boxCam.view.getScaleY()/2*scaleY - boxCam.position.y/boxCam.viewportHeight*screenHeight);
+			
 			
 			float viewX = boxCam.position.x;
 			float viewY = boxCam.position.y;
 
 			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-			sprite.setSize((2 * Constants.OBJECT_SCALE)
-					* (screenWidth / boxCam.viewportWidth),
-					(2 * Constants.OBJECT_SCALE)
-							* (screenHeight / boxCam.viewportHeight));
+			
+//			sprite.setSize((2 * Constants.OBJECT_SCALE)
+//					* (screenWidth / boxCam.viewportWidth),
+//					(2 * Constants.OBJECT_SCALE)
+//							* (screenHeight / boxCam.viewportHeight));
 
 			sprite.draw(batch);
 		}
