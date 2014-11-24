@@ -102,10 +102,10 @@ public class GameScreen extends GenericScreen
 		if (Gdx.input.isTouched(1))
 		{
 			int X1 = Gdx.input.getX(0);
-			int X2 = Gdx.input.getY(1);
-			int Y1 = Gdx.input.getX(0);
+			int Y1 = Gdx.input.getY(0);
+			int X2 = Gdx.input.getX(1);
 			int Y2 = Gdx.input.getY(1);
-			panCamera(X1, Y1, X2, Y2);
+			panCamera(-X1, Y1, -X2, Y2);
 		}
 	}
 
