@@ -124,12 +124,7 @@ public class GameScreen extends GenericScreen
 			oldFingerX = 0;
 			oldFingerY = 0;
 			oldFingerDist = 0;
-		}
-		
-		System.out.println(twoFingersActive);
-		
-		if (!Gdx.input.isTouched())
-		{
+			
 			twoFingerActiveCounter--;
 			if (twoFingerActiveCounter <= 0)
 			{
@@ -137,6 +132,8 @@ public class GameScreen extends GenericScreen
 			}
 		}
 		
+		System.out.println(twoFingersActive);
+
 		if (twoFingersActive)
 		{
 			stage.removeListener(listener);
