@@ -105,8 +105,6 @@ public class GameScreen extends GenericScreen
 
 		stage.act();
 		stage.draw();
-
-		System.out.println(twoFingersActive);
 		
 		// Handles 2 finger touches for scrolling the camera
 		if (Gdx.input.isTouched(1))
@@ -117,7 +115,7 @@ public class GameScreen extends GenericScreen
 			int Y2 = Gdx.input.getY(1);
 			panCamera(X1, Y1, X2, Y2);
 			twoFingersActive = true;
-			twoFingerActiveCounter = 30;
+			twoFingerActiveCounter = 15;
 		}
 		else
 		{
@@ -132,19 +130,15 @@ public class GameScreen extends GenericScreen
 			}
 		}
 		
-		System.out.println(twoFingersActive);
 
 		if (twoFingersActive)
 		{
-			stage.removeListener(listener);
+			//System.out.println(twoFingersActive);
 		}
 		else
 		{
-			stage.addListener(listener);
+			//System.out.println(twoFingersActive);
 		}
-		
-		
-		System.out.println(twoFingersActive);
 	}
 
 	public void setupBoxCam()
@@ -254,39 +248,41 @@ public class GameScreen extends GenericScreen
 					float velocityY, int button)
 			{
 
-				System.out.println(velocityX + ", " + velocityY);
+				//System.out.println(velocityX + ", " + velocityY);
 
 				wakeAllItems();
-
-				if (Math.abs(velocityX) > Math.abs(velocityY))
+				
+				if (!twoFingersActive)
 				{
-
-					if (velocityX > 0)
+					if (Math.abs(velocityX) > Math.abs(velocityY))
 					{
-
-						world.setGravity(Direction.RIGHT);
-						System.out.println("Gravity Right");
+	
+						if (velocityX > 0)
+						{
+	
+							world.setGravity(Direction.RIGHT);
+							System.out.println("Gravity Right");
+						}
+						else
+						{
+							world.setGravity(Direction.LEFT);
+							System.out.println("Gravity LEFT");
+						}
 					}
 					else
 					{
-						world.setGravity(Direction.LEFT);
-						System.out.println("Gravity LEFT");
+						if (velocityY > 0)
+						{
+							world.setGravity(Direction.UP);
+							System.out.println("Gravity UP");
+						}
+						else
+						{
+							world.setGravity(Direction.DOWN);
+							System.out.println("Gravity DOWN");
+						}
 					}
 				}
-				else
-				{
-					if (velocityY > 0)
-					{
-						world.setGravity(Direction.UP);
-						System.out.println("Gravity UP");
-					}
-					else
-					{
-						world.setGravity(Direction.DOWN);
-						System.out.println("Gravity DOWN");
-					}
-				}
-
 			}
 
 		};
