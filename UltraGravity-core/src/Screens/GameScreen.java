@@ -96,7 +96,7 @@ public class GameScreen extends GenericScreen
 	}
 
 	public void render(float delta)
-	{
+	{		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -129,25 +129,16 @@ public class GameScreen extends GenericScreen
 				twoFingersActive = false;
 			}
 		}
-		
-
-		if (twoFingersActive)
-		{
-			//System.out.println(twoFingersActive);
-		}
-		else
-		{
-			//System.out.println(twoFingersActive);
-		}
 	}
 
 	public void setupBoxCam()
 	{
 		setGameDimensions();
-		boxCam = new OrthographicCamera(screenWidth, screenHeight);
-		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight
-				/ zoomFactor);
-		boxCam.position.set(levelWidth / 2f, levelHeight / 2f, 0);
+		//boxCam = new OrthographicCamera(screenWidth, screenHeight);
+		boxCam = new OrthographicCamera(levelWidth, levelHeight);
+		//boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight / zoomFactor);
+		boxCam.setToOrtho(false, stage.getViewport().getWorldWidth() / zoomFactor, stage.getViewport().getWorldHeight() / zoomFactor);
+		boxCam.position.set(levelWidth / 2, levelHeight / 2, 0);
 		oldCamX = boxCam.position.x;
 		oldCamY = boxCam.position.y;
 		oldCamZoom = boxCam.zoom;
@@ -205,14 +196,14 @@ public class GameScreen extends GenericScreen
 			float scaleX = screenWidth / boxCam.viewportWidth;
 			float scaleY = screenHeight / boxCam.viewportHeight;
 
-			sprite.setPosition(
-					((boxCam.position.x)
-							+ ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body
-							.getPosition().x + Constants.OBJECT_SCALE) * scaleX),
-					((boxCam.position.y)
-							+ ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body
-							.getPosition().y) * scaleY));
+//			sprite.setPosition(
+//					((boxCam.position.x) + ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().x + Constants.OBJECT_SCALE) * scaleX),
+//					((boxCam.position.y) + ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().y) * scaleY));
 
+			sprite.setPosition(
+					body.getPosition().x * scaleX + boxCam.view.getScaleX()/2*scaleX - boxCam.position.x/boxCam.viewportWidth*screenWidth,
+					body.getPosition().y * scaleY + boxCam.view.getScaleY()/2*scaleY - boxCam.position.y/boxCam.viewportHeight*screenHeight);
+			
 			float viewX = boxCam.position.x;
 			float viewY = boxCam.position.y;
 
