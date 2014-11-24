@@ -53,13 +53,18 @@ public class GameScreen extends GenericScreen
 	Table table;
 	String folder;
 	ActorGestureListener listener;
-	
-	
+
 	ScrollPane levelScrollPane;
-	
+
 	float lastX = -1;
 	float lastY = -1;
-	
+
+	int oldFingerX;
+	int oldFingerY;
+
+	float oldCamX;
+	float oldCamY;
+
 	Array<Body> worldArray = new Array<Body>();
 
 	private OrthographicCamera boxCam;
@@ -96,8 +101,7 @@ public class GameScreen extends GenericScreen
 
 		stage.act();
 		stage.draw();
-		
-		
+
 		// Handles 2 finger touches for scrolling the camera
 		if (Gdx.input.isTouched(1))
 		{
@@ -105,7 +109,12 @@ public class GameScreen extends GenericScreen
 			int Y1 = Gdx.input.getY(0);
 			int X2 = Gdx.input.getX(1);
 			int Y2 = Gdx.input.getY(1);
-			panCamera(-X1, Y1, -X2, Y2);
+			panCamera(X1, Y1, X2, Y2);
+		}
+		else
+		{
+			oldFingerX = 0;
+			oldFingerY = 0;
 		}
 	}
 
@@ -113,8 +122,11 @@ public class GameScreen extends GenericScreen
 	{
 		setGameDimensions();
 		boxCam = new OrthographicCamera(screenWidth, screenHeight);
-		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight / zoomFactor);
+		boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight
+				/ zoomFactor);
 		boxCam.position.set(levelWidth / 2f, levelHeight / 2f, 0);
+		oldCamX = boxCam.position.x;
+		oldCamY = boxCam.position.y;
 		boxCam.update();
 	}
 
@@ -136,12 +148,12 @@ public class GameScreen extends GenericScreen
 			Item i = (Item) b.getUserData();
 			if (i instanceof MainCharacter)
 			{
-				//System.out.println("Character Physics Active");
+				// System.out.println("Character Physics Active");
 				b.setGravityScale(0);
 				Vector2 force = new Vector2((acely * Constants.GRAVITY)
 						+ b.getLinearVelocity().x, (-acelx * Constants.GRAVITY)
 						+ b.getLinearVelocity().y);
-				//System.out.println(force.x + " , " + force.y);
+				// System.out.println(force.x + " , " + force.y);
 				b.applyForceToCenter(force, true);
 			}
 			draw(b);
@@ -165,19 +177,21 @@ public class GameScreen extends GenericScreen
 			Sprite sprite = ((Item) body.getUserData()).getSprite();
 
 			sprite.setOriginCenter();
-						
-			float scaleX = screenWidth/boxCam.viewportWidth;
-			float scaleY = screenHeight/boxCam.viewportHeight;
-			
-			sprite.setPosition(((boxCam.position.x) + ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().x + Constants.OBJECT_SCALE) * scaleX), 
-					((boxCam.position.y) + ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().y) * scaleY));
-			
-			
+
+			float scaleX = screenWidth / boxCam.viewportWidth;
+			float scaleY = screenHeight / boxCam.viewportHeight;
+
+			sprite.setPosition(
+					((boxCam.position.x)
+							+ ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body
+							.getPosition().x + Constants.OBJECT_SCALE) * scaleX),
+					((boxCam.position.y)
+							+ ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body
+							.getPosition().y) * scaleY));
+
 			float viewX = boxCam.position.x;
 			float viewY = boxCam.position.y;
-			
-	
-			
+
 			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 			sprite.setSize((2 * Constants.OBJECT_SCALE)
 					* (screenWidth / boxCam.viewportWidth),
@@ -193,19 +207,16 @@ public class GameScreen extends GenericScreen
 	{
 		Viewport view = new ScreenViewport();
 		stage = new Stage(view, batch);
-		table = new Table();		
-		
+		table = new Table();
+
 		pauseButton = new ImageButton(myGame.assetLoader.pauseButtonStyle);
 		Gdx.input.setInputProcessor(stage);
-		
+
 		table.setSize(screenWidth / 25, screenWidth / 25);
 		table.setX(screenWidth - screenWidth / 25);
 		table.setY(screenHeight - screenWidth / 25 - 5);
 		table.add(pauseButton).top().right().size((int) screenWidth / 25);
 
-		
-
-		
 		listener = new ActorGestureListener()
 		{
 			@Override
@@ -278,7 +289,7 @@ public class GameScreen extends GenericScreen
 
 	protected void wakeAllItems()
 	{
-		//System.out.println("Waking items");
+		// System.out.println("Waking items");
 		for (Body b : worldArray)
 		{
 			b.setAwake(true);
@@ -300,7 +311,7 @@ public class GameScreen extends GenericScreen
 		int x = 0;
 		int xIndex = x;
 		int i = 0;
-		
+
 		while (y > 0)
 		{
 			while (x < thePlane.getXSize())
@@ -309,7 +320,7 @@ public class GameScreen extends GenericScreen
 				if (nextInt == 1) // Ground
 				{
 					thePlane.addItem(1, x * (Constants.GRID_TO_WORLD), y
-							* (Constants.GRID_TO_WORLD));				
+							* (Constants.GRID_TO_WORLD));
 				}
 				else if (nextInt == 2) // Crate
 				{
@@ -325,7 +336,7 @@ public class GameScreen extends GenericScreen
 				{
 					thePlane.addItem(4, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
-				}	
+				}
 				i++;
 				x++;
 			}
@@ -337,26 +348,47 @@ public class GameScreen extends GenericScreen
 	// TODO use below to set the level based on the string from either a file or
 	// the level editor
 
-	
 	public void panCamera(int x1, int y1, int x2, int y2)
 	{
-		
-		//boxCam.lookAt(x1/boxCam.viewportWidth, y1/boxCam.viewportHeight, -100000000);
-		
-		boxCam.position.x = x1/boxCam.viewportWidth;
-		boxCam.position.y = y1/boxCam.viewportHeight;
-		
+		int centerX = (x1 + x2) / 2; // center between fingers
+		int centerY = (y1 + y2) / 2;
+
+		if (oldFingerX == 0 || oldFingerY == 0)
+		{
+			oldFingerX = centerX;
+			oldFingerY = centerY;
+		}
+		else
+		{
+			int changeX = (oldFingerX - centerX) * 2;
+			int changeY = (oldFingerY - centerY) * 2;
+
+			boxCam.position.x = oldCamX + (changeX / boxCam.viewportWidth);
+			boxCam.position.y = oldCamY - (changeY / boxCam.viewportHeight);
+
+			oldFingerX = centerX;
+			oldFingerY = centerY;
+			oldCamX = boxCam.position.x;
+			oldCamY = boxCam.position.y;
+		}
 		boxCam.update();
 	}
-	
-	
-	public void hide() {}
 
-	public void pause() {}
+	public void hide()
+	{
+	}
 
-	public void resume() {}
+	public void pause()
+	{
+	}
 
-	public void resize(int width, int height) {}
+	public void resume()
+	{
+	}
+
+	public void resize(int width, int height)
+	{
+	}
 
 	public void dispose()
 	{
