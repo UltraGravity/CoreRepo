@@ -106,6 +106,8 @@ public class GameScreen extends GenericScreen
 		stage.act();
 		stage.draw();
 
+		System.out.println(twoFingersActive);
+		
 		// Handles 2 finger touches for scrolling the camera
 		if (Gdx.input.isTouched(1))
 		{
@@ -115,7 +117,7 @@ public class GameScreen extends GenericScreen
 			int Y2 = Gdx.input.getY(1);
 			panCamera(X1, Y1, X2, Y2);
 			twoFingersActive = true;
-			twoFingerActiveCounter = 20;
+			twoFingerActiveCounter = 30;
 		}
 		else
 		{
@@ -123,6 +125,9 @@ public class GameScreen extends GenericScreen
 			oldFingerY = 0;
 			oldFingerDist = 0;
 		}
+		
+		System.out.println(twoFingersActive);
+		
 		if (!Gdx.input.isTouched())
 		{
 			twoFingerActiveCounter--;
@@ -131,6 +136,17 @@ public class GameScreen extends GenericScreen
 				twoFingersActive = false;
 			}
 		}
+		
+		if (twoFingersActive)
+		{
+			stage.removeListener(listener);
+		}
+		else
+		{
+			stage.addListener(listener);
+		}
+		
+		
 		System.out.println(twoFingersActive);
 	}
 
@@ -420,21 +436,13 @@ public class GameScreen extends GenericScreen
 		boxCam.update();
 	}
 
-	public void hide()
-	{
-	}
+	public void hide() {}
 
-	public void pause()
-	{
-	}
+	public void pause() {}
 
-	public void resume()
-	{
-	}
+	public void resume() {}
 
-	public void resize(int width, int height)
-	{
-	}
+	public void resize(int width, int height) {}
 
 	public void dispose()
 	{
