@@ -61,9 +61,13 @@ public class GameScreen extends GenericScreen
 
 	int oldFingerX;
 	int oldFingerY;
+	float oldFingerDist;
+	boolean twoFingersActive = false;
+	int twoFingerActiveCounter;
 
 	float oldCamX;
 	float oldCamY;
+	float oldCamZoom;
 
 	Array<Body> worldArray = new Array<Body>();
 
@@ -110,12 +114,24 @@ public class GameScreen extends GenericScreen
 			int X2 = Gdx.input.getX(1);
 			int Y2 = Gdx.input.getY(1);
 			panCamera(X1, Y1, X2, Y2);
+			twoFingersActive = true;
+			twoFingerActiveCounter = 20;
 		}
 		else
 		{
 			oldFingerX = 0;
 			oldFingerY = 0;
+			oldFingerDist = 0;
 		}
+		if (!Gdx.input.isTouched())
+		{
+			twoFingerActiveCounter--;
+			if (twoFingerActiveCounter <= 0)
+			{
+				twoFingersActive = false;
+			}
+		}
+		System.out.println(twoFingersActive);
 	}
 
 	public void setupBoxCam()
@@ -127,6 +143,7 @@ public class GameScreen extends GenericScreen
 		boxCam.position.set(levelWidth / 2f, levelHeight / 2f, 0);
 		oldCamX = boxCam.position.x;
 		oldCamY = boxCam.position.y;
+		oldCamZoom = boxCam.zoom;
 		boxCam.update();
 	}
 
@@ -353,13 +370,40 @@ public class GameScreen extends GenericScreen
 		int centerX = (x1 + x2) / 2; // center between fingers
 		int centerY = (y1 + y2) / 2;
 
-		if (oldFingerX == 0 || oldFingerY == 0)
+		int distX = Math.abs(x1 - x2);
+		int distY = Math.abs(y1 - y2);
+		float fingerDist = (float) Math.sqrt(distX * distX + distY * distY);
+		float changeDist = Math.abs(fingerDist - oldFingerDist);
+
+		if (oldFingerX == 0 || oldFingerY == 0 || oldFingerDist == 0)
 		{
 			oldFingerX = centerX;
 			oldFingerY = centerY;
+			oldFingerDist = fingerDist;
 		}
 		else
 		{
+			if (changeDist > 10)
+			{
+				if (oldFingerDist > fingerDist)
+				{
+					boxCam.zoom += (oldFingerDist / fingerDist) * 0.05f;
+				}
+				else if (oldFingerDist < fingerDist)
+				{
+					boxCam.zoom -= (oldFingerDist / fingerDist) * 0.05f;
+				}
+			}
+
+			if (boxCam.zoom > 6f)
+			{
+				boxCam.zoom = 6f;
+			}
+			if (boxCam.zoom < 0.3f)
+			{
+				boxCam.zoom = 0.3f;
+			}
+
 			int changeX = (oldFingerX - centerX) * 2;
 			int changeY = (oldFingerY - centerY) * 2;
 
@@ -368,8 +412,10 @@ public class GameScreen extends GenericScreen
 
 			oldFingerX = centerX;
 			oldFingerY = centerY;
+			oldFingerDist = fingerDist;
 			oldCamX = boxCam.position.x;
 			oldCamY = boxCam.position.y;
+			oldCamZoom = boxCam.zoom;
 		}
 		boxCam.update();
 	}
