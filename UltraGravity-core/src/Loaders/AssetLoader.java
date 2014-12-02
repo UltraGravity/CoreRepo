@@ -5,6 +5,8 @@ import FileIO.LevelFile;
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +20,10 @@ public class AssetLoader
 	LevelFile levelFile;
 	
 	public String buttonFont;
+	
+	// Sound Effects
+	public Music music;
+	public Sound click;
 	
 	public AssetManager assetManager;
 	public BitmapFont font;
@@ -80,14 +86,17 @@ public class AssetLoader
 		 assetManager.load("MenuButtonAtlas.atlas", TextureAtlas.class);
 		 assetManager.load("title.fnt", BitmapFont.class);
 		 assetManager.load("uiskin.atlas", TextureAtlas.class);
-		 
-		 chooseFont();
-		 
-		 
+		 assetManager.load("click.mp3", Sound.class);
+		 assetManager.load("music.mp3", Music.class);
+		 chooseFont();	 
 	 }
 	 
 	 public void setupMenu()
 	 {
+		music = assetManager.get("music.mp3", Music.class);
+		click = assetManager.get("click.mp3", Sound.class);
+		 
+		 
 		gameScreenAtlas = assetManager.get("GameAssets.atlas", TextureAtlas.class);
 		mainMenuButtonAtlas = new TextureAtlas(Gdx.files.internal("MenuButtonAtlas.atlas"));
 		uiSkinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
@@ -184,8 +193,6 @@ public class AssetLoader
 
 	 public void chooseFont()
 	 {
-		 
-		 
 		 buttonFont = "font_small.fnt";
 		 assetManager.load(buttonFont, BitmapFont.class);
 	 }

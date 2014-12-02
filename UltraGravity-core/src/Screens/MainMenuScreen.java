@@ -43,28 +43,13 @@ public class MainMenuScreen extends GenericScreen
 	
 	public void render(float delta) 
 	{	
-		
-		//rotation = Gdx.input.getAccelerometerY()/10;
-		//System.out.println(rotation);
-		
-		
-		//stage.getCamera().rotate(-rotation, 0, 0, screenWidth/2);
-		
-
         Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
-        //Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         stage.act();
         
 		batch.begin();
-		
-			//table.debug();
-			//table.debugTable();
-			
-		
 			stage.draw();
-			
 		batch.end();
 	}
 
@@ -108,16 +93,6 @@ public class MainMenuScreen extends GenericScreen
 		table.row();
 		table.add(optionsButton).fillX();
 		
-		
-//		
-//		table.add(levelSelectButton).size(screenWidth/4, screenHeight/8);
-//		table.row();
-//		table.add(levelEditorButton).size(screenWidth/4, screenHeight/8);
-//		table.row();
-//		table.add(optionsButton).size(screenWidth/4, screenHeight/8);
-//		table.pack();
-//		
-		
 		stage.addActor(table);
 
 		
@@ -127,7 +102,7 @@ public class MainMenuScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Level Select button pressed");
+	        	myGame.playClick();
 	            myGame.changeToLevelScreen();
 	        }});
 		
@@ -135,7 +110,7 @@ public class MainMenuScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Level Editor button pressed");
+	        	myGame.playClick();
 	            myGame.changeToLevelEditorScreen();
 	        }});
 		
@@ -143,7 +118,7 @@ public class MainMenuScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Options Button pressed");
+	        	myGame.playClick();
 	            myGame.changeToOptionsScreen();
 	        }});
 	}

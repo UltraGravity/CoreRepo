@@ -106,6 +106,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.addListeners();
 				hide();
 			}
@@ -115,6 +116,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.addColumn(true);
 			}
 		});
@@ -123,6 +125,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.addColumn(false);
 			}
 		});
@@ -131,6 +134,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.removeColumn(true);
 			}
 		});
@@ -139,6 +143,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.removeColumn(false);
 			}
 		});
@@ -147,6 +152,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.addRow(true);
 			}
 		});
@@ -155,6 +161,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.addRow(false);
 			}
 		});
@@ -163,6 +170,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.removeRow(true);
 			}
 		});
@@ -171,6 +179,7 @@ public class SettingsDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.removeRow(false);
 			}
 		});

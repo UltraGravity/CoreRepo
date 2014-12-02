@@ -198,4 +198,39 @@ public class LevelFile
 		return false;
 	}
 	
+	public void checkSettings()
+	{
+		/* 
+		 * The settings file will look like a two bit binary number.
+		 * The left bit is music on/off and the right bit is 
+		 * sfx on/off. This method reads the file and sets the music
+		 * and sfx booleans in myGame equal to the values read in
+		 * the file.
+		 */
+		
+		String settings;
+		FileHandle file = Gdx.files.local("Settings.txt");
+		if (file.exists())
+		{			
+			settings = file.readString();
+			
+			char music = settings.charAt(0);
+			char sfx = settings.charAt(1);
+			
+			if (music == '1')
+				myGame.music = true;
+			else
+				myGame.music = false;
+			
+			if (sfx == '1')
+				myGame.sfx = true;
+			else
+				myGame.sfx = false;
+		}
+		else
+		{
+			file.writeString("11", false);
+		}
+	}
+	
 }

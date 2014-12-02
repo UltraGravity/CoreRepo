@@ -2,6 +2,7 @@ package Screens;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -30,6 +31,8 @@ public class OptionsScreen extends GenericScreen
 	TextButton backButton;
 	Label ultraGravity;
 	LabelStyle ultraGravityFont;
+	int music;
+	int sfx;
 
 	public OptionsScreen(MyGame myGame) 
 	{
@@ -44,9 +47,7 @@ public class OptionsScreen extends GenericScreen
 	    stage.act();
 	        
 	    batch.begin();
-			
-	    	//table.debug();
-			//table.debugTable();
+
 			stage.draw();
 				
 		batch.end();
@@ -73,19 +74,23 @@ public class OptionsScreen extends GenericScreen
 		if (myGame.music)
 		{
 			musicButton = new TextButton("Music On", textButtonStyle);
+			music = 1;
 		}
 		else
 		{
 			musicButton = new TextButton("Music Off", textButtonStyle);
+			music = 0;
 		}
 		
 		if (myGame.sfx)
 		{
 			soundEffectsButton = new TextButton("SFX On", textButtonStyle);
+			sfx = 1;
 		}
 		else
 		{
 			soundEffectsButton = new TextButton("SFX Off", textButtonStyle);
+			sfx = 0;
 		}
 	
 
@@ -105,45 +110,51 @@ public class OptionsScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Music Button");
+	           myGame.playClick();
 	            
 	            if (myGame.music)
 	            {
 	            	myGame.music = false;
 	            	musicButton.setText("Music Off");
+	            	music = 0;
 	            }
 	            else
 	            {
 	            	myGame.music = true;
 	            	musicButton.setText("Music On");
+	            	music = 1;
 	            }
-	            
+	            FileHandle file = Gdx.files.local("Settings.txt");
+	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);
 	        }});
 		
 		soundEffectsButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Sound Effects Button");
+	        	myGame.playClick();
 	            
 	            if (myGame.sfx)
 	            {
 	            	myGame.sfx = false;
 	            	soundEffectsButton.setText("SFX Off");
+	            	sfx = 0;
 	            }
 	            else
 	            {
 	            	myGame.sfx = true;
 	            	soundEffectsButton.setText("SFX On");
+	            	sfx = 1;
 	            }
-	            
+	            FileHandle file = Gdx.files.local("Settings.txt");
+	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);
 	        }});
 		
 		backButton.addListener(new ChangeListener() 
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
-	            System.out.println("Back Button");
+	        	myGame.playClick();
 	            myGame.changeToMainMenuScreen();
 	        }});
 	}

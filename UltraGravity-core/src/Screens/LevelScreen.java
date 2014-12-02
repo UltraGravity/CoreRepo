@@ -99,8 +99,8 @@ public class LevelScreen extends GenericScreen
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
+	        	myGame.playClick();
 	            LevelButton button = (LevelButton) actor;
-	            System.out.println(button.getLevelName());
 	            myGame.changeToGameScreen(button.getLevelName(), button.getFolder());
 	        }});
 		

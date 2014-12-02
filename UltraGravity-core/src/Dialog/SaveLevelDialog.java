@@ -117,6 +117,7 @@ public class SaveLevelDialog extends Dialog
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				LevelFile file = new LevelFile(myGame);
 				myGame.levelEditorScreen.save(levelName);
 				Gdx.input.setOnscreenKeyboardVisible(false);
@@ -136,6 +137,7 @@ public class SaveLevelDialog extends Dialog
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				setupNewLevel();
 			}
 		});
@@ -148,6 +150,7 @@ public class SaveLevelDialog extends Dialog
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				String fileName = textBox.getText();
 				levelName = fileName;
 				LevelFile file = new LevelFile(myGame);
@@ -166,7 +169,6 @@ public class SaveLevelDialog extends Dialog
 					hide();
 					setupOverwrite();
 				}
-				
 			}
 		});
 		
@@ -175,6 +177,7 @@ public class SaveLevelDialog extends Dialog
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				hide();
 			}
 		});

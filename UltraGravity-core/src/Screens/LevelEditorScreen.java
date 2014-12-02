@@ -117,10 +117,10 @@ public class LevelEditorScreen extends GenericScreen
 		
 		createGrid(cell);
 
+		addListeners();
+		
 		windowTable.row();
 		windowTable.add(toolTable).bottom();
-
-		addListeners();
 
 		stage.addActor(windowTable);
 		
@@ -230,13 +230,14 @@ public class LevelEditorScreen extends GenericScreen
 		group.add(safeTool);
 		group.add(blankTool);
 		group.add(characterButton);
-
+		
 		characterButton.setChecked(true);
 		
 		settingsButton.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				SettingsDialog dialog = new SettingsDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(stage);
 			}
@@ -246,6 +247,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				SaveDialog dialog = new SaveDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(stage);
 				dialog.setPosition(dialog.getX(), screenHeight - screenHeight/3);
@@ -256,6 +258,10 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				if (groundTool.isChecked())
+				{
+					myGame.playClick();
+				}
 				selectedStyle = myGame.assetLoader.groundBlockStyle;
 			}
 		});
@@ -264,6 +270,10 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				if (boxTool.isChecked())
+				{
+					myGame.playClick();
+				}
 				selectedStyle = myGame.assetLoader.boxBlockStyle;
 			}
 		});
@@ -272,6 +282,10 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				if (safeTool.isChecked())
+				{
+					myGame.playClick();
+				}
 				selectedStyle = myGame.assetLoader.safeZoneBlockStyle;
 			}
 		});
@@ -280,6 +294,10 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				if (blankTool.isChecked())
+				{
+					myGame.playClick();
+				}
 				selectedStyle = myGame.assetLoader.blankBlockStyle;
 			}
 		});
@@ -288,6 +306,10 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				if (characterButton.isChecked())
+				{
+					myGame.playClick();
+				}
 				selectedStyle = myGame.assetLoader.characterBlockStyle;
 			}
 		});
@@ -296,6 +318,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				saveDialog(false);
 			}
 		});
@@ -304,12 +327,13 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				if (zoomFactor <= 14)
 				{
 					zoomFactor += 1;
 				}
-				levelGrid.clearChildren();
 				createGrid(cell);
+				addListeners();
 				System.out.println(zoomFactor);
 			}
 		});
@@ -318,12 +342,13 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				if (zoomFactor >= 5)
 				{
 					zoomFactor -= 1;
 				}
-				levelGrid.clearChildren();
 				createGrid(cell);
+				addListeners();
 				System.out.println(zoomFactor);
 			}
 		});
@@ -332,6 +357,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				LoadLevelDialog dialog = new LoadLevelDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(stage);
 				
@@ -351,6 +377,7 @@ public class LevelEditorScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				levelFile = new LevelFile(myGame);
 				saveDialog(false);
 				myGame.changeToGameScreen(levelName, "Levels");
@@ -367,13 +394,14 @@ public class LevelEditorScreen extends GenericScreen
 	
 	public void addListeners()
 	{
-		levelGrid.addListener(new ChangeListener()
+		ChangeListener listener = new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				GridImage image = (GridImage) actor;
 				image.setStyle(selectedStyle);
-
+				myGame.playClick();
+				
 				if (selectedStyle == myGame.assetLoader.blankBlockStyle)
 				{
 					image.cellValue = 0;
@@ -395,12 +423,15 @@ public class LevelEditorScreen extends GenericScreen
 					image.cellValue = 4;
 				}
 			}
-		});
+		};
+		
+		levelGrid.addListener(listener);
 	}
 
 	public void createGrid(GridImage[] grid)
 	{
 		levelGrid.clearChildren();
+		levelGrid.clear();
 		int index = 0;
 		for (int y = 0; y < thePlane.getYSize(); y++)
 		{
@@ -441,7 +472,7 @@ public class LevelEditorScreen extends GenericScreen
 			}
 			levelGrid.row();
 		}
-		addListeners();
+		//addListeners();
 	}
 
 	public String getLastLevel()
@@ -480,6 +511,7 @@ public class LevelEditorScreen extends GenericScreen
 		levelFile = new LevelFile(myGame);
 		cell = levelFile.getLevelGrid(file, thePlane, "Levels");
 		createGrid(cell);
+		addListeners();
 	}
 	
 	public void addColumn(boolean addToRightSide)

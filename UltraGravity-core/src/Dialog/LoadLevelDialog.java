@@ -88,6 +88,7 @@ public class LoadLevelDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				hide();
 			}
 		});
@@ -96,6 +97,7 @@ public class LoadLevelDialog extends Dialog
 		{
 	        public void changed (ChangeEvent event, Actor actor) 
 	        {
+	        	myGame.playClick();
 	            LevelButton button = (LevelButton) actor;
 	            myGame.levelEditorScreen.levelName = button.getLevelName();
 	        	myGame.levelEditorScreen.load(button.getLevelName());

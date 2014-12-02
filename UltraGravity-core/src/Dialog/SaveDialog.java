@@ -73,6 +73,7 @@ public class SaveDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.addListeners();
 				hide();
 			}
@@ -82,6 +83,7 @@ public class SaveDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				myGame.levelEditorScreen.saveDialog(true);
 				hide();
 			}
@@ -91,6 +93,7 @@ public class SaveDialog extends Dialog
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				hide();
 				myGame.changeToMainMenuScreen();
 			}

@@ -31,8 +31,8 @@ public class MyGame extends Game
 	public int screenWidth;
 	public int screenHeight;
 	
-	public boolean music;
-	public boolean sfx;
+	public boolean music = true;
+	public boolean sfx = true;
 	
 	public void create()
 	{
@@ -45,14 +45,13 @@ public class MyGame extends Game
 		 */
 		
 		LevelFile levelFile = new LevelFile(this);
+		levelFile.checkSettings();
+		
 		levelFile.SaveLevel("Level 1", "10,4:0000000003040000000300000000030000000003", "BuiltIn");
 		levelFile.SaveLevel("Level 2", "10,4:1111001111111100111140002200030000220003", "BuiltIn");
 		levelFile.SaveLevel("Level 3", "13,5:40100220000000010022000000001001100111100022110011110002211331111", "BuiltIn");
 		levelFile.SaveLevel("Level 4", "10,5:00001111330000111100000002222211110111114000211111", "BuiltIn");
 		levelFile.SaveLevel("Level 5", "14,7:11111111110000111111113122101111111101221011111111012210000000000022101111111111111040000000000000", "BuiltIn");
-		
-		music = true; // Change this to be a setting that is loaded
-		sfx = true; // same with this.
 		
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
@@ -129,6 +128,22 @@ public class MyGame extends Game
 		this.setScreen(gameScreen);
 	}
 
+	public void playMusic()
+	{
+		if (music)
+		{
+			assetLoader.music.play();
+		}
+	}
+	
+	public void playClick()
+	{
+		if (sfx)
+		{
+			assetLoader.click.play();
+		}
+	}
+	
   public void dispose()
 	{
 		// Called when the game is closed for good.
