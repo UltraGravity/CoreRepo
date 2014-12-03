@@ -103,7 +103,7 @@ public class GameScreen extends GenericScreen
 	}
 
 	public void render(float delta)
-	{		
+	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -112,7 +112,7 @@ public class GameScreen extends GenericScreen
 
 		stage.act();
 		stage.draw();
-		
+
 		// Handles 2 finger touches for scrolling the camera
 		if (Gdx.input.isTouched(1))
 		{
@@ -129,7 +129,7 @@ public class GameScreen extends GenericScreen
 			oldFingerX = 0;
 			oldFingerY = 0;
 			oldFingerDist = 0;
-			
+
 			twoFingerActiveCounter--;
 			if (twoFingerActiveCounter <= 0)
 			{
@@ -141,10 +141,12 @@ public class GameScreen extends GenericScreen
 	public void setupBoxCam()
 	{
 		setGameDimensions();
-		//boxCam = new OrthographicCamera(screenWidth, screenHeight);
+		// boxCam = new OrthographicCamera(screenWidth, screenHeight);
 		boxCam = new OrthographicCamera(levelWidth, levelHeight);
-		//boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight / zoomFactor);
-		boxCam.setToOrtho(false, stage.getViewport().getWorldWidth() / zoomFactor, stage.getViewport().getWorldHeight() / zoomFactor);
+		// boxCam.setToOrtho(false, screenWidth / zoomFactor, screenHeight /
+		// zoomFactor);
+		boxCam.setToOrtho(false, stage.getViewport().getWorldWidth()
+				/ zoomFactor, stage.getViewport().getWorldHeight() / zoomFactor);
 		boxCam.position.set(levelWidth / 2, levelHeight / 2, 0);
 		oldCamX = boxCam.position.x;
 		oldCamY = boxCam.position.y;
@@ -184,17 +186,23 @@ public class GameScreen extends GenericScreen
 		}
 		int safeCount = 0;
 		int numContacts = world.getContactCount();
-		if(numContacts > 0) {
-			for(int i = 0; i < world.getContactList().size; i++) {
+		if (numContacts > 0)
+		{
+			for (int i = 0; i < world.getContactList().size; i++)
+			{
 				Contact contact = world.getContactList().get(i);
 				Fixture fixA = contact.getFixtureA();
 				Fixture fixB = contact.getFixtureB();
-				if(fixA.getBody().getUserData() instanceof MainCharacter && fixB.getBody().getUserData() instanceof SafeZone ||
-						fixA.getBody().getUserData() instanceof SafeZone && fixB.getBody().getUserData() instanceof MainCharacter) {
+				if (fixA.getBody().getUserData() instanceof MainCharacter
+						&& fixB.getBody().getUserData() instanceof SafeZone
+						|| fixA.getBody().getUserData() instanceof SafeZone
+						&& fixB.getBody().getUserData() instanceof MainCharacter)
+				{
 					safeCount++;
 				}
 			}
-			if(safeCount == numCharacters) {
+			if (safeCount == numCharacters)
+			{
 				System.out.println("Winner!!!!");
 				winLevel();
 			}
@@ -210,56 +218,65 @@ public class GameScreen extends GenericScreen
 
 	}
 
-private void winLevel()
+	private void winLevel()
 	{
 		// TODO Display Winner and move into next level/bring to main menue
-		
+		myGame.changeToMainMenuScreen();
 	}
 
 	private void draw(Body body)
 	{
-		
-//		System.out.println(boxCam.zoom);
-		
+
+		// System.out.println(boxCam.zoom);
+
 		batch.begin();
 		if (body.getUserData() instanceof Item)
 		{
 			Sprite sprite = ((Item) body.getUserData()).getSprite();
 
-			
 			sprite.setOriginCenter();
 
 			float scaleX = screenWidth / boxCam.viewportWidth;
 			float scaleY = screenHeight / boxCam.viewportHeight;
 
-//			sprite.setPosition(
-//					((boxCam.position.x) + ((levelWidth / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().x + Constants.OBJECT_SCALE) * scaleX),
-//					((boxCam.position.y) + ((levelHeight / 2) * Constants.GRID_TO_WORLD) + (body.getPosition().y) * scaleY));
+			// sprite.setPosition(
+			// ((boxCam.position.x) + ((levelWidth / 2) *
+			// Constants.GRID_TO_WORLD) + (body.getPosition().x +
+			// Constants.OBJECT_SCALE) * scaleX),
+			// ((boxCam.position.y) + ((levelHeight / 2) *
+			// Constants.GRID_TO_WORLD) + (body.getPosition().y) * scaleY));
 
 			sprite.setSize((2 * Constants.OBJECT_SCALE)
-					* (screenWidth / boxCam.viewportWidth)/boxCam.zoom,
+					* (screenWidth / boxCam.viewportWidth) / boxCam.zoom,
 					(2 * Constants.OBJECT_SCALE)
-							* (screenHeight / boxCam.viewportHeight)/boxCam.zoom);
+							* (screenHeight / boxCam.viewportHeight)
+							/ boxCam.zoom);
 
 			// This works more or less
-//			sprite.setPosition(
-//					screenWidth/2 + body.getPosition().x * scaleX + boxCam.view.getScaleX()/2*scaleX - boxCam.position.x/boxCam.viewportWidth*screenWidth,
-//					screenHeight/2 + body.getPosition().y * scaleY + boxCam.view.getScaleY()/2*scaleY - boxCam.position.y/boxCam.viewportHeight*screenHeight);
-			
-			sprite.setPosition(
-					screenWidth/2 + body.getPosition().x * scaleX + boxCam.view.getScaleX()/2*scaleX - boxCam.position.x/boxCam.viewportWidth*screenWidth,
-					screenHeight/2 + body.getPosition().y * scaleY + boxCam.view.getScaleY()/2*scaleY - boxCam.position.y/boxCam.viewportHeight*screenHeight);
-			
-			
+			// sprite.setPosition(
+			// screenWidth/2 + body.getPosition().x * scaleX +
+			// boxCam.view.getScaleX()/2*scaleX -
+			// boxCam.position.x/boxCam.viewportWidth*screenWidth,
+			// screenHeight/2 + body.getPosition().y * scaleY +
+			// boxCam.view.getScaleY()/2*scaleY -
+			// boxCam.position.y/boxCam.viewportHeight*screenHeight);
+
+			sprite.setPosition(screenWidth / 2 + body.getPosition().x * scaleX
+					+ boxCam.view.getScaleX() / 2 * scaleX - boxCam.position.x
+					/ boxCam.viewportWidth * screenWidth, screenHeight / 2
+					+ body.getPosition().y * scaleY + boxCam.view.getScaleY()
+					/ 2 * scaleY - boxCam.position.y / boxCam.viewportHeight
+					* screenHeight);
+
 			float viewX = boxCam.position.x;
 			float viewY = boxCam.position.y;
 
 			sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-			
-//			sprite.setSize((2 * Constants.OBJECT_SCALE)
-//					* (screenWidth / boxCam.viewportWidth),
-//					(2 * Constants.OBJECT_SCALE)
-//							* (screenHeight / boxCam.viewportHeight));
+
+			// sprite.setSize((2 * Constants.OBJECT_SCALE)
+			// * (screenWidth / boxCam.viewportWidth),
+			// (2 * Constants.OBJECT_SCALE)
+			// * (screenHeight / boxCam.viewportHeight));
 
 			sprite.draw(batch);
 		}
@@ -287,18 +304,18 @@ private void winLevel()
 					float velocityY, int button)
 			{
 
-				//System.out.println(velocityX + ", " + velocityY);
+				// System.out.println(velocityX + ", " + velocityY);
 
 				wakeAllItems();
-				
+
 				if (!twoFingersActive)
 				{
 					if (Math.abs(velocityX) > Math.abs(velocityY))
 					{
-	
+
 						if (velocityX > 0)
 						{
-	
+
 							world.setGravity(Direction.RIGHT);
 							System.out.println("Gravity Right");
 						}
@@ -342,8 +359,8 @@ private void winLevel()
 		System.out.println("Creating a new world!");
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		world = worldUtils.createWorld();
-		
-//		createCollisionListener();
+
+		// createCollisionListener();
 
 		thePlane = new ThePlane(myGame, 0, 0);
 		fillThePlane(levelName);
@@ -470,13 +487,21 @@ private void winLevel()
 		boxCam.update();
 	}
 
-	public void hide() {}
+	public void hide()
+	{
+	}
 
-	public void pause() {}
+	public void pause()
+	{
+	}
 
-	public void resume() {}
+	public void resume()
+	{
+	}
 
-	public void resize(int width, int height) {}
+	public void resize(int width, int height)
+	{
+	}
 
 	public void dispose()
 	{
