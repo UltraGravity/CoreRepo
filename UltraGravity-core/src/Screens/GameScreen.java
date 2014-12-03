@@ -170,6 +170,7 @@ public class GameScreen extends GenericScreen
 						+ b.getLinearVelocity().y);
 				// System.out.println(force.x + " , " + force.y);
 				b.applyForceToCenter(force, true);
+//				checkIfSafe();
 			}
 			draw(b);
 		}
@@ -183,6 +184,12 @@ public class GameScreen extends GenericScreen
 		}
 
 	}
+
+//	private void checkIfSafe()
+//	{
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	private void draw(Body body)
 	{
