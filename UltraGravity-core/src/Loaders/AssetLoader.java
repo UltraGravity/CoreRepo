@@ -94,6 +94,7 @@ public class AssetLoader
 	 public void setupMenu()
 	 {
 		music = assetManager.get("music.mp3", Music.class);
+		music.setLooping(true);
 		click = assetManager.get("click.mp3", Sound.class);
 		 
 		 

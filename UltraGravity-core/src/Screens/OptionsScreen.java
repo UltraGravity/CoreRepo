@@ -117,12 +117,14 @@ public class OptionsScreen extends GenericScreen
 	            	myGame.music = false;
 	            	musicButton.setText("Music Off");
 	            	music = 0;
+	            	myGame.assetLoader.music.stop();
 	            }
 	            else
 	            {
 	            	myGame.music = true;
 	            	musicButton.setText("Music On");
 	            	music = 1;
+	            	myGame.playMusic();
 	            }
 	            FileHandle file = Gdx.files.local("Settings.txt");
 	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);

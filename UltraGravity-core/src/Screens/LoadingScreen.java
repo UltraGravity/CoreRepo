@@ -46,9 +46,9 @@ public class LoadingScreen extends GenericScreen
 		else
 		{
 			System.out.println("Done Loading");
-	    // we need to add a case statement here 
-	    myGame.assetLoader.setupMenu();
-			myGame.switchScreen(); // This switches to the next screen
+			myGame.assetLoader.setupMenu();
+			myGame.switchScreen();
+			myGame.playMusic();
 		}
 	}
 
