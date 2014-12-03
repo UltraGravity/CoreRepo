@@ -3,7 +3,6 @@ package Objects;
 import Physics.Constants;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -26,11 +25,6 @@ public class MainCharacter extends MovingItem
 		CircleShape circle = new CircleShape();
 		circle.setRadius(Constants.SIZE_SCALE / 2);
 		return (Shape) circle;
-	}
-
-	public TextureRegion getTexture()
-	{
-		return texture;
 	}
 
 }

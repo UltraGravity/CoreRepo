@@ -6,9 +6,11 @@ import FileIO.LevelFile;
 import Gesture.GameGestureDetector;
 import Objects.Box;
 import Objects.GridImage;
+import Objects.GroundBlock;
 import Objects.Item;
 import Objects.LevelButton;
 import Objects.MainCharacter;
+import Objects.SafeZone;
 import Objects.ThePlane;
 import Physics.Constants;
 import Physics.Direction;
@@ -25,6 +27,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -154,6 +161,7 @@ public class GameScreen extends GenericScreen
 
 	private void doPhysics(float deltaTime)
 	{
+		int numCharacters = 0;
 		float acelx = Gdx.input.getAccelerometerX();
 		float acely = Gdx.input.getAccelerometerY(); // Accelerometer
 
@@ -170,9 +178,26 @@ public class GameScreen extends GenericScreen
 						+ b.getLinearVelocity().y);
 				// System.out.println(force.x + " , " + force.y);
 				b.applyForceToCenter(force, true);
-//				checkIfSafe();
+				numCharacters++;
 			}
 			draw(b);
+		}
+		int safeCount = 0;
+		int numContacts = world.getContactCount();
+		if(numContacts > 0) {
+			for(int i = 0; i < world.getContactList().size; i++) {
+				Contact contact = world.getContactList().get(i);
+				Fixture fixA = contact.getFixtureA();
+				Fixture fixB = contact.getFixtureB();
+				if(fixA.getBody().getUserData() instanceof MainCharacter && fixB.getBody().getUserData() instanceof SafeZone ||
+						fixA.getBody().getUserData() instanceof SafeZone && fixB.getBody().getUserData() instanceof MainCharacter) {
+					safeCount++;
+				}
+			}
+			if(safeCount == numCharacters) {
+				System.out.println("Winner!!!!");
+				winLevel();
+			}
 		}
 		float frameTime = Math.min(deltaTime, 0.25f);
 		accumulator += frameTime;
@@ -185,16 +210,16 @@ public class GameScreen extends GenericScreen
 
 	}
 
-//	private void checkIfSafe()
-//	{
-//		// TODO Auto-generated method stub
-//		
-//	}
+private void winLevel()
+	{
+		// TODO Display Winner and move into next level/bring to main menue
+		
+	}
 
 	private void draw(Body body)
 	{
 		
-		System.out.println(boxCam.zoom);
+//		System.out.println(boxCam.zoom);
 		
 		batch.begin();
 		if (body.getUserData() instanceof Item)
@@ -317,6 +342,8 @@ public class GameScreen extends GenericScreen
 		System.out.println("Creating a new world!");
 		WorldUtils worldUtils = new WorldUtils(myGame);
 		world = worldUtils.createWorld();
+		
+//		createCollisionListener();
 
 		thePlane = new ThePlane(myGame, 0, 0);
 		fillThePlane(levelName);
