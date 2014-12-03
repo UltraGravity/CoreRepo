@@ -41,7 +41,7 @@ public class OptionsScreen extends GenericScreen
 
 	public void render(float delta) 
 	{
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(.1f, .1f, .1f, 1);
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	        
 	    stage.act();
@@ -62,14 +62,7 @@ public class OptionsScreen extends GenericScreen
 		
 		
 		font = myGame.assetLoader.font;
-		skin = new Skin();
-		buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
-		skin.addRegions(buttonAtlas);
-		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("Button");
-		textButtonStyle.down = skin.getDrawable("Button-Pressed");
-
+		textButtonStyle = myGame.assetLoader.textButtonStyle;
 		
 		if (myGame.music)
 		{

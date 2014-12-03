@@ -110,8 +110,8 @@ public class AssetLoader
 
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = myGame.assetLoader.font;
-		textButtonStyle.up = menuButtonSkin.getDrawable("Button");
-		textButtonStyle.down = menuButtonSkin.getDrawable("Button-Pressed");
+		textButtonStyle.up = menuButtonSkin.getDrawable("grey");
+		textButtonStyle.down = menuButtonSkin.getDrawable("grey-pressed");
 		
 		
 		box = gameScreenAtlas.findRegion("crate");
