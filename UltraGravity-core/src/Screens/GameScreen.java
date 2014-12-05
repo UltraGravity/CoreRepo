@@ -52,7 +52,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen extends GenericScreen
 {
-	String levelName;
+	public String levelName;
 	Stage stage;
 	ImageButton pauseButton;
 	World world;
@@ -61,7 +61,7 @@ public class GameScreen extends GenericScreen
 	GridImage[] cell;
 	LevelFile levelFile;
 	Table table;
-	String folder;
+	public String folder;
 	ActorGestureListener listener;
 
 	ScrollPane levelScrollPane;
@@ -363,6 +363,7 @@ public class GameScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
+				myGame.playClick();
 				pauseGame();
 				PauseDialog pauseDialog = new PauseDialog(myGame, "", myGame.assetLoader.uiSkin);
 				pauseDialog.show(stage);

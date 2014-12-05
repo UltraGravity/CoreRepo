@@ -94,6 +94,7 @@ public class PauseDialog extends Dialog
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				myGame.playClick();
+				myGame.changeToGameScreen(myGame.gameScreen.levelName, myGame.gameScreen.folder);
 			}
 		});
 		
