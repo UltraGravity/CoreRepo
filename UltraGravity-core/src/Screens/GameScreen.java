@@ -1,51 +1,36 @@
 package Screens;
 
-import java.util.ArrayList;
-
 import Dialog.PauseDialog;
 import Dialog.WinDialog;
 import FileIO.LevelFile;
-import Gesture.GameGestureDetector;
-import Objects.Box;
 import Objects.GridImage;
-import Objects.GroundBlock;
 import Objects.Item;
-import Objects.LevelButton;
 import Objects.MainCharacter;
 import Objects.SafeZone;
 import Objects.ThePlane;
 import Physics.Constants;
 import Physics.Direction;
 import Physics.WorldUtils;
-
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -326,9 +311,6 @@ public class GameScreen extends GenericScreen
 			public void fling(InputEvent event, float velocityX,
 					float velocityY, int button)
 			{
-
-				// System.out.println(velocityX + ", " + velocityY);
-
 				wakeAllItems();
 
 				if (!twoFingersActive && gameState == GameState.PLAY)
