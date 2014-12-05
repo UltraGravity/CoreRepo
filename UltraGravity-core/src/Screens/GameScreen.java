@@ -2,6 +2,8 @@ package Screens;
 
 import java.util.ArrayList;
 
+import Dialog.PauseDialog;
+import Dialog.WinDialog;
 import FileIO.LevelFile;
 import Gesture.GameGestureDetector;
 import Objects.Box;
@@ -39,6 +41,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -89,7 +92,7 @@ public class GameScreen extends GenericScreen
 	private int levelHeight;
 
 	private enum GameState {
-		PLAY, PAUSE, GAMEOVER
+		PLAY, PAUSE, WIN, LOSE
 	};
 
 	public GameState gameState = GameState.PLAY;
@@ -106,36 +109,40 @@ public class GameScreen extends GenericScreen
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		doPhysics(delta);
-		renderer.render(world, boxCam.combined);
-
-		stage.act();
-		stage.draw();
-
-		// Handles 2 finger touches for scrolling the camera
-		if (Gdx.input.isTouched(1))
+		
+		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
-			int X1 = Gdx.input.getX(0);
-			int Y1 = Gdx.input.getY(0);
-			int X2 = Gdx.input.getX(1);
-			int Y2 = Gdx.input.getY(1);
-			panCamera(X1, Y1, X2, Y2);
-			twoFingersActive = true;
-			twoFingerActiveCounter = 15;
-		}
-		else
-		{
-			oldFingerX = 0;
-			oldFingerY = 0;
-			oldFingerDist = 0;
-
-			twoFingerActiveCounter--;
-			if (twoFingerActiveCounter <= 0)
+			doPhysics(delta);
+			renderer.render(world, boxCam.combined);
+	
+			// Handles 2 finger touches for scrolling the camera
+			if (Gdx.input.isTouched(1))
 			{
-				twoFingersActive = false;
+				int X1 = Gdx.input.getX(0);
+				int Y1 = Gdx.input.getY(0);
+				int X2 = Gdx.input.getX(1);
+				int Y2 = Gdx.input.getY(1);
+				panCamera(X1, Y1, X2, Y2);
+				twoFingersActive = true;
+				twoFingerActiveCounter = 15;
+			}
+			else
+			{
+				oldFingerX = 0;
+				oldFingerY = 0;
+				oldFingerDist = 0;
+	
+				twoFingerActiveCounter--;
+				if (twoFingerActiveCounter <= 0)
+				{
+					twoFingersActive = false;
+				}
 			}
 		}
+		
+		stage.act();
+		stage.draw();
+		
 	}
 
 	public void setupBoxCam()
@@ -170,6 +177,7 @@ public class GameScreen extends GenericScreen
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
 		{
+			
 			Item i = (Item) b.getUserData();
 			if (i instanceof MainCharacter)
 			{
@@ -182,6 +190,7 @@ public class GameScreen extends GenericScreen
 				b.applyForceToCenter(force, true);
 				numCharacters++;
 			}
+
 			draw(b);
 		}
 		int safeCount = 0;
@@ -204,24 +213,28 @@ public class GameScreen extends GenericScreen
 			if (safeCount == numCharacters)
 			{
 				System.out.println("Winner!!!!");
+				gameState = GameState.WIN;
 				winLevel();
 			}
 		}
-		float frameTime = Math.min(deltaTime, 0.25f);
-		accumulator += frameTime;
-		while (accumulator >= Constants.TIME_STEP)
+		if (gameState == GameState.PLAY)
 		{
-			world.step(Constants.TIME_STEP, Constants.VELOCITY_ITERATIONS,
-					Constants.POSITION_ITERATIONS);
-			accumulator -= Constants.TIME_STEP;
+			float frameTime = Math.min(deltaTime, 0.25f);
+			accumulator += frameTime;
+			while (accumulator >= Constants.TIME_STEP)
+			{
+				world.step(Constants.TIME_STEP, Constants.VELOCITY_ITERATIONS,
+						Constants.POSITION_ITERATIONS);
+				accumulator -= Constants.TIME_STEP;
+			}
 		}
 
 	}
 
 	private void winLevel()
 	{
-		// TODO Display Winner and move into next level/bring to main menue
-		myGame.changeToMainMenuScreen();
+		WinDialog winDialog = new WinDialog(myGame, "", myGame.assetLoader.uiSkin);
+		winDialog.show(stage);
 	}
 
 	private void draw(Body body)
@@ -308,7 +321,7 @@ public class GameScreen extends GenericScreen
 
 				wakeAllItems();
 
-				if (!twoFingersActive)
+				if (!twoFingersActive && gameState == GameState.PLAY)
 				{
 					if (Math.abs(velocityX) > Math.abs(velocityY))
 					{
@@ -350,8 +363,9 @@ public class GameScreen extends GenericScreen
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				// ADD STUFF TO THIS
-				myGame.changeToMainMenuScreen();
+				pauseGame();
+				PauseDialog pauseDialog = new PauseDialog(myGame, "", myGame.assetLoader.uiSkin);
+				pauseDialog.show(stage);
 			}
 		});
 
@@ -487,6 +501,16 @@ public class GameScreen extends GenericScreen
 		boxCam.update();
 	}
 
+	public void pauseGame()
+	{
+		this.gameState = GameState.PAUSE;
+	}
+	
+	public void resumeGame()
+	{
+		this.gameState = GameState.PLAY;
+	}
+	
 	public void hide()
 	{
 	}

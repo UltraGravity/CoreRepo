@@ -42,13 +42,10 @@ public class LoadLevelDialog extends Dialog
 		
 		TextureAtlas buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
 		skin.addRegions(buttonAtlas);
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = myGame.assetLoader.font;
-		textButtonStyle.up = skin.getDrawable("Button");
-		textButtonStyle.down = skin.getDrawable("Button-Pressed");
+		TextButtonStyle textButtonStyle = myGame.assetLoader.textButtonStyle;
 		
 		
-		back = new TextButton("Back", skin);
+		back = new TextButton("Back", textButtonStyle);
 		backTable.add(back);
 		levelTable.row();
 		
@@ -70,8 +67,6 @@ public class LoadLevelDialog extends Dialog
 			LevelButton button = new LevelButton(name, textButtonStyle, files[i].name(), "Levels");
 			levelTable.add(button).height(myGame.screenWidth/5);
 		}	
-		
-		//backTable.setFillParent(true);
 		
 		backTable.row();
 		backTable.add(scrollPane);

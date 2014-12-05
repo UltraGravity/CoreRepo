@@ -31,7 +31,7 @@ public class SaveLevelDialog extends Dialog
 	Label blank;
 	String levelName;
 	Label levelNameLabel;
-	
+	TextButtonStyle textButtonStyle;
 	boolean closeAfterSave;
 	
 	Label alreadyExists;
@@ -44,6 +44,7 @@ public class SaveLevelDialog extends Dialog
 		this.levelName = levelName.replace(".txt", "");
 		LevelFile levelFile = new LevelFile(myGame);
 		this.closeAfterSave = closeAfterSave;
+		textButtonStyle = myGame.assetLoader.textButtonStyle;
 		
 		if (levelName == "")
 		{
@@ -65,8 +66,8 @@ public class SaveLevelDialog extends Dialog
 		table2 = new Table();
 		nameLabel = new Label("Level Name ", skin);
 		textBox = new TextField("", skin);
-		saveButton = new TextButton("Save", skin);
-		cancelButton = new TextButton("Cancel", skin);
+		saveButton = new TextButton("Save", textButtonStyle);
+		cancelButton = new TextButton("Cancel", textButtonStyle);
 		blank = new Label("     ", skin);
 		table.add(nameLabel);
 		table.add(textBox).width(myGame.screenWidth/2);
@@ -93,8 +94,8 @@ public class SaveLevelDialog extends Dialog
 		table2 = new Table();
 		levelNameLabel = new Label(levelName, skin);
 		nameLabel = new Label("Already Exists. Overwrite?", skin);
-		yesButton = new TextButton("Yes", skin);
-		noButton = new TextButton("No", skin);
+		yesButton = new TextButton("Yes", textButtonStyle);
+		noButton = new TextButton("No", textButtonStyle);
 		table.add(levelNameLabel);
 		table.row();
 		table.add(nameLabel);

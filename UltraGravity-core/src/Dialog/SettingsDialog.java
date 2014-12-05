@@ -47,27 +47,22 @@ public class SettingsDialog extends Dialog
 		settingsTable = new Table();
 		backTable = new Table();
 		
-		TextureAtlas buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
-		skin.addRegions(buttonAtlas);
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = myGame.assetLoader.font;
-		textButtonStyle.up = skin.getDrawable("Button");
-		textButtonStyle.down = skin.getDrawable("Button-Pressed");
+		TextButtonStyle textButtonStyle = myGame.assetLoader.textButtonStyle;
 		
 		
-		back = new TextButton("Back to Map", skin);
+		back = new TextButton("Back to Map", textButtonStyle);
 		backTable.add(back);
 			
 		
-		plusLeft = new TextButton("+", skin);
-		plusRight = new TextButton("+", skin);
-		plusTop = new TextButton("+", skin);
-		plusBottom = new TextButton("+", skin);
+		plusLeft = new TextButton("+", textButtonStyle);
+		plusRight = new TextButton("+", textButtonStyle);
+		plusTop = new TextButton("+", textButtonStyle);
+		plusBottom = new TextButton("+", textButtonStyle);
 		
-		minusLeft = new TextButton("-", skin);
-		minusRight = new TextButton("-", skin);
-		minusTop = new TextButton("-", skin);
-		minusBottom = new TextButton("-", skin);
+		minusLeft = new TextButton("-", textButtonStyle);
+		minusRight = new TextButton("-", textButtonStyle);
+		minusTop = new TextButton("-", textButtonStyle);
+		minusBottom = new TextButton("-", textButtonStyle);
 		
 		
 		addRow = new Label(" Add Row", skin);

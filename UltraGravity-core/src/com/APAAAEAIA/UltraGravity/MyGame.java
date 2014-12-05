@@ -52,6 +52,7 @@ public class MyGame extends Game
 		levelFile.SaveLevel("Level 3", "13,5:40100220000000010022000000001001100111100022110011110002211331111", "BuiltIn");
 		levelFile.SaveLevel("Level 4", "10,5:00001111330000111100000002222211110111114000211111", "BuiltIn");
 		levelFile.SaveLevel("Level 5", "14,7:11111111110000111111113122101111111101221011111111012210000000000022101111111111111040000000000000", "BuiltIn");
+		levelFile.SaveLevel("Level 6", "10,5:40002200040011221100112200221122000000223311331133", "BuiltIn");
 		
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
@@ -144,7 +145,14 @@ public class MyGame extends Game
 		}
 	}
 	
-  public void dispose()
+	public void nextLevel()
+	{
+		// TODO
+		// make this select the next level
+		changeToGameScreen("Level 1.txt", "BuiltIn");
+	}
+	
+	public void dispose()
 	{
 		// Called when the game is closed for good.
 		batch.dispose();

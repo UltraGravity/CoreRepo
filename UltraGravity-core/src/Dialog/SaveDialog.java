@@ -34,23 +34,19 @@ public class SaveDialog extends Dialog
 		yesNoTable = new Table();
 		backTable = new Table();
 		
-		TextureAtlas buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
-		skin.addRegions(buttonAtlas);
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = myGame.assetLoader.font;
-		textButtonStyle.up = skin.getDrawable("Button");
-		textButtonStyle.down = skin.getDrawable("Button-Pressed");
+		
+		TextButtonStyle textButtonStyle = myGame.assetLoader.textButtonStyle;
 		
 		
-		back = new TextButton("Back", skin);
+		back = new TextButton("Back", textButtonStyle);
 		backTable.add(back);
 		backTable.row();
 
 		saveLabel = new Label("Save Level?", skin);
 		backTable.add(saveLabel);
 		
-		yes = new TextButton("Yes", skin);
-		no = new TextButton("No", skin);
+		yes = new TextButton("Yes", textButtonStyle);
+		no = new TextButton("No", textButtonStyle);
 
 		yesNoTable.add(yes).width((float)myGame.screenWidth/6);
 		yesNoTable.add(no).width((float)myGame.screenWidth/6);;
