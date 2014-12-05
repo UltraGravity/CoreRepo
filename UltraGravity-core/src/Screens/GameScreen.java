@@ -107,13 +107,13 @@ public class GameScreen extends GenericScreen
 
 	public void render(float delta)
 	{
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
 			doPhysics(delta);
-			renderer.render(world, boxCam.combined);
+			//renderer.render(world, boxCam.combined);
 	
 			// Handles 2 finger touches for scrolling the camera
 			if (Gdx.input.isTouched(1))
@@ -171,8 +171,18 @@ public class GameScreen extends GenericScreen
 	private void doPhysics(float deltaTime)
 	{
 		int numCharacters = 0;
-		float acelx = Gdx.input.getAccelerometerX();
-		float acely = Gdx.input.getAccelerometerY(); // Accelerometer
+		float acelx;
+		float acely;
+		if (gameState == GameState.PLAY)
+		{
+			acelx = Gdx.input.getAccelerometerX();
+			acely = Gdx.input.getAccelerometerY(); // Accelerometer
+		}
+		else
+		{
+			acelx = 0;
+			acely = 0;
+		}
 
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
