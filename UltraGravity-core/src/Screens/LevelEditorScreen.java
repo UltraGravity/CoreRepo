@@ -42,6 +42,8 @@ public class LevelEditorScreen extends GenericScreen
 	public Table windowTable;
 	public Table toolTable;
 	public Table levelGrid;
+	public Table toolButtons;
+	public ScrollPane toolScrollPane;
 	public ScrollPane scrollPane;
 	public TextButtonStyle textButtonStyle;
 	public ImageButtonStyle selectedStyle;
@@ -65,6 +67,10 @@ public class LevelEditorScreen extends GenericScreen
 	public ImageButton plusButton;
 	public ImageButton minusButton;
 	public ImageButton characterButton;
+	public ImageButton tireTool;
+	public ImageButton spikedBoxTool;
+	public ImageButton metalBoxTool;
+	public ImageButton buzzsawTool;
 	
 	public GridImage cell[];
 	GridResizer gridResizer;
@@ -105,6 +111,8 @@ public class LevelEditorScreen extends GenericScreen
 		windowTable.setHeight(screenHeight);
 		windowTable.setWidth(screenWidth);
 		windowTable.add(scrollPane).height(screenHeight - screenHeight / 8);
+		toolButtons = new Table();
+		toolScrollPane = new ScrollPane(toolButtons);
 		
 		addTools();
 		toolTable.center().bottom();
@@ -198,6 +206,10 @@ public class LevelEditorScreen extends GenericScreen
 		loadButton = new ImageButton(myGame.assetLoader.loadButtonStyle);
 		backButton = new ImageButton(myGame.assetLoader.backButtonStyle);
 		playButton = new ImageButton(myGame.assetLoader.playButtonStyle);
+		metalBoxTool = new ImageButton(myGame.assetLoader.metalBoxStyle);
+		spikedBoxTool = new ImageButton(myGame.assetLoader.spikedBoxStyle);
+		buzzsawTool = new ImageButton(myGame.assetLoader.buzzsawStyle);
+		tireTool = new ImageButton(myGame.assetLoader.tireStyle);
 		characterButton = new ImageButton(myGame.assetLoader.characterButtonStyle);
 		
 		boxTool = new ImageButton(myGame.assetLoader.boxStyle);
@@ -210,11 +222,19 @@ public class LevelEditorScreen extends GenericScreen
 		minusButton = new ImageButton(myGame.assetLoader.minusStyle);
 		
 		toolTable.add(backButton).size(screenHeight / 8);
-		toolTable.add(characterButton).size(screenHeight / 8);
-		toolTable.add(groundTool).size(screenHeight / 8);
-		toolTable.add(boxTool).size(screenHeight / 8);
-		toolTable.add(safeTool).size(screenHeight / 8);
-		toolTable.add(blankTool).size(screenHeight / 8);
+		
+		
+		toolButtons.add(characterButton).size(screenHeight / 8);
+		toolButtons.add(groundTool).size(screenHeight / 8);
+		toolButtons.add(boxTool).size(screenHeight / 8);
+		toolButtons.add(metalBoxTool).size(screenHeight / 8);
+		toolButtons.add(spikedBoxTool).size(screenHeight / 8);
+		toolButtons.add(buzzsawTool).size(screenHeight / 8);
+		toolButtons.add(tireTool).size(screenHeight / 8);
+		toolButtons.add(safeTool).size(screenHeight / 8);
+		toolButtons.add(blankTool).size(screenHeight / 8);
+		
+		toolTable.add(toolScrollPane).width(screenWidth/4);
 		toolTable.add(settingsButton).size(screenHeight / 8);
 		toolTable.add(minusButton).size(screenHeight / 8);
 		toolTable.add(plusButton).size(screenHeight / 8);
@@ -229,6 +249,10 @@ public class LevelEditorScreen extends GenericScreen
 		group.add(safeTool);
 		group.add(blankTool);
 		group.add(characterButton);
+		group.add(buzzsawTool);
+		group.add(tireTool);
+		group.add(spikedBoxTool);
+		group.add(metalBoxTool);
 		
 		characterButton.setChecked(true);
 		
@@ -262,6 +286,54 @@ public class LevelEditorScreen extends GenericScreen
 					myGame.playClick();
 				}
 				selectedStyle = myGame.assetLoader.groundBlockStyle;
+			}
+		});
+		
+		buzzsawTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				if (buzzsawTool.isChecked())
+				{
+					myGame.playClick();
+				}
+				selectedStyle = myGame.assetLoader.buzzsawBlockStyle;
+			}
+		});
+		
+		tireTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				if (tireTool.isChecked())
+				{
+					myGame.playClick();
+				}
+				selectedStyle = myGame.assetLoader.tireBlockStyle;
+			}
+		});
+		
+		metalBoxTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				if (metalBoxTool.isChecked())
+				{
+					myGame.playClick();
+				}
+				selectedStyle = myGame.assetLoader.metalBoxBlockStyle;
+			}
+		});
+		
+		spikedBoxTool.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				if (spikedBoxTool.isChecked())
+				{
+					myGame.playClick();
+				}
+				selectedStyle = myGame.assetLoader.spikedBlockStyle;
 			}
 		});
 
@@ -429,6 +501,22 @@ public class LevelEditorScreen extends GenericScreen
 				{
 					image.cellValue = 4;
 				}
+				if (selectedStyle == myGame.assetLoader.metalBoxBlockStyle)
+				{
+					image.cellValue = 5;
+				}
+				if (selectedStyle == myGame.assetLoader.spikedBlockStyle)
+				{
+					image.cellValue = 6;
+				}
+				if (selectedStyle == myGame.assetLoader.buzzsawBlockStyle)
+				{
+					image.cellValue = 7;
+				}
+				if (selectedStyle == myGame.assetLoader.tireBlockStyle)
+				{
+					image.cellValue = 8;
+				}
 			}
 		};
 		
@@ -473,6 +561,27 @@ public class LevelEditorScreen extends GenericScreen
 				{
 					grid[index] = new GridImage(myGame.assetLoader.characterBlockStyle);
 					grid[index].cellValue = 4;
+				}
+				else if (grid[index].getValue() == 5)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.metalBoxBlockStyle);
+					grid[index].cellValue = 5;
+				}
+				else if (grid[index].getValue() == 6)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.spikedBlockStyle);
+					grid[index].cellValue = 6;
+				}
+				else if (grid[index].getValue() == 7)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.buzzsawBlockStyle);
+					grid[index].cellValue = 7;
+				}
+				
+				else if (grid[index].getValue() == 8)
+				{
+					grid[index] = new GridImage(myGame.assetLoader.tireBlockStyle);
+					grid[index].cellValue = 8;
 				}
 				levelGrid.add(cell[index]).size(screenHeight / zoomFactor);
 				index++;

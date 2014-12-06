@@ -41,6 +41,10 @@ public class AssetLoader
 	public TextureRegion back;
 	public TextureRegion character;
 	public TextureRegion easterEgg;
+	public TextureRegion buzzSaw;
+	public TextureRegion tire;
+	public TextureRegion spikedBlock;
+	public TextureRegion metalBox;
 	
 	// Button Styles
 	public ImageButtonStyle groundBlockStyle;
@@ -52,6 +56,11 @@ public class AssetLoader
 	public ImageButtonStyle playButtonStyle;
 	public ImageButtonStyle backButtonStyle;
 	public ImageButtonStyle characterBlockStyle;
+	public ImageButtonStyle tireBlockStyle;
+	public ImageButtonStyle metalBoxBlockStyle;
+	public ImageButtonStyle buzzsawBlockStyle;
+	public ImageButtonStyle spikedBlockStyle;
+	
 	
 	public TextButtonStyle textButtonStyle;
 	
@@ -67,6 +76,13 @@ public class AssetLoader
 	public ImageButtonStyle minusStyle;
 	
 	public ImageButtonStyle characterButtonStyle;
+	
+	public ImageButtonStyle buzzsawStyle;
+	public ImageButtonStyle tireStyle;
+	public ImageButtonStyle metalBoxStyle;
+	public ImageButtonStyle spikedBoxStyle;
+	
+	
 	
 	
 	// Skins
@@ -124,7 +140,11 @@ public class AssetLoader
 		back = gameScreenAtlas.findRegion("back");
 		play = gameScreenAtlas.findRegion("play");
 		character = gameScreenAtlas.findRegion("character");
-		easterEgg = gameScreenAtlas.findRegion("DrFeng");
+		buzzSaw = gameScreenAtlas.findRegion("buzzsaw");
+		spikedBlock = gameScreenAtlas.findRegion("spikedBlock");
+		tire = gameScreenAtlas.findRegion("tire");
+		metalBox = gameScreenAtlas.findRegion("metalBox");
+		easterEgg = gameScreenAtlas.findRegion("easterEgg");
 
 		groundBlockStyle = new ImageButtonStyle();
 		groundBlockStyle.up = gameButtonSkin.getDrawable("metal");
@@ -143,6 +163,15 @@ public class AssetLoader
 		backButtonStyle = new ImageButtonStyle();
 		backButtonStyle.up = gameButtonSkin.getDrawable("back");
 		backButtonStyle.down = gameButtonSkin.getDrawable("back-pressed");
+		
+		buzzsawBlockStyle = new ImageButtonStyle();
+		buzzsawBlockStyle.up = gameButtonSkin.getDrawable("buzzsaw");
+		spikedBlockStyle = new ImageButtonStyle();
+		spikedBlockStyle.up = gameButtonSkin.getDrawable("spikedBlock");
+		tireBlockStyle = new ImageButtonStyle();
+		tireBlockStyle.up = gameButtonSkin.getDrawable("tire");
+		metalBoxBlockStyle = new ImageButtonStyle();
+		metalBoxBlockStyle.up = gameButtonSkin.getDrawable("metalBox");
 		
 		boxStyle = new ImageButtonStyle();
 		boxStyle.up = gameButtonSkin.getDrawable("boxbutton");
@@ -192,7 +221,25 @@ public class AssetLoader
 		pauseButtonStyle.up = gameButtonSkin.getDrawable("pauseButton");
 		pauseButtonStyle.down = gameButtonSkin.getDrawable("pauseButton-pressed");
 		
+		tireStyle = new ImageButtonStyle();
+		tireStyle.up = gameButtonSkin.getDrawable("tireButton");
+		tireStyle.down = gameButtonSkin.getDrawable("tireButton-pressed");
+		tireStyle.checked = gameButtonSkin.getDrawable("tireButton-pressed");
 		
+		metalBoxStyle = new ImageButtonStyle();
+		metalBoxStyle.up = gameButtonSkin.getDrawable("metalBoxButton");
+		metalBoxStyle.down = gameButtonSkin.getDrawable("metalBoxButton-pressed");
+		metalBoxStyle.checked = gameButtonSkin.getDrawable("metalBoxButton-pressed");
+		
+		buzzsawStyle = new ImageButtonStyle();
+		buzzsawStyle.up = gameButtonSkin.getDrawable("buzzsawButton");
+		buzzsawStyle.down = gameButtonSkin.getDrawable("buzzsawButton-pressed");
+		buzzsawStyle.checked = gameButtonSkin.getDrawable("buzzsawButton-pressed");
+		
+		spikedBoxStyle = new ImageButtonStyle();
+		spikedBoxStyle.up = gameButtonSkin.getDrawable("spikedBlock-notPressed");
+		spikedBoxStyle.down = gameButtonSkin.getDrawable("spikedBlock-pressed");
+		spikedBoxStyle.checked = gameButtonSkin.getDrawable("spikedBlock-pressed");
 	 }	
 	 
 
