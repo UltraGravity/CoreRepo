@@ -188,6 +188,12 @@ public class LevelFile
 					cell[index] = new GridImage(myGame.assetLoader.tireBlockStyle);
 					cell[index].cellValue = 8;
 				}
+				if (nextInt == '9')
+				{
+					System.out.print(" " + 9 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.iceBlockStyle);
+					cell[index].cellValue = 9;
+				}
 				index++;
 				i++;
 				x--;

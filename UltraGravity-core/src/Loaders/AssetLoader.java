@@ -20,6 +20,12 @@ public class AssetLoader
 	LevelFile levelFile;
 	
 	public String buttonFont;
+	public TextButtonStyle textButtonStyle;
+	
+	// Skins
+	public Skin menuButtonSkin;
+	public Skin gameButtonSkin;
+	public Skin uiSkin;
 	
 	// Sound Effects
 	public Music music;
@@ -31,6 +37,8 @@ public class AssetLoader
 	public TextureAtlas gameScreenAtlas;
 	public TextureAtlas mainMenuButtonAtlas;
 	public TextureAtlas uiSkinAtlas;
+	
+	// Textures for actual gameplay
 	public TextureRegion box;
 	public TextureRegion ground;
 	public TextureRegion safeZone;
@@ -45,8 +53,12 @@ public class AssetLoader
 	public TextureRegion tire;
 	public TextureRegion spikedBlock;
 	public TextureRegion metalBox;
+	public TextureRegion ice;
 	
-	// Button Styles
+	/* 
+	 * Button Styles
+	 * Used for the actual grid, not the tool box
+	*/ 
 	public ImageButtonStyle groundBlockStyle;
 	public ImageButtonStyle boxBlockStyle;
 	public ImageButtonStyle safeZoneBlockStyle;
@@ -60,36 +72,23 @@ public class AssetLoader
 	public ImageButtonStyle metalBoxBlockStyle;
 	public ImageButtonStyle buzzsawBlockStyle;
 	public ImageButtonStyle spikedBlockStyle;
-	
-	
-	public TextButtonStyle textButtonStyle;
-	
-	// Tool Button Styles
+	public ImageButtonStyle iceBlockStyle;
+
+	// Tool Button Styles used for the tool box
 	public ImageButtonStyle boxStyle;
 	public ImageButtonStyle groundStyle;
 	public ImageButtonStyle safeStyle;
 	public ImageButtonStyle blankStyle;
 	public ImageButtonStyle settingsStyle;
 	public ImageButtonStyle pauseButtonStyle;
-	
 	public ImageButtonStyle plusStyle;
 	public ImageButtonStyle minusStyle;
-	
 	public ImageButtonStyle characterButtonStyle;
-	
 	public ImageButtonStyle buzzsawStyle;
 	public ImageButtonStyle tireStyle;
 	public ImageButtonStyle metalBoxStyle;
 	public ImageButtonStyle spikedBoxStyle;
-	
-	
-	
-	
-	// Skins
-	public Skin menuButtonSkin;
-	public Skin gameButtonSkin;
-	public Skin uiSkin;
-
+	public ImageButtonStyle iceBoxStyle;
 	
 	 public AssetLoader(MyGame myGame)
 	 {
@@ -113,8 +112,7 @@ public class AssetLoader
 		music = assetManager.get("music.mp3", Music.class);
 		music.setLooping(true);
 		click = assetManager.get("click.mp3", Sound.class);
-		 
-		 
+		  
 		gameScreenAtlas = assetManager.get("GameAssets.atlas", TextureAtlas.class);
 		mainMenuButtonAtlas = new TextureAtlas(Gdx.files.internal("MenuButtonAtlas.atlas"));
 		uiSkinAtlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
@@ -130,7 +128,6 @@ public class AssetLoader
 		textButtonStyle.up = menuButtonSkin.getDrawable("grey");
 		textButtonStyle.down = menuButtonSkin.getDrawable("grey-pressed");
 		
-		
 		box = gameScreenAtlas.findRegion("crate");
 		ground = gameScreenAtlas.findRegion("metal");
 		safeZone = gameScreenAtlas.findRegion("safezone");
@@ -144,6 +141,7 @@ public class AssetLoader
 		spikedBlock = gameScreenAtlas.findRegion("spikedBlock");
 		tire = gameScreenAtlas.findRegion("tire");
 		metalBox = gameScreenAtlas.findRegion("metalBox");
+		ice = gameScreenAtlas.findRegion("iceblock");
 		easterEgg = gameScreenAtlas.findRegion("easterEgg");
 
 		groundBlockStyle = new ImageButtonStyle();
@@ -172,6 +170,9 @@ public class AssetLoader
 		tireBlockStyle.up = gameButtonSkin.getDrawable("tire");
 		metalBoxBlockStyle = new ImageButtonStyle();
 		metalBoxBlockStyle.up = gameButtonSkin.getDrawable("metalBox");
+		iceBlockStyle = new ImageButtonStyle();
+		iceBlockStyle.up = gameButtonSkin.getDrawable("iceblock");
+		
 		
 		boxStyle = new ImageButtonStyle();
 		boxStyle.up = gameButtonSkin.getDrawable("boxbutton");
@@ -239,7 +240,12 @@ public class AssetLoader
 		spikedBoxStyle = new ImageButtonStyle();
 		spikedBoxStyle.up = gameButtonSkin.getDrawable("spikedBlock-notPressed");
 		spikedBoxStyle.down = gameButtonSkin.getDrawable("spikedBlock-pressed");
-		spikedBoxStyle.checked = gameButtonSkin.getDrawable("spikedBlock-pressed");
+		spikedBoxStyle.checked = gameButtonSkin.getDrawable("spikedBlock-pressed");	
+		
+		iceBoxStyle = new ImageButtonStyle();
+		iceBoxStyle.up = gameButtonSkin.getDrawable("icebutton");
+		iceBoxStyle.down = gameButtonSkin.getDrawable("icebutton-pressed");
+		iceBoxStyle.checked = gameButtonSkin.getDrawable("icebutton-pressed");
 	 }	
 	 
 

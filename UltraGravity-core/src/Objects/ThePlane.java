@@ -85,6 +85,11 @@ public class ThePlane
 			Item character = new Tire(myGame, x, y);
 			worldList.add(character);
 		}
+		if (item == 9)
+		{
+			Item character = new Ice(myGame, x, y);
+			worldList.add(character);
+		}
 
 	}
 

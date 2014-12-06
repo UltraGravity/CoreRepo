@@ -448,6 +448,11 @@ public class GameScreen extends GenericScreen
 					thePlane.addItem(8, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
+				else if (nextInt == 9) // IceBlock
+				{
+					thePlane.addItem(9, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
+				}
 				i++;
 				x++;
 			}
