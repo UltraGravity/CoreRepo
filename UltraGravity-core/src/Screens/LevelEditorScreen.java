@@ -228,9 +228,9 @@ public class LevelEditorScreen extends GenericScreen
 		
 		toolButtons.add(characterButton).size(screenHeight / 8);
 		toolButtons.add(groundTool).size(screenHeight / 8);
+		toolButtons.add(iceTool).size(screenHeight / 8);
 		toolButtons.add(boxTool).size(screenHeight / 8);
 		toolButtons.add(metalBoxTool).size(screenHeight / 8);
-		toolButtons.add(iceTool).size(screenHeight / 8);
 		toolButtons.add(spikedBoxTool).size(screenHeight / 8);
 		toolButtons.add(buzzsawTool).size(screenHeight / 8);
 		toolButtons.add(tireTool).size(screenHeight / 8);

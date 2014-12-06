@@ -6,6 +6,7 @@ import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 
 public class LoadingScreen extends GenericScreen
 {
@@ -15,6 +16,7 @@ public class LoadingScreen extends GenericScreen
 	double colorD = 0;
 	int screenToLoad = -1;
 	Screen newScreen;
+	Texture loading;
 	
 	Runnable fileLoader;
 	Thread fileThread;
@@ -23,6 +25,7 @@ public class LoadingScreen extends GenericScreen
 	{
 		super(myGame);
 		loadingScreenFiles = new LoadingScreenFiles();
+		loading = new Texture(Gdx.files.internal("loading.png"));
 	}
 
 	public void render(float delta) 
@@ -30,17 +33,22 @@ public class LoadingScreen extends GenericScreen
 		if (!myGame.assetLoader.assetManager.update())
 		{
 			System.out.println("LOADING");
-			color = (float) Math.sin(colorD/1.5);
-			colorD += delta;
-			stateTime += delta;	
-			Gdx.gl.glClearColor(color, -color, .8f, 0);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);			
-			camera.update();									
-			batch.setProjectionMatrix(camera.combined);
+//			color = (float) Math.sin(colorD/1.5);
+//			colorD += delta;
+//			stateTime += delta;	
+//			Gdx.gl.glClearColor(color, -color, .8f, 0);
+//			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);			
+//			camera.update();									
+//			batch.setProjectionMatrix(camera.combined);
+			
+			
+			Gdx.gl.glClearColor(0, 0, 0, 0);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);	
 			
 			batch.begin();
-				loadingScreenFiles.drawLogo(batch);
-				loadingScreenFiles.drawLoadAnimation(batch, stateTime);
+				//loadingScreenFiles.drawLogo(batch);
+				//loadingScreenFiles.drawLoadAnimation(batch, stateTime);
+				batch.draw(loading, screenWidth/2 - loading.getWidth()/2, screenHeight/2 - loading.getHeight()/2, loading.getWidth(), loading.getHeight());
 			batch.end();
 		}
 		else
