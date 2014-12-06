@@ -16,7 +16,7 @@ public class Box extends MovingItem
 		texture = myGame.assetLoader.box;
 		sprite = new Sprite(texture);		
 		shape = setShape();
-		density = 1;
+		density = .1f;
 		System.out.println("Box Created");
 	}
 

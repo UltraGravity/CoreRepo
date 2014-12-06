@@ -4,6 +4,7 @@ import Physics.Constants;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
@@ -22,9 +23,9 @@ public class Buzzsaw extends MovingItem
 
 	public Shape setShape()
 	{
-		PolygonShape boxShape = new PolygonShape();
-		boxShape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
-		return (Shape) boxShape;
+		CircleShape circle = new CircleShape();
+		circle.setRadius(Constants.SIZE_SCALE);
+		return (Shape) circle;
 	}
 	
 	
