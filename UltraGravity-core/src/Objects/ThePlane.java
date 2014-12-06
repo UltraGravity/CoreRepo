@@ -64,6 +64,27 @@ public class ThePlane
 			Item character = new MainCharacter(myGame, x, y);
 			worldList.add(character);
 		}
+		if (item == 5)
+		{
+			Item character = new MetalBox(myGame, x, y);
+			worldList.add(character);
+		}
+		if (item == 6)
+		{
+			Item character = new SpikedBox(myGame, x, y);
+			worldList.add(character);
+		}
+		
+		if (item == 7)
+		{
+			Item character = new Buzzsaw(myGame, x, y);
+			worldList.add(character);
+		}
+		if (item == 8)
+		{
+			Item character = new Tire(myGame, x, y);
+			worldList.add(character);
+		}
 
 	}
 

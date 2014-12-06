@@ -428,6 +428,26 @@ public class GameScreen extends GenericScreen
 					thePlane.addItem(4, x * (Constants.GRID_TO_WORLD), y
 							* (Constants.GRID_TO_WORLD));
 				}
+				else if (nextInt == 5) // MetalBox
+				{
+					thePlane.addItem(5, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
+				}
+				else if (nextInt == 6) // SpikedBox
+				{
+					thePlane.addItem(6, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
+				}
+				else if (nextInt == 7) // Buzzsaw
+				{
+					thePlane.addItem(7, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
+				}
+				else if (nextInt == 8) // Tire
+				{
+					thePlane.addItem(8, x * (Constants.GRID_TO_WORLD), y
+							* (Constants.GRID_TO_WORLD));
+				}
 				i++;
 				x++;
 			}

@@ -164,6 +164,30 @@ public class LevelFile
 					cell[index] = new GridImage(myGame.assetLoader.characterBlockStyle);
 					cell[index].cellValue = 4;
 				}
+				if (nextInt == '5')
+				{
+					System.out.print(" " + 5 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.metalBoxBlockStyle);
+					cell[index].cellValue = 5;
+				}
+				if (nextInt == '6')
+				{
+					System.out.print(" " + 6 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.spikedBlockStyle);
+					cell[index].cellValue = 6;
+				}
+				if (nextInt == '7')
+				{
+					System.out.print(" " + 7 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.buzzsawBlockStyle);
+					cell[index].cellValue = 7;
+				}
+				if (nextInt == '8')
+				{
+					System.out.print(" " + 8 + " ");
+					cell[index] = new GridImage(myGame.assetLoader.tireBlockStyle);
+					cell[index].cellValue = 8;
+				}
 				index++;
 				i++;
 				x--;
