@@ -40,6 +40,7 @@ public class AssetLoader
 	public TextureRegion load;
 	public TextureRegion back;
 	public TextureRegion character;
+	public TextureRegion easterEgg;
 	
 	// Button Styles
 	public ImageButtonStyle groundBlockStyle;
@@ -123,6 +124,7 @@ public class AssetLoader
 		back = gameScreenAtlas.findRegion("back");
 		play = gameScreenAtlas.findRegion("play");
 		character = gameScreenAtlas.findRegion("character");
+		easterEgg = gameScreenAtlas.findRegion("DrFeng");
 
 		groundBlockStyle = new ImageButtonStyle();
 		groundBlockStyle.up = gameButtonSkin.getDrawable("metal");
@@ -189,6 +191,8 @@ public class AssetLoader
 		pauseButtonStyle = new ImageButtonStyle();
 		pauseButtonStyle.up = gameButtonSkin.getDrawable("pauseButton");
 		pauseButtonStyle.down = gameButtonSkin.getDrawable("pauseButton-pressed");
+		
+		
 	 }	
 	 
 

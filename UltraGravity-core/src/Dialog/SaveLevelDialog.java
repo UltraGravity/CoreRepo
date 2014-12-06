@@ -25,9 +25,11 @@ public class SaveLevelDialog extends Dialog
 	Skin skin;
 	TextField textBox;
 	TextButton saveButton;
+	TextButton okayButton;
 	TextButton cancelButton;
 	TextButton yesButton;
 	TextButton noButton;
+	TextButton dontSaveButton;
 	Label blank;
 	String levelName;
 	Label levelNameLabel;
@@ -53,7 +55,7 @@ public class SaveLevelDialog extends Dialog
 		
 		else
 		{
-			setupOverwrite();
+			setupOverwrite(false);
 		}
 	}
 	
@@ -86,29 +88,60 @@ public class SaveLevelDialog extends Dialog
 	}
 	
 	
-	public void setupOverwrite()
+	public void setupOverwrite(boolean blankString)
 	{
-		this.clearChildren();
-		window = new Table();
-		table = new Table();
-		table2 = new Table();
-		levelNameLabel = new Label(levelName, skin);
-		nameLabel = new Label("Already Exists. Overwrite?", skin);
-		yesButton = new TextButton("Yes", textButtonStyle);
-		noButton = new TextButton("No", textButtonStyle);
-		table.add(levelNameLabel);
-		table.row();
-		table.add(nameLabel);
-		table2.add(yesButton).width(myGame.screenWidth/4).center();
-		table2.add(noButton).width(myGame.screenWidth/4).center();
-		window.add(table);
-		window.row();
-		window.add(table2);
-		this.add(window);
-		setupOverwriteButtons();
-		pack();
-		show(myGame.levelEditorScreen.stage);
-		setPosition(this.getX(), myGame.screenHeight - myGame.screenHeight/3);
+		if (blankString)
+		{
+			this.clearChildren();
+			window = new Table();
+			table = new Table();
+			table2 = new Table();
+			levelNameLabel = new Label(levelName, skin);
+			nameLabel = new Label("You cannot have a blank file name!", skin);
+			okayButton = new TextButton("Okay", textButtonStyle);
+			yesButton = new TextButton("Yes", textButtonStyle);
+			dontSaveButton = new TextButton("Don't Save", textButtonStyle);
+			noButton = new TextButton("No", textButtonStyle);
+			table.add(levelNameLabel);
+			table.row();
+			table.add(nameLabel);
+			table2.add(okayButton).width(myGame.screenWidth/3).center();
+			table2.add(dontSaveButton).width(myGame.screenWidth/3).center();
+			window.add(table);
+			window.row();
+			window.add(table2);
+			this.add(window);
+			setupOverwriteButtons();
+			pack();
+			show(myGame.levelEditorScreen.stage);
+			setPosition(this.getX(), myGame.screenHeight - myGame.screenHeight/3);
+		}
+		else
+		{
+			this.clearChildren();
+			window = new Table();
+			table = new Table();
+			table2 = new Table();
+			levelNameLabel = new Label(levelName, skin);
+			nameLabel = new Label("Already Exists. Overwrite?", skin);
+			yesButton = new TextButton("Yes", textButtonStyle);
+			noButton = new TextButton("No", textButtonStyle);
+			okayButton = new TextButton("Okay", textButtonStyle);
+			dontSaveButton = new TextButton("Don't Save", textButtonStyle);
+			table.add(levelNameLabel);
+			table.row();
+			table.add(nameLabel);
+			table2.add(yesButton).width(myGame.screenWidth/4).center();
+			table2.add(noButton).width(myGame.screenWidth/4).center();
+			window.add(table);
+			window.row();
+			window.add(table2);
+			this.add(window);
+			setupOverwriteButtons();
+			pack();
+			show(myGame.levelEditorScreen.stage);
+			setPosition(this.getX(), myGame.screenHeight - myGame.screenHeight/3);
+		}
 	}
 	
 	public void setupOverwriteButtons()
@@ -121,6 +154,7 @@ public class SaveLevelDialog extends Dialog
 				myGame.playClick();
 				LevelFile file = new LevelFile(myGame);
 				myGame.levelEditorScreen.save(levelName);
+				myGame.levelEditorScreen.levelName = levelName + ".txt";
 				Gdx.input.setOnscreenKeyboardVisible(false);
 				
 				if (closeAfterSave)
@@ -140,6 +174,29 @@ public class SaveLevelDialog extends Dialog
 			{
 				myGame.playClick();
 				setupNewLevel();
+				Gdx.input.setOnscreenKeyboardVisible(false);
+			}
+		});
+		
+		okayButton.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+				setupNewLevel();
+				Gdx.input.setOnscreenKeyboardVisible(false);
+			}
+		});
+		
+		dontSaveButton.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+				hide();
+				Gdx.input.setOnscreenKeyboardVisible(false);
 			}
 		});
 	}
@@ -155,21 +212,30 @@ public class SaveLevelDialog extends Dialog
 				String fileName = textBox.getText();
 				levelName = fileName;
 				LevelFile file = new LevelFile(myGame);
+				Gdx.input.setOnscreenKeyboardVisible(false);
 				
-				if (fileName != "" && !file.checkIfExists(fileName))
+				
+				if (fileName.equals(""))
+				{
+					setupOverwrite(true);
+				}
+				else if (!file.checkIfExists(fileName))
 				{
 					myGame.levelEditorScreen.save(fileName);
-					Gdx.input.setOnscreenKeyboardVisible(false);
 					if (closeAfterSave)
 					{
 						myGame.changeToMainMenuScreen();
 					}
+					hide();
+					myGame.levelEditorScreen.levelName = fileName + ".txt";
 				}
 				else
 				{
 					hide();
-					setupOverwrite();
+					setupOverwrite(false);
 				}
+				
+				
 			}
 		});
 		
@@ -179,6 +245,7 @@ public class SaveLevelDialog extends Dialog
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				myGame.playClick();
+				Gdx.input.setOnscreenKeyboardVisible(false);
 				hide();
 			}
 		});

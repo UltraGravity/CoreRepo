@@ -14,7 +14,15 @@ public class MainCharacter extends MovingItem
 	public MainCharacter(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
-		texture = myGame.assetLoader.character;
+		
+		if (myGame.gameScreen.levelName.equals("showMeTheMoney.txt"))
+		{
+			texture = myGame.assetLoader.easterEgg;
+		}
+		else
+		{
+			texture = myGame.assetLoader.character;	
+		}
 		sprite = new Sprite(texture);
 		shape = setShape();
 		density = 1;

@@ -1,6 +1,7 @@
 package Screens;
 
 import Dialog.LoadLevelDialog;
+import Dialog.PlayDialog;
 import Dialog.SaveDialog;
 import Dialog.SaveLevelDialog;
 import Dialog.SettingsDialog;
@@ -90,10 +91,8 @@ public class LevelEditorScreen extends GenericScreen
 		batch.setProjectionMatrix(camera.combined);
 
 		stage.act();
-
-		batch.begin();
-			stage.draw();
-		batch.end();
+		
+		stage.draw();
 	}
 
 	public void show()
@@ -250,7 +249,7 @@ public class LevelEditorScreen extends GenericScreen
 				myGame.playClick();
 				SaveDialog dialog = new SaveDialog(myGame, "", myGame.assetLoader.uiSkin);
 				dialog.show(stage);
-				dialog.setPosition(dialog.getX(), screenHeight - screenHeight/3);
+				dialog.setPosition(dialog.getX(), screenHeight - screenHeight/2);
 			}
 		});
 
@@ -378,9 +377,17 @@ public class LevelEditorScreen extends GenericScreen
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				myGame.playClick();
-				levelFile = new LevelFile(myGame);
-				saveDialog(false);
-				myGame.changeToGameScreen(levelName, "Levels");
+				if (levelName.equals(""))
+				{
+					PlayDialog dialog = new PlayDialog(myGame, "", myGame.assetLoader.uiSkin);
+					dialog.show(stage);
+				}
+				else
+				{
+					levelFile = new LevelFile(myGame);
+					saveDialog(false);
+					myGame.changeToGameScreen(levelName, "Levels");	
+				}
 			}
 		});
 	}
