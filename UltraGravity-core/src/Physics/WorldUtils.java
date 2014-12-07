@@ -1,6 +1,7 @@
 package Physics;
 
 import Objects.Buzzsaw;
+import Objects.Ice;
 import Objects.WoodBox;
 import Objects.SafeZone;
 import Objects.GroundBlock;
@@ -16,10 +17,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class WorldUtils
 {
 	MyGame myGame;
+	Array groundChain;
 
 	public WorldUtils(MyGame myGame)
 	{
@@ -51,10 +54,11 @@ public class WorldUtils
 		def.friction = item.getFriction();
 		def.restitution = item.getRestitution();
 		def.isSensor = (item instanceof SafeZone);
-		if(item instanceof Buzzsaw) {
+		if (item instanceof Buzzsaw)
+		{
 			body.setGravityScale(0);
-			float randX = (float) (10-(Math.random() * 20));
-			float randY = (float) (10-(Math.random() * 20));
+			float randX = (float) (10 - (Math.random() * 20));
+			float randY = (float) (10 - (Math.random() * 20));
 			System.out.println(randY);
 			body.applyLinearImpulse(randX, randY, 0, 0, true);
 			body.setAngularVelocity(10);

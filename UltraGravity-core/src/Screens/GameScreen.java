@@ -102,7 +102,7 @@ public class GameScreen extends GenericScreen
 		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
 			doPhysics(delta);
-			// renderer.render(world, boxCam.combined);
+			 renderer.render(world, boxCam.combined);
 
 			// Handles 2 finger touches for scrolling the camera
 			if (Gdx.input.isTouched(1))
@@ -190,7 +190,7 @@ public class GameScreen extends GenericScreen
 				numCharacters++;
 			}
 
-			draw(b);
+//			draw(b);
 		}
 		int numContacts = world.getContactCount();
 		Array<Body> safeList = new Array<Body>();
