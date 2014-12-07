@@ -128,6 +128,7 @@ public class ThePlane
 			worldUtils.createItemInWorld(current, world);
 //			System.out.println("Added an item to the world");
 		}
+//		worldUtils.combineGroundBlocks(world);
 
 	}
 	// public Item[][] getArray() {

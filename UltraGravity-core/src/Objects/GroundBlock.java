@@ -20,7 +20,7 @@ public class GroundBlock extends StationaryItem
 		sprite = new Sprite(texture);
 		shape = setShape();
 		density = 2.4f;
-		friction = .95f;
+		friction = .75f;
 		restitution = 0f;
 //		System.out.println("Ground Created");
 	}

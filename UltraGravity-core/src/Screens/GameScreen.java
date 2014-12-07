@@ -159,6 +159,8 @@ public class GameScreen extends GenericScreen
 
 	private void doPhysics(float deltaTime)
 	{
+		
+		
 		int numCharacters = 0;
 		float acelx;
 		float acely;
@@ -190,7 +192,7 @@ public class GameScreen extends GenericScreen
 				numCharacters++;
 			}
 
-//			draw(b);
+			draw(b);
 		}
 		int numContacts = world.getContactCount();
 		Array<Body> safeList = new Array<Body>();
@@ -227,7 +229,8 @@ public class GameScreen extends GenericScreen
 						safeList.add(check);
 					}
 				}
-				System.out.println("safe " + safeList.size);
+				
+//				System.out.println("safe " + safeList.size);
 
 				if (fixA.getBody().getUserData() instanceof Buzzsaw
 						&& fixB.getBody().getUserData() instanceof WoodBox
