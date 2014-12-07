@@ -17,8 +17,10 @@ public class Buzzsaw extends MovingItem
 		texture = myGame.assetLoader.buzzSaw;
 		sprite = new Sprite(texture);		
 		shape = setShape();
-		density = 1;
-		System.out.println("Box Created");
+		density = 0;
+		friction = 0;
+		restitution = 1;
+//		System.out.println("Box Created");
 	}
 
 	public Shape setShape()

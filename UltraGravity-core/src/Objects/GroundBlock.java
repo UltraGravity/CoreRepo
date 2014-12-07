@@ -17,8 +17,10 @@ public class GroundBlock extends StationaryItem
 		texture = myGame.assetLoader.ground;
 		sprite = new Sprite(texture);
 		shape = setShape();
-		density = 1;
-		System.out.println("Ground Created");
+		density = 2.4f;
+		friction = .95f;
+		restitution = 0f;
+//		System.out.println("Ground Created");
 	}
 
 	public Shape setShape()

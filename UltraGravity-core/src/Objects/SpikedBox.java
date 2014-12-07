@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-public class SpikedBox extends MovingItem
+public class SpikedBox extends StationaryItem
 {
 
 	public SpikedBox(MyGame myGame, int x, int y)
@@ -17,13 +17,14 @@ public class SpikedBox extends MovingItem
 		sprite = new Sprite(texture);		
 		shape = setShape();
 		density = 1;
+		friction = 1;
 		System.out.println("Box Created");
 	}
 
 	public Shape setShape()
 	{
 		PolygonShape boxShape = new PolygonShape();
-		boxShape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		boxShape.setAsBox(Constants.GROUND_SCALE, Constants.GROUND_SCALE);
 		return (Shape) boxShape;
 	}
 	

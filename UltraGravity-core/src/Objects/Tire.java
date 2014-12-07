@@ -17,7 +17,9 @@ public class Tire extends MovingItem
 		texture = myGame.assetLoader.tire;
 		sprite = new Sprite(texture);		
 		shape = setShape();
-		density = 1;
+		density = 1.1f;
+		friction = .9f;
+		restitution = .95f;
 		
 		System.out.println("Box Created");
 	}

@@ -7,17 +7,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-public class Box extends MovingItem
+public class WoodBox extends MovingItem
 {
 
-	public Box(MyGame myGame, int x, int y)
+	public WoodBox(MyGame myGame, int x, int y)
 	{
 		super(myGame, x, y);
 		texture = myGame.assetLoader.box;
 		sprite = new Sprite(texture);		
 		shape = setShape();
-		density = .1f;
-		System.out.println("Box Created");
+		density = .8f;
+		friction = .90f;
+		restitution = 0f;
+//		System.out.println("Box Created");
 	}
 
 	public Shape setShape()

@@ -16,8 +16,10 @@ public class MetalBox extends MovingItem
 		texture = myGame.assetLoader.metalBox;
 		sprite = new Sprite(texture);		
 		shape = setShape();
-		density = 1;
-		System.out.println("Box Created");
+		density = 7.8f;
+		friction = .85f;
+		restitution = 0;
+//		System.out.println("Metal Box Created");
 	}
 
 	public Shape setShape()

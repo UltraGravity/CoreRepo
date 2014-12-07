@@ -18,6 +18,8 @@ public class Item
 	int y;
 
 	float density;
+	float friction = 1f;
+	float restitution;
 
 	World world;
 	MovingItem movingItem;
@@ -67,6 +69,16 @@ public class Item
 	public float getDensity()
 	{
 		return density;
+	}
+
+	public float getFriction()
+	{
+		return friction;
+	}
+
+	public float getRestitution()
+	{
+		return restitution;
 	}
 
 }

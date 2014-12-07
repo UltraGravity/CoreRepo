@@ -51,8 +51,8 @@ public class ThePlane
 		}
 		if (item == 2)
 		{
-			Item box = new Box(myGame, x, y);
-			worldList.add(box);
+			Item woodBox = new WoodBox(myGame, x, y);
+			worldList.add(woodBox);
 		}
 		if (item == 3)
 		{
@@ -126,7 +126,7 @@ public class ThePlane
 			Item current = worldList.get(i);
 			
 			worldUtils.createItemInWorld(current, world);
-			System.out.println("Added an item to the world");
+//			System.out.println("Added an item to the world");
 		}
 
 	}

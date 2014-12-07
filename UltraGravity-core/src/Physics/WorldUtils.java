@@ -1,6 +1,7 @@
 package Physics;
 
-import Objects.Box;
+import Objects.Buzzsaw;
+import Objects.WoodBox;
 import Objects.SafeZone;
 import Objects.GroundBlock;
 import Objects.Item;
@@ -47,7 +48,17 @@ public class WorldUtils
 		FixtureDef def = new FixtureDef();
 		def.shape = item.getShape();
 		def.density = item.getDensity();
+		def.friction = item.getFriction();
+		def.restitution = item.getRestitution();
 		def.isSensor = (item instanceof SafeZone);
+		if(item instanceof Buzzsaw) {
+			body.setGravityScale(0);
+			float randX = (float) (10-(Math.random() * 20));
+			float randY = (float) (10-(Math.random() * 20));
+			System.out.println(randY);
+			body.applyLinearImpulse(randX, randY, 0, 0, true);
+			body.setAngularVelocity(10);
+		}
 		body.createFixture(def);
 		body.setUserData(item);
 	}

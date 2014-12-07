@@ -3,14 +3,17 @@ package Screens;
 import Dialog.PauseDialog;
 import Dialog.WinDialog;
 import FileIO.LevelFile;
+import Objects.Buzzsaw;
 import Objects.GridImage;
 import Objects.Item;
 import Objects.MainCharacter;
 import Objects.SafeZone;
+import Objects.SpikedBox;
 import Objects.ThePlane;
 import Physics.Constants;
 import Physics.Direction;
 import Physics.WorldUtils;
+
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -94,12 +97,12 @@ public class GameScreen extends GenericScreen
 	{
 		Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
 			doPhysics(delta);
-			//renderer.render(world, boxCam.combined);
-	
+			renderer.render(world, boxCam.combined);
+
 			// Handles 2 finger touches for scrolling the camera
 			if (Gdx.input.isTouched(1))
 			{
@@ -116,7 +119,7 @@ public class GameScreen extends GenericScreen
 				oldFingerX = 0;
 				oldFingerY = 0;
 				oldFingerDist = 0;
-	
+
 				twoFingerActiveCounter--;
 				if (twoFingerActiveCounter <= 0)
 				{
@@ -124,10 +127,10 @@ public class GameScreen extends GenericScreen
 				}
 			}
 		}
-		
+
 		stage.act();
 		stage.draw();
-		
+
 	}
 
 	public void setupBoxCam()
@@ -172,7 +175,7 @@ public class GameScreen extends GenericScreen
 		world.getBodies(worldArray);
 		for (Body b : worldArray)
 		{
-			
+
 			Item i = (Item) b.getUserData();
 			if (i instanceof MainCharacter)
 			{
@@ -204,6 +207,18 @@ public class GameScreen extends GenericScreen
 				{
 					safeCount++;
 				}
+
+				if (fixA.getBody().getUserData() instanceof MainCharacter
+						&& fixB.getBody().getUserData() instanceof Buzzsaw
+						|| fixA.getBody().getUserData() instanceof Buzzsaw
+						&& fixB.getBody().getUserData() instanceof MainCharacter
+						|| fixA.getBody().getUserData() instanceof MainCharacter
+						&& fixB.getBody().getUserData() instanceof SpikedBox
+						|| fixA.getBody().getUserData() instanceof SpikedBox
+						&& fixB.getBody().getUserData() instanceof MainCharacter)
+				{
+					kill();
+				}
 			}
 			if (safeCount == numCharacters)
 			{
@@ -226,9 +241,25 @@ public class GameScreen extends GenericScreen
 
 	}
 
+	private void kill()
+	{
+		try
+		{
+			Thread.sleep(3000);
+			myGame.changeToGameScreen(myGame.gameScreen.levelName,
+					myGame.gameScreen.folder);
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void winLevel()
 	{
-		WinDialog winDialog = new WinDialog(myGame, "", myGame.assetLoader.uiSkin);
+		WinDialog winDialog = new WinDialog(myGame, "",
+				myGame.assetLoader.uiSkin);
 		winDialog.show(stage);
 	}
 
@@ -357,7 +388,8 @@ public class GameScreen extends GenericScreen
 			{
 				myGame.playClick();
 				pauseGame();
-				PauseDialog pauseDialog = new PauseDialog(myGame, "", myGame.assetLoader.uiSkin);
+				PauseDialog pauseDialog = new PauseDialog(myGame, "",
+						myGame.assetLoader.uiSkin);
 				pauseDialog.show(stage);
 			}
 		});
@@ -523,12 +555,12 @@ public class GameScreen extends GenericScreen
 	{
 		this.gameState = GameState.PAUSE;
 	}
-	
+
 	public void resumeGame()
 	{
 		this.gameState = GameState.PLAY;
 	}
-	
+
 	public void hide()
 	{
 	}
