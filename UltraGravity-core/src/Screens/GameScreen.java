@@ -5,6 +5,7 @@ import Dialog.WinDialog;
 import FileIO.LevelFile;
 import Objects.Buzzsaw;
 import Objects.GridImage;
+import Objects.Ice;
 import Objects.Item;
 import Objects.MainCharacter;
 import Objects.SafeZone;
@@ -102,7 +103,7 @@ public class GameScreen extends GenericScreen
 		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
 			doPhysics(delta);
-			 renderer.render(world, boxCam.combined);
+			renderer.render(world, boxCam.combined);
 
 			// Handles 2 finger touches for scrolling the camera
 			if (Gdx.input.isTouched(1))
@@ -159,8 +160,7 @@ public class GameScreen extends GenericScreen
 
 	private void doPhysics(float deltaTime)
 	{
-		
-		
+
 		int numCharacters = 0;
 		float acelx;
 		float acely;
@@ -221,16 +221,34 @@ public class GameScreen extends GenericScreen
 					}
 					for (int j = 0; j < safeList.size; j++)
 					{
-						if(safeList.get(j) == check) {
+						if (safeList.get(j) == check)
+						{
 							notSafe = false;
 						}
 					}
-					if(notSafe) {
+					if (notSafe)
+					{
 						safeList.add(check);
 					}
 				}
-				
-//				System.out.println("safe " + safeList.size);
+
+				// System.out.println("safe " + safeList.size);
+
+				if (fixA.getBody().getUserData() instanceof Buzzsaw
+						&& fixB.getBody().getUserData() instanceof Ice
+						|| fixA.getBody().getUserData() instanceof Ice
+						&& fixB.getBody().getUserData() instanceof Buzzsaw)
+				{
+					if (fixA.getBody().getUserData() instanceof Ice)
+					{
+						world.destroyBody(fixA.getBody());
+					}
+					else
+					{
+						world.destroyBody(fixB.getBody());
+					}
+
+				}
 
 				if (fixA.getBody().getUserData() instanceof Buzzsaw
 						&& fixB.getBody().getUserData() instanceof WoodBox
