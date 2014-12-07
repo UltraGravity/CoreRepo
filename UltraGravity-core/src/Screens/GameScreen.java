@@ -10,6 +10,7 @@ import Objects.MainCharacter;
 import Objects.SafeZone;
 import Objects.SpikedBox;
 import Objects.ThePlane;
+import Objects.WoodBox;
 import Physics.Constants;
 import Physics.Direction;
 import Physics.WorldUtils;
@@ -206,6 +207,21 @@ public class GameScreen extends GenericScreen
 						&& fixB.getBody().getUserData() instanceof MainCharacter)
 				{
 					safeCount++;
+					System.out.println("safe " + safeCount);
+				}
+				
+				if (fixA.getBody().getUserData() instanceof Buzzsaw
+						&& fixB.getBody().getUserData() instanceof WoodBox
+						|| fixA.getBody().getUserData() instanceof WoodBox
+						&& fixB.getBody().getUserData() instanceof Buzzsaw)
+				{
+					
+					if(fixA.getBody().getUserData() instanceof WoodBox) {
+						world.destroyBody(fixA.getBody());
+					}
+					else {
+						world.destroyBody(fixB.getBody());
+					}
 				}
 
 				if (fixA.getBody().getUserData() instanceof MainCharacter
