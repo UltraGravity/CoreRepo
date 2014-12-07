@@ -3,6 +3,7 @@ package Dialog;
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -14,6 +15,7 @@ public class WinDialog extends Dialog
 	MyGame myGame;
 	TextButton mainMenu;
 	TextButton nextLevel;
+	Label text;
 	
 	public WinDialog(MyGame myGame, String title, Skin skin)
 	{
@@ -22,12 +24,15 @@ public class WinDialog extends Dialog
 		this.myGame = myGame;
 		TextButtonStyle textButtonStyle = myGame.assetLoader.textButtonStyle;
 		
+		
 		Table table = new Table();
-		nextLevel = new TextButton("Play Next Level", textButtonStyle);
+		text = new Label("YOU WIN", myGame.assetLoader.uiSkin);
+		nextLevel = new TextButton("Select Next Level", textButtonStyle);
 		mainMenu = new TextButton("Main Menu", textButtonStyle);
 		
-		table.add(nextLevel).width((float)(myGame.screenWidth/2.5)).row();
-		table.add(mainMenu).width((float)(myGame.screenWidth/2.5));
+		table.add(text).row();
+		table.add(nextLevel).width((float)(myGame.screenWidth/2)).row();
+		table.add(mainMenu).width((float)(myGame.screenWidth/2));
 		
 		this.add(table);
 		setupButtons();

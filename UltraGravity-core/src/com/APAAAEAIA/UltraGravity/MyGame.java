@@ -149,7 +149,7 @@ public class MyGame extends Game
 	{
 		// TODO
 		// make this select the next level
-		changeToGameScreen("Level 1.txt", "BuiltIn");
+		this.changeToLevelScreen();
 	}
 	
 	public void dispose()
