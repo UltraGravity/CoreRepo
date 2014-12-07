@@ -530,26 +530,26 @@ public class GameScreen extends GenericScreen
 		}
 		else
 		{
-			if (changeDist > 10)
-			{
-				if (oldFingerDist > fingerDist)
-				{
-					boxCam.zoom += (oldFingerDist / fingerDist) * 0.05f;
-				}
-				else if (oldFingerDist < fingerDist)
-				{
-					boxCam.zoom -= (oldFingerDist / fingerDist) * 0.05f;
-				}
-			}
-
-			if (boxCam.zoom > 6f)
-			{
-				boxCam.zoom = 6f;
-			}
-			if (boxCam.zoom < 0.3f)
-			{
-				boxCam.zoom = 0.3f;
-			}
+//			if (changeDist > 10)
+//			{
+//				if (oldFingerDist > fingerDist)
+//				{
+//					boxCam.zoom += (oldFingerDist / fingerDist) * 0.05f;
+//				}
+//				else if (oldFingerDist < fingerDist)
+//				{
+//					boxCam.zoom -= (oldFingerDist / fingerDist) * 0.05f;
+//				}
+//			}
+//
+//			if (boxCam.zoom > 6f)
+//			{
+//				boxCam.zoom = 6f;
+//			}
+//			if (boxCam.zoom < 0.3f)
+//			{
+//				boxCam.zoom = 0.3f;
+//			}
 
 			int changeX = (oldFingerX - centerX) * 2;
 			int changeY = (oldFingerY - centerY) * 2;
