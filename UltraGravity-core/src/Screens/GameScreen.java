@@ -102,7 +102,7 @@ public class GameScreen extends GenericScreen
 		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
 			doPhysics(delta);
-			renderer.render(world, boxCam.combined);
+			// renderer.render(world, boxCam.combined);
 
 			// Handles 2 finger touches for scrolling the camera
 			if (Gdx.input.isTouched(1))
@@ -192,8 +192,8 @@ public class GameScreen extends GenericScreen
 
 			draw(b);
 		}
-		int safeCount = 0;
 		int numContacts = world.getContactCount();
+		Array<Body> safeList = new Array<Body>();
 		if (numContacts > 0)
 		{
 			for (int i = 0; i < world.getContactList().size; i++)
@@ -201,25 +201,46 @@ public class GameScreen extends GenericScreen
 				Contact contact = world.getContactList().get(i);
 				Fixture fixA = contact.getFixtureA();
 				Fixture fixB = contact.getFixtureB();
+
 				if (fixA.getBody().getUserData() instanceof MainCharacter
 						&& fixB.getBody().getUserData() instanceof SafeZone
 						|| fixA.getBody().getUserData() instanceof SafeZone
 						&& fixB.getBody().getUserData() instanceof MainCharacter)
 				{
-					safeCount++;
-					System.out.println("safe " + safeCount);
+					boolean notSafe = true;
+					Body check;
+					if (fixA.getBody().getUserData() instanceof MainCharacter)
+					{
+						check = fixA.getBody();
+					}
+					else
+					{
+						check = fixB.getBody();
+					}
+					for (int j = 0; j < safeList.size; j++)
+					{
+						if(safeList.get(j) == check) {
+							notSafe = false;
+						}
+					}
+					if(notSafe) {
+						safeList.add(check);
+					}
 				}
-				
+				System.out.println("safe " + safeList.size);
+
 				if (fixA.getBody().getUserData() instanceof Buzzsaw
 						&& fixB.getBody().getUserData() instanceof WoodBox
 						|| fixA.getBody().getUserData() instanceof WoodBox
 						&& fixB.getBody().getUserData() instanceof Buzzsaw)
 				{
-					
-					if(fixA.getBody().getUserData() instanceof WoodBox) {
+
+					if (fixA.getBody().getUserData() instanceof WoodBox)
+					{
 						world.destroyBody(fixA.getBody());
 					}
-					else {
+					else
+					{
 						world.destroyBody(fixB.getBody());
 					}
 				}
@@ -236,7 +257,7 @@ public class GameScreen extends GenericScreen
 					kill();
 				}
 			}
-			if (safeCount == numCharacters)
+			if (safeList.size == numCharacters)
 			{
 				System.out.println("Winner!!!!");
 				gameState = GameState.WIN;
@@ -530,26 +551,26 @@ public class GameScreen extends GenericScreen
 		}
 		else
 		{
-//			if (changeDist > 10)
-//			{
-//				if (oldFingerDist > fingerDist)
-//				{
-//					boxCam.zoom += (oldFingerDist / fingerDist) * 0.05f;
-//				}
-//				else if (oldFingerDist < fingerDist)
-//				{
-//					boxCam.zoom -= (oldFingerDist / fingerDist) * 0.05f;
-//				}
-//			}
-//
-//			if (boxCam.zoom > 6f)
-//			{
-//				boxCam.zoom = 6f;
-//			}
-//			if (boxCam.zoom < 0.3f)
-//			{
-//				boxCam.zoom = 0.3f;
-//			}
+			// if (changeDist > 10)
+			// {
+			// if (oldFingerDist > fingerDist)
+			// {
+			// boxCam.zoom += (oldFingerDist / fingerDist) * 0.05f;
+			// }
+			// else if (oldFingerDist < fingerDist)
+			// {
+			// boxCam.zoom -= (oldFingerDist / fingerDist) * 0.05f;
+			// }
+			// }
+			//
+			// if (boxCam.zoom > 6f)
+			// {
+			// boxCam.zoom = 6f;
+			// }
+			// if (boxCam.zoom < 0.3f)
+			// {
+			// boxCam.zoom = 0.3f;
+			// }
 
 			int changeX = (oldFingerX - centerX) * 2;
 			int changeY = (oldFingerY - centerY) * 2;

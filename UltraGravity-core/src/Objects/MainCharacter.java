@@ -31,7 +31,7 @@ public class MainCharacter extends MovingItem
 	public Shape setShape()
 	{
 		CircleShape circle = new CircleShape();
-		circle.setRadius(Constants.SIZE_SCALE / 2);
+		circle.setRadius(Constants.SIZE_SCALE/2);
 		return (Shape) circle;
 	}
 
