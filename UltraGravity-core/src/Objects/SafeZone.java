@@ -25,7 +25,7 @@ public class SafeZone extends StationaryItem
 	public Shape setShape()
 	{
 		PolygonShape boxShape = new PolygonShape();
-		boxShape.setAsBox(Constants.SIZE_SCALE, Constants.SIZE_SCALE);
+		boxShape.setAsBox(Constants.SIZE_SCALE - .75f, Constants.SIZE_SCALE - .75f);
 		return (Shape) boxShape;
 	}
 	

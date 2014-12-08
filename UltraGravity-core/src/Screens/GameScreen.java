@@ -103,7 +103,7 @@ public class GameScreen extends GenericScreen
 		if (gameState != GameState.WIN && gameState != GameState.LOSE)
 		{
 			doPhysics(delta);
-			renderer.render(world, boxCam.combined);
+			// renderer.render(world, boxCam.combined);
 
 			// Handles 2 finger touches for scrolling the camera
 			if (Gdx.input.isTouched(1))
@@ -192,8 +192,22 @@ public class GameScreen extends GenericScreen
 				numCharacters++;
 			}
 
-			draw(b);
+			if (b.getUserData() instanceof SafeZone)
+			{
+				System.out.println("SafeZone");
+				draw(b);
+			}
 		}
+		for (Body b : worldArray)
+		{
+
+			Item i = (Item) b.getUserData();
+			if (!(b.getUserData() instanceof SafeZone))
+			{
+				draw(b);
+			}
+		}
+
 		int numContacts = world.getContactCount();
 		Array<Body> safeList = new Array<Body>();
 		if (numContacts > 0)
@@ -301,17 +315,9 @@ public class GameScreen extends GenericScreen
 
 	private void kill()
 	{
-		try
-		{
-			Thread.sleep(3000);
-			myGame.changeToGameScreen(myGame.gameScreen.levelName,
-					myGame.gameScreen.folder);
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		myGame.changeToGameScreen(myGame.gameScreen.levelName,
+				myGame.gameScreen.folder);
+
 	}
 
 	private void winLevel()
