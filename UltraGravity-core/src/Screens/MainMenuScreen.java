@@ -58,24 +58,6 @@ public class MainMenuScreen extends GenericScreen
 
 	public void show()
 	{
-		Gdx.input.setCatchBackKey(true);
-		InputProcessor backProcessor = new InputAdapter()
-		{
-			@Override
-			public boolean keyDown(int keycode)
-			{
-
-				if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK))
-
-					// Maybe perform other operations before exiting
-					Gdx.app.exit();
-				return false;
-			}
-		};
-
-		InputMultiplexer multiplexer = new InputMultiplexer(stage,
-				backProcessor);
-		Gdx.input.setInputProcessor(multiplexer);
 
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -138,6 +120,25 @@ public class MainMenuScreen extends GenericScreen
 				myGame.changeToOptionsScreen();
 			}
 		});
+
+		Gdx.input.setCatchBackKey(true);
+		InputProcessor backProcessor = new InputAdapter()
+		{
+			@Override
+			public boolean keyDown(int keycode)
+			{
+
+				if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK))
+
+					// Maybe perform other operations before exiting
+					Gdx.app.exit();
+				return false;
+			}
+		};
+
+		InputMultiplexer multiplexer = new InputMultiplexer(stage,
+				backProcessor);
+		Gdx.input.setInputProcessor(multiplexer);
 	}
 
 	public void hide()
