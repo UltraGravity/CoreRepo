@@ -284,6 +284,22 @@ public class GameScreen extends GenericScreen
 					}
 				}
 
+				if (fixA.getBody().getUserData() instanceof SpikedBox
+						&& fixB.getBody().getUserData() instanceof WoodBox
+						|| fixA.getBody().getUserData() instanceof WoodBox
+						&& fixB.getBody().getUserData() instanceof SpikedBox)
+				{
+
+					if (fixA.getBody().getUserData() instanceof WoodBox)
+					{
+						world.destroyBody(fixA.getBody());
+					}
+					else
+					{
+						world.destroyBody(fixB.getBody());
+					}
+				}
+				
 				if (fixA.getBody().getUserData() instanceof MainCharacter
 						&& fixB.getBody().getUserData() instanceof Buzzsaw
 						|| fixA.getBody().getUserData() instanceof Buzzsaw
