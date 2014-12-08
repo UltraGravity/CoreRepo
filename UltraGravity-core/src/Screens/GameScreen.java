@@ -695,5 +695,8 @@ public class GameScreen extends GenericScreen
 		 */
 
 		super.dispose();
+		stage.dispose();
+		world.dispose();
+		
 	}
 }

@@ -39,7 +39,6 @@ public class LevelEditorScreen extends GenericScreen
 	public int selectedBlock = 0;
 	public BitmapFont font;
 	public Stage stage;
-	public Skin buttonSkin;
 	public Table windowTable;
 	public Table toolTable;
 	public Table levelGrid;
@@ -73,7 +72,7 @@ public class LevelEditorScreen extends GenericScreen
 	public ImageButton metalBoxTool;
 	public ImageButton buzzsawTool;
 	public ImageButton iceTool;
-
+	
 	public GridImage cell[];
 	GridResizer gridResizer;
 
@@ -710,6 +709,7 @@ public class LevelEditorScreen extends GenericScreen
 	{
 		super.dispose();
 		stage.dispose();
+		font = null;
 	}
 
 	public void pause()

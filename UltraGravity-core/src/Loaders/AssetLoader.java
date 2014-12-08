@@ -255,5 +255,21 @@ public class AssetLoader
 		 assetManager.load(buttonFont, BitmapFont.class);
 	 }
 	
+	 public void dispose()
+	 {			
+		menuButtonSkin.dispose();
+		gameButtonSkin.dispose();
+		uiSkin.dispose();
+
+		music.dispose();
+		click.dispose();
+
+		assetManager.dispose();
+		font.dispose();
+		titleFont.dispose();
+		gameScreenAtlas.dispose();
+		mainMenuButtonAtlas.dispose();
+		uiSkinAtlas.dispose();
+	 }
 	 
 }

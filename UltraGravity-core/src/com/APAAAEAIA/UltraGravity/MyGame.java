@@ -160,5 +160,7 @@ public class MyGame extends Game
 	{
 		// Called when the game is closed for good.
 		batch.dispose();
+		camera = null;
+		assetLoader.dispose();
 	}
 }

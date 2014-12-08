@@ -1,5 +1,6 @@
 package Screens;
 
+import Dialog.SettingsDialog;
 import Objects.LevelButton;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
@@ -32,10 +34,10 @@ public class LevelScreen extends GenericScreen
 	Table window;
 	ScrollPane builtInScroll;
 	ScrollPane customScroll;
-	TextureAtlas buttonAtlas;
 	TextButtonStyle textButtonStyle;
 	Label builtInLabel;
 	Label customLabel;
+	TextButton back;
 
 	FileHandle[] builtInLevels;
 	FileHandle[] customLevels;
@@ -54,10 +56,7 @@ public class LevelScreen extends GenericScreen
 		batch.setProjectionMatrix(camera.combined);
 
         stage.act();
-        
-		batch.begin();
-			stage.draw();		
-		batch.end();
+		stage.draw();		
 	}
 
 
@@ -71,7 +70,7 @@ public class LevelScreen extends GenericScreen
 		
 		window = new Table();
 		window.setFillParent(true);
-		window.defaults().expand().top();
+		window.defaults();
 		
 		builtInLevels = Gdx.files.local("BuiltIn").list();
 		int nBuiltInLevels = builtInLevels.length;
@@ -108,6 +107,8 @@ public class LevelScreen extends GenericScreen
 	            myGame.changeToGameScreen(button.getLevelName(), button.getFolder());
 	        }});
 		
+		back = new TextButton("Back", textButtonStyle);
+		back.setPosition(0, screenHeight - back.getHeight());
 		
 		builtInScroll = new ScrollPane(builtInTable);
 		customScroll = new ScrollPane(customTable);
@@ -121,6 +122,7 @@ public class LevelScreen extends GenericScreen
 		window.row();
 		window.add(customScroll);	
 		stage.addActor(window);
+		stage.addActor(back);
 		
 		Gdx.input.setCatchBackKey(true);
 		InputProcessor backProcessor = new InputAdapter(){
@@ -138,6 +140,16 @@ public class LevelScreen extends GenericScreen
         
         InputMultiplexer multiplexer = new InputMultiplexer(stage,backProcessor);
         Gdx.input.setInputProcessor(multiplexer);
+        
+        
+		back.addListener(new ChangeListener()
+		{
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+				myGame.changeToMainMenuScreen();
+			}
+		});
         
 	}
 
