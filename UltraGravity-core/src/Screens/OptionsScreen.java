@@ -2,6 +2,10 @@ package Screens;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,7 +23,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class OptionsScreen extends GenericScreen
 {
-	
+
 	Stage stage;
 	BitmapFont font;
 	Skin skin;
@@ -34,22 +38,22 @@ public class OptionsScreen extends GenericScreen
 	int music;
 	int sfx;
 
-	public OptionsScreen(MyGame myGame) 
+	public OptionsScreen(MyGame myGame)
 	{
 		super(myGame);
 	}
 
-	public void render(float delta) 
+	public void render(float delta)
 	{
 		Gdx.gl.glClearColor(.2f, .2f, .2f, 1);
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	        
-	    stage.act();
-	        
-	    batch.begin();
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-			stage.draw();
-				
+		stage.act();
+
+		batch.begin();
+
+		stage.draw();
+
 		batch.end();
 	}
 
@@ -59,11 +63,10 @@ public class OptionsScreen extends GenericScreen
 		Gdx.input.setInputProcessor(stage);
 		table = new Table();
 		table.setFillParent(true);
-		
-		
+
 		font = myGame.assetLoader.font;
 		textButtonStyle = myGame.assetLoader.textButtonStyle;
-		
+
 		if (myGame.music)
 		{
 			musicButton = new TextButton("Music On", textButtonStyle);
@@ -74,7 +77,7 @@ public class OptionsScreen extends GenericScreen
 			musicButton = new TextButton("Music Off", textButtonStyle);
 			music = 0;
 		}
-		
+
 		if (myGame.sfx)
 		{
 			soundEffectsButton = new TextButton("SFX On", textButtonStyle);
@@ -85,98 +88,131 @@ public class OptionsScreen extends GenericScreen
 			soundEffectsButton = new TextButton("SFX Off", textButtonStyle);
 			sfx = 0;
 		}
-	
 
 		backButton = new TextButton("Back", textButtonStyle);
-		
-		table.add(musicButton).width(screenWidth - screenWidth/8);
+
+		table.add(musicButton).width(screenWidth - screenWidth / 8);
 		table.row();
 		table.add(soundEffectsButton).fillX();
 		table.row();
 		table.add(backButton).fillX();
-		
+
 		stage.addActor(table);
 
-		
 		// Button actions
-		musicButton.addListener(new ChangeListener() 
+		musicButton.addListener(new ChangeListener()
 		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	           myGame.playClick();
-	            
-	            if (myGame.music)
-	            {
-	            	myGame.music = false;
-	            	musicButton.setText("Music Off");
-	            	music = 0;
-	            	myGame.assetLoader.music.stop();
-	            }
-	            else
-	            {
-	            	myGame.music = true;
-	            	musicButton.setText("Music On");
-	            	music = 1;
-	            	myGame.playMusic();
-	            }
-	            FileHandle file = Gdx.files.local("Settings.txt");
-	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);
-	        }});
-		
-		soundEffectsButton.addListener(new ChangeListener() 
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+
+				if (myGame.music)
+				{
+					myGame.music = false;
+					musicButton.setText("Music Off");
+					music = 0;
+					myGame.assetLoader.music.stop();
+				}
+				else
+				{
+					myGame.music = true;
+					musicButton.setText("Music On");
+					music = 1;
+					myGame.playMusic();
+				}
+				FileHandle file = Gdx.files.local("Settings.txt");
+				file.writeString(String.valueOf(music) + String.valueOf(sfx),
+						false);
+			}
+		});
+
+		soundEffectsButton.addListener(new ChangeListener()
 		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	myGame.playClick();
-	            
-	            if (myGame.sfx)
-	            {
-	            	myGame.sfx = false;
-	            	soundEffectsButton.setText("SFX Off");
-	            	sfx = 0;
-	            }
-	            else
-	            {
-	            	myGame.sfx = true;
-	            	soundEffectsButton.setText("SFX On");
-	            	sfx = 1;
-	            }
-	            FileHandle file = Gdx.files.local("Settings.txt");
-	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);
-	        }});
-		
-		backButton.addListener(new ChangeListener() 
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+
+				if (myGame.sfx)
+				{
+					myGame.sfx = false;
+					soundEffectsButton.setText("SFX Off");
+					sfx = 0;
+				}
+				else
+				{
+					myGame.sfx = true;
+					soundEffectsButton.setText("SFX On");
+					sfx = 1;
+				}
+				FileHandle file = Gdx.files.local("Settings.txt");
+				file.writeString(String.valueOf(music) + String.valueOf(sfx),
+						false);
+			}
+		});
+
+		backButton.addListener(new ChangeListener()
 		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	myGame.playClick();
-	            myGame.changeToMainMenuScreen();
-	        }});
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+				myGame.changeToMainMenuScreen();
+			}
+		});
+
+		Gdx.input.setCatchBackKey(true);
+		InputProcessor backProcessor = new InputAdapter()
+		{
+			@Override
+			public boolean keyDown(int keycode)
+			{
+
+				if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK))
+
+					// Maybe perform other operations before exiting
+					myGame.changeToMainMenuScreen();
+
+				return false;
+			}
+		};
+
+		InputMultiplexer multiplexer = new InputMultiplexer(stage,
+				backProcessor);
+		Gdx.input.setInputProcessor(multiplexer);
+
 	}
 
-	public void hide() 
+	public void hide()
 	{
 		System.out.println("Disposing Options Screen");
 		this.dispose();
 	}
 
-	public void dispose() 
+	public void dispose()
 	{
 		/*
-		 * It is very important that everything created is disposed of properly when it is no longer needed.
-		 * I find it best to explicitly set everything equal to null so the garbage collector knows it can
-		 * remove the stuff from memory. 
+		 * It is very important that everything created is disposed of properly
+		 * when it is no longer needed. I find it best to explicitly set
+		 * everything equal to null so the garbage collector knows it can remove
+		 * the stuff from memory.
 		 * 
-		 * Calling super.dispose() will get rid of the built in variables, but it is important that anything
-		 * that is uniquely created in this class be disposed.
+		 * Calling super.dispose() will get rid of the built in variables, but
+		 * it is important that anything that is uniquely created in this class
+		 * be disposed.
 		 */
-	
+
 		super.dispose();
 	}
 
-	public void resize(int width, int height) {}
-	public void pause() {}
-	public void resume() {}
+	public void resize(int width, int height)
+	{
+	}
 
+	public void pause()
+	{
+	}
+
+	public void resume()
+	{
+	}
 
 }

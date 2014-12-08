@@ -18,6 +18,10 @@ import Physics.WorldUtils;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -388,18 +392,36 @@ public class GameScreen extends GenericScreen
 
 	public void show()
 	{
+		
 		Viewport view = new ScreenViewport();
 		stage = new Stage(view, batch);
 		table = new Table();
 
 		pauseButton = new ImageButton(myGame.assetLoader.pauseButtonStyle);
 		Gdx.input.setInputProcessor(stage);
-
+		
 		table.setSize(screenWidth / 25, screenWidth / 25);
 		table.setX(screenWidth - screenWidth / 25);
 		table.setY(screenHeight - screenWidth / 25 - 5);
 		table.add(pauseButton).top().right().size((int) screenWidth / 25);
+		Gdx.input.setCatchBackKey(true);
+		InputProcessor backProcessor = new InputAdapter(){
+			@Override
+			public boolean keyDown(int keycode) {
 
+                if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK) )
+
+                // Maybe perform other operations before exiting
+                myGame.changeToLevelScreen();
+                			
+                return false;
+            }
+        };
+        
+        InputMultiplexer multiplexer = new InputMultiplexer(stage,backProcessor);
+        Gdx.input.setInputProcessor(multiplexer);
+        
+        
 		listener = new ActorGestureListener()
 		{
 			@Override
@@ -456,6 +478,8 @@ public class GameScreen extends GenericScreen
 						myGame.assetLoader.uiSkin);
 				pauseDialog.show(stage);
 			}
+			
+			
 		});
 
 		System.out.println("beginning");

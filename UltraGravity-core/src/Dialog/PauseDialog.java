@@ -2,6 +2,10 @@ package Dialog;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -21,19 +25,19 @@ public class PauseDialog extends Dialog
 	TextButton resume;
 	TextButton musicButton;
 	TextButton sfxButton;
-	
+
 	public PauseDialog(MyGame myGame, String title, Skin skin)
 	{
 		super(title, skin);
-		
+
 		this.myGame = myGame;
 		TextButtonStyle textButtonStyle = myGame.assetLoader.textButtonStyle;
-		
+
 		Table table = new Table();
 		mainMenu = new TextButton("Main Menu", textButtonStyle);
 		resume = new TextButton("Resume", textButtonStyle);
 		restart = new TextButton("Restart", textButtonStyle);
-		
+
 		if (myGame.music)
 		{
 			musicButton = new TextButton("Music On", textButtonStyle);
@@ -44,7 +48,7 @@ public class PauseDialog extends Dialog
 			musicButton = new TextButton("Music Off", textButtonStyle);
 			music = 0;
 		}
-		
+
 		if (myGame.sfx)
 		{
 			sfxButton = new TextButton("SFX On", textButtonStyle);
@@ -54,21 +58,43 @@ public class PauseDialog extends Dialog
 		{
 			sfxButton = new TextButton("SFX Off", textButtonStyle);
 			sfx = 0;
-		}	
-		
-		table.add(resume).width((float)myGame.screenWidth/3).row();
-		table.add(restart).width((float)myGame.screenWidth/3).row();
-		table.add(mainMenu).width((float)myGame.screenWidth/3).row();
-		table.add(musicButton).width((float)myGame.screenWidth/3).row();
-		table.add(sfxButton).width((float)myGame.screenWidth/3);
-		
+		}
+
+		table.add(resume).width((float) myGame.screenWidth / 3).row();
+		table.add(restart).width((float) myGame.screenWidth / 3).row();
+		table.add(mainMenu).width((float) myGame.screenWidth / 3).row();
+		table.add(musicButton).width((float) myGame.screenWidth / 3).row();
+		table.add(sfxButton).width((float) myGame.screenWidth / 3);
+
 		this.add(table);
 		setupButtons();
+
 	}
-	
-	
+
 	public void setupButtons()
 	{
+		Gdx.input.setCatchBackKey(true);
+		InputProcessor backProcessor = new InputAdapter()
+		{
+			@Override
+			public boolean keyDown(int keycode)
+			{
+
+				if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK))
+				{
+
+					// Maybe perform other operations before exiting
+					myGame.gameScreen.resumeGame();
+					hide();
+				}
+
+				return false;
+			}
+		};
+
+		InputMultiplexer multiplexer = new InputMultiplexer(backProcessor);
+		Gdx.input.setInputProcessor(multiplexer);
+
 		resume.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
@@ -78,7 +104,7 @@ public class PauseDialog extends Dialog
 				hide();
 			}
 		});
-		
+
 		mainMenu.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
@@ -87,62 +113,66 @@ public class PauseDialog extends Dialog
 				myGame.changeToMainMenuScreen();
 			}
 		});
-		
+
 		restart.addListener(new ChangeListener()
 		{
 			public void changed(ChangeEvent event, Actor actor)
 			{
 				myGame.playClick();
-				myGame.changeToGameScreen(myGame.gameScreen.levelName, myGame.gameScreen.folder);
+				myGame.changeToGameScreen(myGame.gameScreen.levelName,
+						myGame.gameScreen.folder);
 			}
 		});
-		
-		musicButton.addListener(new ChangeListener() 
+
+		musicButton.addListener(new ChangeListener()
 		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	           myGame.playClick();
-	            
-	            if (myGame.music)
-	            {
-	            	myGame.music = false;
-	            	musicButton.setText("Music Off");
-	            	music = 0;
-	            	myGame.assetLoader.music.stop();
-	            }
-	            else
-	            {
-	            	myGame.music = true;
-	            	musicButton.setText("Music On");
-	            	music = 1;
-	            	myGame.playMusic();
-	            }
-	            FileHandle file = Gdx.files.local("Settings.txt");
-	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);
-	        }});
-		
-		sfxButton.addListener(new ChangeListener() 
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+
+				if (myGame.music)
+				{
+					myGame.music = false;
+					musicButton.setText("Music Off");
+					music = 0;
+					myGame.assetLoader.music.stop();
+				}
+				else
+				{
+					myGame.music = true;
+					musicButton.setText("Music On");
+					music = 1;
+					myGame.playMusic();
+				}
+				FileHandle file = Gdx.files.local("Settings.txt");
+				file.writeString(String.valueOf(music) + String.valueOf(sfx),
+						false);
+			}
+		});
+
+		sfxButton.addListener(new ChangeListener()
 		{
-	        public void changed (ChangeEvent event, Actor actor) 
-	        {
-	        	myGame.playClick();
-	            
-	            if (myGame.sfx)
-	            {
-	            	myGame.sfx = false;
-	            	sfxButton.setText("SFX Off");
-	            	sfx = 0;
-	            }
-	            else
-	            {
-	            	myGame.sfx = true;
-	            	sfxButton.setText("SFX On");
-	            	sfx = 1;
-	            }
-	            FileHandle file = Gdx.files.local("Settings.txt");
-	            file.writeString(String.valueOf(music) + String.valueOf(sfx), false);
-	        }});
-		
-		
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				myGame.playClick();
+
+				if (myGame.sfx)
+				{
+					myGame.sfx = false;
+					sfxButton.setText("SFX Off");
+					sfx = 0;
+				}
+				else
+				{
+					myGame.sfx = true;
+					sfxButton.setText("SFX On");
+					sfx = 1;
+				}
+				FileHandle file = Gdx.files.local("Settings.txt");
+				file.writeString(String.valueOf(music) + String.valueOf(sfx),
+						false);
+			}
+		});
+
 	}
 }

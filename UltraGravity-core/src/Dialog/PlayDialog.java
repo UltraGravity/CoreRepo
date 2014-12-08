@@ -18,6 +18,7 @@ public class PlayDialog extends Dialog
 	
 	public PlayDialog(MyGame myGame, String title, Skin skin)
 	{
+		
 		super(title, skin);
 		
 		this.myGame = myGame;

@@ -4,6 +4,10 @@ import Objects.LevelButton;
 
 import com.APAAAEAIA.UltraGravity.MyGame;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -117,6 +121,24 @@ public class LevelScreen extends GenericScreen
 		window.row();
 		window.add(customScroll);	
 		stage.addActor(window);
+		
+		Gdx.input.setCatchBackKey(true);
+		InputProcessor backProcessor = new InputAdapter(){
+			@Override
+			public boolean keyDown(int keycode) {
+
+                if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK) )
+
+                // Maybe perform other operations before exiting
+                myGame.changeToMainMenuScreen();
+                			
+                return false;
+            }
+        };
+        
+        InputMultiplexer multiplexer = new InputMultiplexer(stage,backProcessor);
+        Gdx.input.setInputProcessor(multiplexer);
+        
 	}
 
 	public void hide() 
