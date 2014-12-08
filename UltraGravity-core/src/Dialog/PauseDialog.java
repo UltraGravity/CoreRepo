@@ -73,27 +73,6 @@ public class PauseDialog extends Dialog
 
 	public void setupButtons()
 	{
-		Gdx.input.setCatchBackKey(true);
-		InputProcessor backProcessor = new InputAdapter()
-		{
-			@Override
-			public boolean keyDown(int keycode)
-			{
-
-				if ((keycode == Keys.ESCAPE) || (keycode == Keys.BACK))
-				{
-
-					// Maybe perform other operations before exiting
-					myGame.gameScreen.resumeGame();
-					hide();
-				}
-
-				return false;
-			}
-		};
-
-		InputMultiplexer multiplexer = new InputMultiplexer(backProcessor);
-		Gdx.input.setInputProcessor(multiplexer);
 
 		resume.addListener(new ChangeListener()
 		{
@@ -173,6 +152,7 @@ public class PauseDialog extends Dialog
 						false);
 			}
 		});
+
 
 	}
 }
