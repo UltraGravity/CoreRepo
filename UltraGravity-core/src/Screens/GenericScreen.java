@@ -1,3 +1,11 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 GenericScreen.java
+//
+//							Notes:
+//Creates a generic screen used to carry constants between common screens.
+///////////////////////////////////////////////////////////////////////////
+
 package Screens;
 
 import com.APAAAEAIA.UltraGravity.MyGame;

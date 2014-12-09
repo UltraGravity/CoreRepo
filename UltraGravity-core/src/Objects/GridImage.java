@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 GridImage.java
+//
+//							Notes:
+//Adds elements to the level editor grid and holds the cell value.
+///////////////////////////////////////////////////////////////////////////
+
+
 package Objects;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;

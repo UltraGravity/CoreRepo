@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 LevelButton.java
+//
+//							Notes:
+//Constructor class for the each on the level buttons that appear within 
+//Level Select Screen
+///////////////////////////////////////////////////////////////////////////
+
+
 package Objects;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
