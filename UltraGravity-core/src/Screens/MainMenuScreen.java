@@ -26,9 +26,7 @@ public class MainMenuScreen extends GenericScreen
 
 	Stage stage;
 	BitmapFont font;
-	Skin skin;
 	Table table;
-	TextureAtlas buttonAtlas;
 	TextButtonStyle textButtonStyle;
 	TextButton levelSelectButton;
 	TextButton levelEditorButton;
@@ -65,13 +63,7 @@ public class MainMenuScreen extends GenericScreen
 		table.setFillParent(true);
 
 		font = myGame.assetLoader.font;
-		skin = new Skin();
-		buttonAtlas = myGame.assetLoader.mainMenuButtonAtlas;
-		skin.addRegions(buttonAtlas);
-		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("grey");
-		textButtonStyle.down = skin.getDrawable("grey-pressed");
+		textButtonStyle = myGame.assetLoader.textButtonStyle;
 		levelSelectButton = new TextButton("Level Select", textButtonStyle);
 		levelEditorButton = new TextButton("Level Editor", textButtonStyle);
 		optionsButton = new TextButton("Options", textButtonStyle);
@@ -162,6 +154,8 @@ public class MainMenuScreen extends GenericScreen
 
 		super.dispose();
 		stage.dispose();
+		font = null;
+		ultraGravityFont = null;
 	}
 
 	public void pause()
