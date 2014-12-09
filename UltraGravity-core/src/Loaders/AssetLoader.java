@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 AssetLoader.java
+//
+//							Notes:
+//This class is in charge of loading any graphical and audio files used 
+//within the game.
+///////////////////////////////////////////////////////////////////////////
+
 package Loaders;
 
 import FileIO.LevelFile;

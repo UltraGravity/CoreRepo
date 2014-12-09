@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 GridResizer.java
+//
+//							Notes:
+//This class is in charge of resizing the level when the level grid is 
+//changed within the level editor.
+///////////////////////////////////////////////////////////////////////////
+
 package FileIO;
 
 import com.APAAAEAIA.UltraGravity.MyGame;

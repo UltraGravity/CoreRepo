@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 WinDialog.java
+//
+//							Notes:
+//Pop up screen appears when a user wins the current level. This dialog 
+//congratulates the user then offers to return the level select screen.
+//or to return to the Main Menu
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import com.APAAAEAIA.UltraGravity.MyGame;

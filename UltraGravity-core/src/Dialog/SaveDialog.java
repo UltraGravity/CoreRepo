@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 SaveDialog.java
+//
+//							Notes:
+//This is the save level window that appears when pressing the back button
+//within the level editor on and unsaved level. It offers the save Yes or 
+//No and has a Back button to return to the editor screen.
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import Objects.GridImage;

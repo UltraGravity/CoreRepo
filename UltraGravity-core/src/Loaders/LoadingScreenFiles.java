@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 LoadScreenFiles.java
+//
+//							Notes:
+//Loads the picture seen before the launch of the game while the assets are
+//being loaded
+///////////////////////////////////////////////////////////////////////////
+
 package Loaders;
 
 import com.badlogic.gdx.Gdx;

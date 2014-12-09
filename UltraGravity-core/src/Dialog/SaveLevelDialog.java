@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 SaveLevelDialog.java
+//
+//							Notes:
+//Pop up screen that appears when the save button within the level editor
+//is pressed. This dialog is the same as the Save Dialog.
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import FileIO.LevelFile;

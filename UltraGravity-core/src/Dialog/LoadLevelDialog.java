@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 LoadLevelDialog.java
+//
+//							Notes:
+//Pop up screen that appears when loading a level in the level editor 
+//screen. From here the user may Choose from one of the User-Created 
+//levels.
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import Objects.LevelButton;

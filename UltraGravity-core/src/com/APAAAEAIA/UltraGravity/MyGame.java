@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 MyGame.java
+//
+//							Notes:
+//Control Class used to change screens while storing needed data during
+//play. Keeps the assets alive and controls current screens
+///////////////////////////////////////////////////////////////////////////
+
 package com.APAAAEAIA.UltraGravity;
 
 import FileIO.LevelFile;

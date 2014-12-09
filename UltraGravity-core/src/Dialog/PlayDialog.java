@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 PlayDialog.java
+//
+//							Notes:
+//If the current level being edited has not been saved, a warning prompt 
+//appears with the only option Okay. If the level has been saved, the
+//level loads and switches to the LevelScreen
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import com.APAAAEAIA.UltraGravity.MyGame;

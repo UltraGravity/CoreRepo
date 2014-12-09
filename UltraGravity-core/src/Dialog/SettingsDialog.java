@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 SettingsDialog.java
+//
+//							Notes:
+//Dialog that appears within the level editor when the settings button
+//is pressed. This dialog allows for adding and removing rows and columns 
+//to the grid within the current level.
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import Objects.GridImage;

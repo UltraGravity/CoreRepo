@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 PauseDialog.java
+//
+//							Notes:
+//Pop up screen that appears when Pausing with-in a Level. From her the
+//User may choose to Resume, Restart, go to MainMenu, toggle Music, toggle
+//SFX.
+///////////////////////////////////////////////////////////////////////////
+
 package Dialog;
 
 import com.APAAAEAIA.UltraGravity.MyGame;

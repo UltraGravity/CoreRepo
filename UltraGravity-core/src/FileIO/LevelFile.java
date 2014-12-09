@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////
+// Title:            Ultra Gravity
+// File:			 LevelFile.java
+//
+//							Notes:
+//Class in charge of saving the grid in the level editor to a string that
+//gives the size and the place of a specific object.
+///////////////////////////////////////////////////////////////////////////
+
 package FileIO;
 
 import Objects.GridImage;
